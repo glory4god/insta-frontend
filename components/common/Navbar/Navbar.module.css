@@ -1,0 +1,59 @@
+.paper {
+  width: 100%;
+  height: 54px;
+  position: fixed;
+  border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  text-align: center;
+  z-index: 10;
+  background-color: white;
+}
+
+.mainlogo {
+  text-align: left;
+  width: 400px;
+  padding-top: 2px;
+}
+
+.navigator {
+  display: flex;
+  margin: auto auto;
+  padding: 0 4px 0px 20px;
+  padding-top: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+.rightBanner {
+  display: grid;
+  width: 260px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding-left: 80px;
+}
+
+.input {
+  display: none;
+}
+@media (min-width: 740px) {
+  .navigator {
+    display: flex;
+    max-width: 940px;
+    margin: auto auto;
+    padding: 0 8px 0px 16px;
+    padding-top: 14px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .input {
+    display: inline-block;
+    background-color: #f8f8f8;
+    border: 1px solid #e3e3e3;
+    width: 208px;
+    height: 24px;
+    border-radius: 5%;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .rightBanner {
+  }
+}
