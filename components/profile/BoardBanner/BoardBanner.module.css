@@ -1,0 +1,48 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  height: 2.8rem;
+  border-top: 1px solid rgb(220, 220, 220);
+  justify-content: center;
+}
+
+.bannerSpace {
+  display: none;
+  font-size: 12px;
+}
+
+.button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.button .icon {
+  font-size: 28px;
+}
+
+@media (min-width: 740px) {
+  .container {
+    display: flex;
+    width: full;
+    height: 3.5rem;
+    border-top: 1px solid rgb(220, 220, 220);
+    justify-content: center;
+  }
+
+  .bannerSpace {
+    display: block;
+    font-size: 12px;
+    padding-left: 6px;
+  }
+
+  .button {
+    display: flex;
+    width: 60px;
+    align-items: center;
+  }
+
+  .button .icon {
+    font-size: 16px;
+  }
+}
