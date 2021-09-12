@@ -1,0 +1,23 @@
+.container {
+  min-height: 100vh;
+  max-width: 920px;
+  text-align: center;
+  padding-top: 72px;
+  color: black;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+@media (min-width: 740px) {
+  .container {
+    min-height: 100vh;
+    max-width: 920px;
+    text-align: center;
+    padding-top: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: black;
+    margin: 0 auto;
+    z-index: 1;
+  }
+}
