@@ -1,0 +1,56 @@
+.imagebox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.imagebox:hover {
+  background-color: black;
+}
+
+.image:hover {
+  z-index: 1;
+  opacity: 60%;
+}
+
+.boardinfo {
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  z-index: 9;
+}
+
+.flex > div {
+  display: flex;
+  font-size: 14px;
+  padding-bottom: 4px;
+  margin: 0 auto;
+  font-family: cursive;
+}
+
+.flex > div > span {
+  padding-left: 4px;
+}
+
+.flex {
+  color: white;
+  font-weight: bold;
+}
+
+@media (min-width: 740px) {
+  .flex {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    padding: 0 5rem;
+  }
+
+  .boardinfo {
+    position: absolute;
+    width: 100%;
+    top: 45%;
+    left: 0%;
+  }
+}
