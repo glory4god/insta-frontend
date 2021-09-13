@@ -1,5 +1,6 @@
 export type UserData = {
   id: string;
+  name: string;
   board: number;
   follower: number;
   following: number;

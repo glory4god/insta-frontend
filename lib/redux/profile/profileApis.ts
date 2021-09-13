@@ -28,6 +28,7 @@ export async function getUserBoard(name: string) {
 const testData: UserData[] = [
   {
     id: 'winter',
+    name: '윈터',
     board: 6,
     follower: 10272334,
     following: 100,
@@ -36,6 +37,7 @@ const testData: UserData[] = [
   },
   {
     id: 'irene',
+    name: '아이린',
     board: 3,
     follower: 10000000,
     following: 1002,
@@ -45,6 +47,7 @@ const testData: UserData[] = [
 
   {
     id: 'karina',
+    name: '카리나',
     board: 4,
     follower: 1000090,
     following: 100,
