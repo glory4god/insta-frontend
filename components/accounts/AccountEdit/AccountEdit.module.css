@@ -1,0 +1,45 @@
+.editBox {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding: 1rem 1.2rem;
+}
+
+.profile {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.editBox > div {
+  text-align: left;
+  padding: 8px 0px;
+}
+
+.editBox > div > div {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.editBox > div > div > p {
+  text-align: left;
+  width: 348px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgb(160, 160, 160);
+}
+
+@media (min-width: 740px) {
+  .profile {
+    justify-content: end;
+  }
+  .editBox > div {
+    display: flex;
+  }
+
+  .editBox > div > div {
+    width: 148px;
+    text-align: right;
+    padding-right: 2rem;
+    font-weight: bold;
+  }
+}
