@@ -1,13 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/dist/client/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectProfile, setBanner } from 'lib/redux/profile/profileSlice';
+
 import s from './BoardBanner.module.css';
+
 import AppsOutlinedIcon from '@material-ui/icons/AppsOutlined';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
-import { useRouter } from 'next/dist/client/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectProfile, setBanner } from 'lib/redux/profile/profileSlice';
+
 import { Banner } from 'types/profile/types';
 
 interface BannerProps {

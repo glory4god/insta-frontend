@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './ProfileImage.module.css';
+
 import cn from 'classnames';
 
 interface ImageProps {
@@ -14,7 +15,15 @@ const ProfileImage: React.FC<ImageProps> = ({
   imageUrl,
 }) => {
   return (
-    // FIXME: 테두리 색 칠하는건 어떻게 할지 생각해봐야할듯!
+    // FIXME: 테두리 색 칠하는건 어떻게 할지 생각해봐야할듯!  => 해결 border props true
+    // TODO: 스토리 사이드 색깔 나오는 효과 추가해야함
+
+    // size
+    // profile : 프로필 페이지 메인 이미지
+    // story : main page or profile page story 이미지
+    // s : navbar 오른쪽 상단 프로필 이미지
+    // m : 메인 페이지 게시글 왼쪽 상단 프로필 이미지
+    // l : 프로필 페이지 반응형 모바일 사이즈 크기
     <div className={cn(size === 'profile' && s.container)}>
       <div
         className={cn(
@@ -37,14 +46,6 @@ const ProfileImage: React.FC<ImageProps> = ({
           style={{
             backgroundImage: `url(${imageUrl})`,
           }}></div>
-        {/* <Image
-          className={s.round}
-          // 추후에 imageUrl props로 대체
-          src={imageUrl}
-          width={size}
-          height={size}
-          alt="profile"
-        /> */}
       </div>
     </div>
   );

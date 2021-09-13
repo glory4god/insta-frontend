@@ -1,19 +1,20 @@
-import BoardBanner from 'components/profile/BoardBanner';
-import BoardContainer from 'components/profile/BoardContainer';
-import ProfileImage from 'components/profile/ProfileImage';
-import UserInfo from 'components/profile/UserInfo';
-import Container from 'components/ui/Container';
+import React from 'react';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
+
+import { useDispatch } from 'react-redux';
 import {
   getProfileData,
   getProfileIds,
   getUserBoard,
 } from 'lib/redux/profile/profileApis';
 import { initialBanner } from 'lib/redux/profile/profileSlice';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
+
+import { BoardBanner, BoardContainer, UserInfo } from 'components/profile';
+import Container from 'components/ui/Container';
+
 import { ParsedUrlQuery } from 'querystring';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+
 import { BoardData, UserData } from 'types/profile/types';
 
 const UserProfile = ({
@@ -34,9 +35,8 @@ const UserProfile = ({
   return (
     <>
       <Head>
-        {/* 추후에 api로 데이터 가져올 때 추가 설정 */}
-        <title></title>
-        <meta name="" content=""></meta>
+        <title>(@{userData.id}) instagram 사진 및 동영상</title>
+        <meta name={`${userData.id}`} content={`${userData.id}`}></meta>
       </Head>
       <Container>
         <UserInfo data={userData} />

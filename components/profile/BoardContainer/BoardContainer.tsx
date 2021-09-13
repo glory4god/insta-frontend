@@ -1,6 +1,8 @@
 import React from 'react';
 import s from './BoardContainer.module.css';
+
 import BoardBox from '../BoardBox';
+
 import { BoardData } from 'types/profile/types';
 
 interface Props {
