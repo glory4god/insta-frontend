@@ -1,9 +1,11 @@
 import React from 'react';
 import s from './UserInfo.module.css';
-import type { UserData } from 'types/profile/types';
+
+import ProfileImage from '../ProfileImage';
 import Button from '@material-ui/core/Button';
 import SettingsIcon from '@material-ui/icons/Settings';
-import ProfileImage from '../ProfileImage';
+
+import type { UserData } from 'types/profile/types';
 
 interface UserInfoProps {
   data: UserData;
@@ -13,7 +15,11 @@ const UserInfo: React.FC<UserInfoProps> = ({ data }) => {
   return (
     <>
       <div className={s.container}>
-        <ProfileImage border={true} size={'profile'} imageUrl={data.imageUrl} />
+        <ProfileImage
+          border={false}
+          size={'profile'}
+          imageUrl={data.imageUrl}
+        />
         <div className={s.pcinfo}>
           <div className={s.tit01}>
             <div>{data.id}</div>
@@ -36,8 +42,14 @@ const UserInfo: React.FC<UserInfoProps> = ({ data }) => {
             </p>
           </div>
           {/* FIXME: 어떤형식의 데이터인지 확인후 변경 */}
+          <div className={s.tit03}>
+            <b>{data.name}</b>
+          </div>
           <div className={s.tit03}>{data.introduce}</div>
         </div>
+      </div>
+      <div className={s.mobiletit03}>
+        <b>{data.name}</b>
       </div>
       <div className={s.mobiletit03}>{data.introduce}</div>
       <div className={s.mobile}>
