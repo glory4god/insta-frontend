@@ -1,8 +1,8 @@
 .container {
   min-height: 100vh;
-  max-width: 920px;
+  max-width: 934px;
   text-align: center;
-  padding-top: 72px;
+  padding-top: 84px;
   color: black;
   margin: 0 auto;
   z-index: 1;
@@ -11,9 +11,9 @@
 @media (min-width: 740px) {
   .container {
     min-height: 100vh;
-    max-width: 920px;
+    max-width: 934px;
     text-align: center;
-    padding-top: 80px;
+    padding-top: c;
     padding-left: 20px;
     padding-right: 20px;
     color: black;

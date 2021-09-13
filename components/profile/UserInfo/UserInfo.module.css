@@ -1,6 +1,7 @@
 .container {
   display: flex;
   text-align: left;
+  margin-bottom: 20px;
 }
 .container .tit02 {
   font-size: 16px;
@@ -34,9 +35,9 @@
 .mobiletit03 {
   display: block;
   text-align: left;
-  padding-top: 16px;
+  text-overflow: ellipsis;
   padding-left: 16px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 @media (min-width: 740px) {
@@ -55,8 +56,8 @@
 
   .tit03 {
     display: block;
+    text-overflow: ellipsis;
     font-size: 16px;
-    font-weight: bold;
   }
 
   .mobiletit03 {

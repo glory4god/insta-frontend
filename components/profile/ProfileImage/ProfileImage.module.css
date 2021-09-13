@@ -39,6 +39,7 @@
     height: 158px;
   }
 }
+
 .borderProfile .profile {
   width: 80px;
   height: 80px;
@@ -48,8 +49,8 @@
   height: 80px;
 }
 .s {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 .m {
   width: 40px;
@@ -68,8 +69,8 @@
   height: 86px;
 }
 .borderS {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
 }
 .borderM {
   width: 44px;
