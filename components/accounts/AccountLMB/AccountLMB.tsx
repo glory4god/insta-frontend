@@ -14,7 +14,7 @@ const AccountLMB = ({}) => {
   const keyList = getAccountsIds();
 
   return (
-    <div className={s.lmb}>
+    <>
       {valueList.map((arr, idx) => {
         return (
           <Link href={`/accounts/${keyList[idx]}`} key={arr}>
@@ -37,7 +37,7 @@ const AccountLMB = ({}) => {
           </Link>
         );
       })}
-    </div>
+    </>
   );
 };
 

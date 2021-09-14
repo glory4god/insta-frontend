@@ -1,1 +1,2 @@
-export { default } from './Container';
+export { default as Container } from './Container';
+export { default as FullContainer } from './FullContainer';
