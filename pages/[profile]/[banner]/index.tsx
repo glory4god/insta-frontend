@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-import Container from 'components/ui/Container';
+import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 

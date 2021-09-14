@@ -51,7 +51,7 @@ const Navbar = () => {
                 </a>
               </Link>
 
-              <Link href="">
+              <Link href="/">
                 <a>
                   <FavoriteBorderIcon
                     color={'disabled'}
@@ -67,10 +67,15 @@ const Navbar = () => {
                 </a>
               </Link>
 
-              {/* 누르면 메뉴바 나오도록 */}
-              <Link href="">
+              {/* TODO:누르면 메뉴바 나오도록 */}
+              <Link href="/winter">
                 <a>
-                  <ProfileImage size={'s'} imageUrl={'/profile/winter.png'} />
+                  <ProfileImage
+                    size={'s'}
+                    border={true}
+                    borderColor={'black'}
+                    imageUrl={'/profile/winter.png'}
+                  />
                 </a>
               </Link>
             </div>

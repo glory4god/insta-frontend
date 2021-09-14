@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { getAccountsIds } from 'lib/redux/accounts/accountsApis';
 
 import { AccountContainer } from 'components/accounts';
-import Container from 'components/ui/Container';
+import { FullContainer } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
@@ -16,9 +16,9 @@ const Accounts = ({ currerntPages }: { currerntPages: string }) => {
         <title>프로필 편집 instagram 사진 및 동영상</title>
         <meta name="" content=""></meta>
       </Head>
-      <Container>
+      <FullContainer>
         <AccountContainer page={currerntPages} />
-      </Container>
+      </FullContainer>
     </>
   );
 };

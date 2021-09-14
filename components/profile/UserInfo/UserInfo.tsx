@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import s from './UserInfo.module.css';
 
 import ProfileImage from '../ProfileImage';
@@ -24,11 +25,15 @@ const UserInfo: React.FC<UserInfoProps> = ({ data }) => {
           <div className={s.tit01}>
             <div>{data.id}</div>
             <div>
-              <Button size="small" variant="outlined">
-                <b>프로필 편집</b>
-              </Button>
+              <Link href="/accounts/edit">
+                <a>
+                  <Button size="small" variant="outlined">
+                    <b>프로필 편집</b>
+                  </Button>
+                </a>
+              </Link>
             </div>
-            <SettingsIcon color="disabled" fontSize="large" />
+            <SettingsIcon color="disabled" fontSize="medium" />
           </div>
           <div className={s.tit02}>
             <p>

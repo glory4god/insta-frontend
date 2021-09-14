@@ -11,6 +11,7 @@
 .tit01 {
   display: flex;
   font-size: xx-large;
+  align-items: center;
 }
 .tit01 > div {
   padding-right: 16px;

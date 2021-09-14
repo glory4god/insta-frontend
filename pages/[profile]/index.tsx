@@ -11,7 +11,7 @@ import {
 import { initialBanner } from 'lib/redux/profile/profileSlice';
 
 import { BoardBanner, BoardContainer, UserInfo } from 'components/profile';
-import Container from 'components/ui/Container';
+import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
