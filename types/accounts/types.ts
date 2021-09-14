@@ -5,5 +5,13 @@ export type EditUserProfile = {
   introduce: string;
   email: string;
   phone: string;
-  sex: '남' | '여';
+  sex: Sex;
 };
+
+export type Sex = '남성' | '여성' | '비공개';
+
+export interface PasswordEdit {
+  prev: string;
+  new: string;
+  validation: string;
+}
