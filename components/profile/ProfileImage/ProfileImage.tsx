@@ -6,12 +6,14 @@ import cn from 'classnames';
 interface ImageProps {
   size: 'profile' | 'story' | 's' | 'm' | 'l';
   border?: boolean;
+  borderColor?: string;
   imageUrl: string;
 }
 
 const ProfileImage: React.FC<ImageProps> = ({
   border = false,
   size,
+  borderColor,
   imageUrl,
 }) => {
   return (
@@ -33,7 +35,8 @@ const ProfileImage: React.FC<ImageProps> = ({
           size === 's' ? s.borderS : '',
           size === 'm' ? s.borderM : '',
           size === 'l' ? s.borderL : '',
-        )}>
+        )}
+        style={{ borderColor: borderColor }}>
         <div
           className={cn(
             s.round,

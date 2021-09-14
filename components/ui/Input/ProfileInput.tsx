@@ -1,8 +1,11 @@
 import React from 'react';
 
 interface Props {
+  area?: 'line' | 'field';
   size: 's' | 'm';
   value: string;
+  type?: 'text' | 'number' | 'password';
+  backgroundColor?: true;
   onChange: (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -10,23 +13,34 @@ interface Props {
   ) => void;
 }
 
-const ProfileInput: React.FC<Props> = ({ size, value, onChange }) => {
+const ProfileInput: React.FC<Props> = ({
+  area = 'line',
+  type = 'text',
+  size,
+  value,
+  backgroundColor = false,
+  onChange,
+}) => {
   return (
-    <div>
-      {size === 's' && (
+    <>
+      {area === 'line' && (
         <input
           style={{
-            width: '348px',
-            height: '28px',
+            position: 'relative',
+            width: `${size === 's' ? '348px' : size === 'm' ? '432px' : ''}`,
+            height: `${size === 's' ? '28px' : size === 'm' ? '34px' : ''}`,
             border: '1px solid rgb(210,210,210)',
-            borderRadius: '3px',
+            borderRadius: `${size === 's' ? '3px' : size === 'm' ? '6px' : ''}`,
+            backgroundColor: `${
+              backgroundColor ? 'rgb(248,248,248)' : 'white'
+            }`,
           }}
-          type="text"
+          type={type}
           value={value}
           onChange={onChange}
         />
       )}
-      {size === 'm' && (
+      {area === 'field' && (
         <textarea
           style={{
             width: '348px',
@@ -38,7 +52,7 @@ const ProfileInput: React.FC<Props> = ({ size, value, onChange }) => {
           onChange={onChange}
         />
       )}
-    </div>
+    </>
   );
 };
 
