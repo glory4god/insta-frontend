@@ -3,18 +3,24 @@ import s from './BoardContainer.module.css';
 
 import BoardBox from '../BoardBox';
 
-import { BoardData } from 'types/profile/types';
+import { useSelector } from 'react-redux';
+import { selectProfile } from 'lib/redux/profile/profileSlice';
 
-interface Props {
-  data: BoardData;
-}
+interface Props {}
 
-const BoardContainer: React.FC<Props> = ({ data }) => {
+const BoardContainer: React.FC<Props> = ({}) => {
+  const { boardData } = useSelector(selectProfile);
+
   return (
     <div className={s.grid}>
-      {data.imageUrl.map((arr, idx) => {
-        return <BoardBox key={idx} size={180} imageUrl={arr} />;
-      })}
+      {boardData
+        .map((data) => {
+          return data.imageUrl;
+        })
+        .flat()
+        .map((arr, idx) => {
+          return <BoardBox key={idx} size={180} imageUrl={arr} />;
+        })}
     </div>
   );
 };

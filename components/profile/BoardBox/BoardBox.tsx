@@ -5,6 +5,9 @@ import s from './BoardBox.module.css';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
+import PhotoLibraryRoundedIcon from '@material-ui/icons/PhotoLibraryRounded';
+import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
+import { formatNumber } from 'lib/common';
 
 interface BoardBoxProps {
   size: number;
@@ -37,16 +40,22 @@ const BoardBox: React.FC<BoardBoxProps> = ({ size, imageUrl }) => {
         alt="게시글"
         layout="responsive"
       />
+
+      {/* TODO: 이미지 개수에 따라 / 동영상 여부에 따른 노출 */}
+      <div className={s.multiple}>
+        <PhotoLibraryRoundedIcon className={s.picture} />
+        {/* <PlayArrowRoundedIcon className={s.play} /> */}
+      </div>
       {hover && (
         <div className={s.boardinfo}>
           <div className={s.flex}>
             <div>
               <FavoriteIcon fontSize="small" />
-              <span>26</span>
+              <span>{formatNumber(2378412)}</span>
             </div>
             <div>
               <ModeCommentIcon fontSize="small" />
-              <span>7</span>
+              <span>{formatNumber(367376)}</span>
             </div>
           </div>
         </div>
