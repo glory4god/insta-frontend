@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styled from '@emotion/styled';
 import LoginImage from 'components/login/LoginImage';
+import LoginForm from 'components/login/LoginForm';
 
 const Login = () => {
   return (
@@ -13,7 +14,7 @@ const Login = () => {
       <LoginMain role="main">
         <article>
           <LoginImage />
-          <LoginWrapper />
+          <LoginForm />
         </article>
       </LoginMain>
     </>
@@ -28,6 +29,7 @@ const LoginMain = styled.main`
   display: flex;
   justify-contnet: center;
   align-items: center;
+  background-color: rgba(var(--b3f,250,250,250),1);
   & > article {
     display: flex;
     flex-direction: row;
@@ -39,13 +41,4 @@ const LoginMain = styled.main`
     width: 100%;
     height: 100%;
   }
-`;
-
-const LoginWrapper = styled.div`
-  color: #262626;
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-  max-width: 350px;
 `;

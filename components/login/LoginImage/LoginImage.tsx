@@ -7,17 +7,20 @@ const sliders: { imageURL: string }[] = [
   { imageURL: '/login/slider3.jpg' },
   { imageURL: '/login/slider4.jpg' },
   { imageURL: '/login/slider5.jpg' },
-]
+];
 
 const LoginImage: React.FC = () => {
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent] = useState(0);
 
   //useInterval hook 만들어서 사용
   useInterval(() => {
-    setCurrent(current => current === 4 ? 1 : current + 1);
+    setCurrent((current) => (current === 4 ? 1 : current + 1));
   }, 5000);
 
-  function useInterval(callback: (() => void) | undefined, delay: number | undefined) {
+  function useInterval(
+    callback: (() => void) | undefined,
+    delay: number | undefined,
+  ) {
     const savedCallback: any = useRef();
 
     useEffect(() => {
@@ -35,7 +38,7 @@ const LoginImage: React.FC = () => {
   }
   return (
     <ImgWrapper style={{ backgroundImage: `url(/login/loginBackground.png)` }}>
-      {sliders.map((slider, index) =>
+      {sliders.map((slider, index) => (
         <Slider
           key={index}
           index={index}
@@ -43,18 +46,19 @@ const LoginImage: React.FC = () => {
           src={slider.imageURL}
           width={'240px'}
           height={'427px'}
-          alt='' />
-      )}
+          alt=""
+        />
+      ))}
     </ImgWrapper>
-  )
-}
+  );
+};
 
 export default LoginImage;
 
 type BannerProps = {
   index: number;
   current: number;
-}
+};
 
 const ImgWrapper = styled.div`
   position: relative;
@@ -65,6 +69,10 @@ const ImgWrapper = styled.div`
   height: 618px;
   margin-left: -35px;
   margin-right: -15px;
+  display: none;
+  @media (min-width: 874px) {
+    display: flex;
+  }
 `;
 
 const Slider = styled.img<BannerProps>`
@@ -72,7 +80,7 @@ const Slider = styled.img<BannerProps>`
   z-index: 2;
   left: 0;
   top: 0;
-  opacity: ${props => props.index === props.current ? 1 : 0};
-  transform: translate(150px, 99px);
+  opacity: ${(props) => (props.index === props.current ? 1 : 0)};
+  transform: translate(151px, 99px);
   transition: opacity 2s ease-in-out;
 `;
