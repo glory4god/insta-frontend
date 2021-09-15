@@ -17,12 +17,11 @@ export async function getProfileIds() {
 }
 
 export async function getUserBoard(name: string) {
-  const filter: BoardData[] = board.filter((arr) => {
+  return board.filter((arr) => {
     if (arr.name === name) {
       return arr;
     }
-  });
-  return filter[0];
+  }) as BoardData[];
 }
 
 const testData: UserData[] = [
@@ -32,6 +31,7 @@ const testData: UserData[] = [
     board: 6,
     follower: 10272334,
     following: 100,
+    webSite: 'www.github.com',
     introduce: '에스빠',
     imageUrl: '/profile/winter.png',
   },
@@ -41,6 +41,7 @@ const testData: UserData[] = [
     board: 3,
     follower: 10000000,
     following: 1002,
+    webSite: 'www.github.com',
     introduce: 'red velvet',
     imageUrl: '/profile/irene.png',
   },
@@ -51,12 +52,13 @@ const testData: UserData[] = [
     board: 4,
     follower: 1000090,
     following: 100,
+    webSite: 'www.github.com',
     introduce: 'next level',
     imageUrl: '/profile/karina.png',
   },
 ];
 
-const board: BoardData[] = [
+export const board: BoardData[] = [
   {
     name: 'winter',
     imageUrl: [
