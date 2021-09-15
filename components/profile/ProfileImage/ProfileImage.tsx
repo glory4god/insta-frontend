@@ -6,7 +6,7 @@ import cn from 'classnames';
 interface ImageProps {
   size: 'profile' | 'story' | 's' | 'm' | 'l';
   border?: boolean;
-  borderColor?: string;
+  borderColor?: 'black' | 'gray' | 'gradient';
   imageUrl: string;
 }
 

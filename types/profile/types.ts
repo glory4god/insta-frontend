@@ -4,6 +4,7 @@ export type UserData = {
   board: number;
   follower: number;
   following: number;
+  webSite: string;
   introduce: string;
   imageUrl: string;
 };
