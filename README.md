@@ -1,7 +1,7 @@
 ## frontend stack
 
-### framework / enviorment
-- Reactjs / Nextjs
+### framework / enviorment 
+- Reactjs / Nextjs (create-next-app)
 - typescript
 - javascript
 
