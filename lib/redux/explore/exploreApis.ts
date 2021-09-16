@@ -1,5 +1,5 @@
-import { board } from 'lib/redux/profile/profileApis';
+import { testBoardData } from 'lib/redux/profile/profileApis';
 
 export async function getAllBoard() {
-  return board;
+  return testBoardData;
 }

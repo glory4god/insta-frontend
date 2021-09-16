@@ -31,8 +31,9 @@
 
 .boardinfo {
   position: absolute;
-  top: 40%;
-  left: 35%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9;
 }
 
@@ -56,16 +57,13 @@
 @media (min-width: 740px) {
   .flex {
     color: white;
-    font-weight: bold;
     display: flex;
-    padding: 0 5rem;
+    justify-content: space-between;
+    padding: 2rem;
   }
 
   .boardinfo {
-    position: absolute;
     width: 100%;
-    top: 45%;
-    left: 0%;
   }
   .multiple .picture {
     font-size: 24px;

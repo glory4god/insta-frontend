@@ -8,13 +8,18 @@ import ModeCommentIcon from '@material-ui/icons/ModeComment';
 import PhotoLibraryRoundedIcon from '@material-ui/icons/PhotoLibraryRounded';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import { formatNumber } from 'lib/common';
+import { useDispatch } from 'react-redux';
+import { setBoardModal, setSelectedModal } from 'lib/redux/modal/modalSlice';
+import { Board } from 'types/profile/types';
 
 interface BoardBoxProps {
   size: number;
-  imageUrl: string;
+  board: Board;
 }
 
-const BoardBox: React.FC<BoardBoxProps> = ({ size, imageUrl }) => {
+const BoardBox: React.FC<BoardBoxProps> = ({ size, board }) => {
+  const dispatch = useDispatch();
+
   const [hover, setHover] = React.useState<boolean>(false);
 
   const onMouseOver = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -30,11 +35,15 @@ const BoardBox: React.FC<BoardBoxProps> = ({ size, imageUrl }) => {
   return (
     <div
       className={s.imagebox}
+      onClick={() => {
+        dispatch(setBoardModal(true));
+        dispatch(setSelectedModal(board));
+      }}
       onMouseOver={(e) => onMouseOver(e)}
       onMouseLeave={(e) => onMouseLeave(e)}>
       <Image
         className={s.image}
-        src={imageUrl}
+        src={board.imageUrl[0]}
         width={size}
         height={size}
         alt="게시글"
@@ -51,7 +60,7 @@ const BoardBox: React.FC<BoardBoxProps> = ({ size, imageUrl }) => {
           <div className={s.flex}>
             <div>
               <FavoriteIcon fontSize="small" />
-              <span>{formatNumber(2378412)}</span>
+              <span>{formatNumber(board.good)}</span>
             </div>
             <div>
               <ModeCommentIcon fontSize="small" />

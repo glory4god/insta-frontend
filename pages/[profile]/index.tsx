@@ -2,7 +2,7 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getProfileData,
   getProfileIds,
@@ -19,7 +19,9 @@ import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
-import { BoardData, UserData } from 'types/profile/types';
+import { Board, BoardData, UserData } from 'types/profile/types';
+import BoardModal from 'components/common/BoardModal';
+import { selectModal, setBoardModal } from 'lib/redux/modal/modalSlice';
 
 const UserProfile = ({
   bannerList,
@@ -28,14 +30,16 @@ const UserProfile = ({
 }: {
   bannerList: string[];
   userData: UserData;
-  boardData: BoardData[];
+  boardData: Board[];
 }) => {
+  const { showBoardModal } = useSelector(selectModal);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(initialBanner());
     dispatch(setBoardData(boardData));
     dispatch(setUserData(userData));
+    dispatch(setBoardModal(false));
   }, []);
 
   return (
@@ -44,11 +48,12 @@ const UserProfile = ({
         <title>(@{userData.id}) instagram 사진 및 동영상</title>
         <meta name={`${userData.id}`} content={`${userData.id}`}></meta>
       </Head>
-      <Container>
+      <Container modalOn={showBoardModal}>
         <UserInfo />
         <BoardBanner bannerList={bannerList} />
         <BoardContainer />
       </Container>
+      {showBoardModal && <BoardModal />}
     </>
   );
 };
@@ -83,7 +88,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   // TODO: 백엔드 연동시 추후에 api로 가져오기
   const userData = (await getProfileData(profile)) as UserData;
-  const boardData = (await getUserBoard(profile)) as BoardData[];
+  const boardData = (await getUserBoard(profile)) as Board[];
 
   return {
     props: { userData, bannerList, boardData },

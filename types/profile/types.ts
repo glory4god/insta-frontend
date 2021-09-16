@@ -15,3 +15,11 @@ export type BoardData = {
 };
 
 export type Banner = 'main' | 'saved' | 'channel' | 'tagged';
+
+export type Board = {
+  name: string;
+  imageUrl: string[];
+  title: string;
+  good: number;
+  createdDate: string;
+};

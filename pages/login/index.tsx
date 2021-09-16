@@ -29,7 +29,7 @@ const LoginMain = styled.main`
   display: flex;
   justify-contnet: center;
   align-items: center;
-  background-color: rgba(var(--b3f,250,250,250),1);
+  background-color: rgba(var(--b3f, 250, 250, 250), 1);
   & > article {
     display: flex;
     flex-direction: row;
@@ -39,6 +39,5 @@ const LoginMain = styled.main`
     max-width: 935px;
     padding-bottom: 32px;
     width: 100%;
-    height: 100%;
   }
 `;

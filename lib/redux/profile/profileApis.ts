@@ -1,4 +1,4 @@
-import type { UserData, BoardData } from 'types/profile/types';
+import type { UserData, BoardData, Board } from 'types/profile/types';
 
 export async function getProfileData(pages: string) {
   const data: UserData[] = testData.filter((arr) => {
@@ -14,14 +14,6 @@ export async function getProfileIds() {
     return arr.id.toString();
   });
   return paths;
-}
-
-export async function getUserBoard(name: string) {
-  return board.filter((arr) => {
-    if (arr.name === name) {
-      return arr;
-    }
-  }) as BoardData[];
 }
 
 const testData: UserData[] = [
@@ -58,29 +50,125 @@ const testData: UserData[] = [
   },
 ];
 
-export const board: BoardData[] = [
+export async function getUserBoard(name: string) {
+  // test 게시글 데이터로 대체
+  // return board.filter((arr) => {
+  //   if (arr.name === name) {
+  //     return arr;
+  //   }
+  // }) as BoardData[];
+
+  return testBoardData.filter((arr) => {
+    if (arr.name === name) {
+      return arr;
+    }
+  }) as Board[];
+}
+
+export const testBoardData: Board[] = [
   {
     name: 'winter',
-    imageUrl: [
-      '/profile/winter1.png',
-      '/profile/winter2.png',
-      '/profile/winter3.png',
-      '/profile/winter4.png',
-      '/profile/winter5.png',
-      '/profile/winter6.png',
-    ],
+    imageUrl: ['/profile/winter1.png'],
+    title: '윈터 1',
+    good: 12333,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter1.png'],
+    title: '윈터 1',
+    good: 12333,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter1.png'],
+    title: '윈터 1',
+    good: 12333,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter1.png'],
+    title: '윈터 1',
+    good: 12333,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter1.png'],
+    title: '윈터 1',
+    good: 12333,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter2.png'],
+    title: '윈터 2',
+    good: 123123,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter3.png'],
+    title: '윈터 3',
+    good: 15124124,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter4.png'],
+    title: '윈터 4',
+    good: 4235,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter5.png'],
+    title: '윈터 5',
+    good: 312312,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'winter',
+    imageUrl: ['/profile/winter6.png'],
+    title: '윈터 6',
+    good: 123434,
+    createdDate: '2021-09-08',
   },
   {
     name: 'karina',
-    imageUrl: [
-      '/profile/karina1.png',
-      '/profile/karina2.png',
-      '/profile/karina3.png',
-      '/profile/karina4.png',
-    ],
+    imageUrl: ['/profile/karina1.png'],
+    title: '카리나 1',
+    good: 72434,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'karina',
+    imageUrl: ['/profile/karina2.png'],
+    title: '카리나 2',
+    good: 845574,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'karina',
+    imageUrl: ['/profile/karina3.png'],
+    title: '카리나 3',
+    good: 6748,
+    createdDate: '2021-09-08',
+  },
+  {
+    name: 'karina',
+    imageUrl: ['/profile/karina4.png'],
+    title: '카리나 4',
+    good: 467979,
+    createdDate: '2021-09-08',
   },
   {
     name: 'irene',
     imageUrl: ['/profile/irene.png'],
+    title: '아이린 1',
+    good: 796789,
+    createdDate: '2021-09-08',
   },
 ];

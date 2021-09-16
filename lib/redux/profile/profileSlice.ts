@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import type { Banner, BoardData, UserData } from 'types/profile/types';
+import type { Banner, Board, BoardData, UserData } from 'types/profile/types';
 
 interface ProfileSliceProps {
   currentBanner: Banner;
   userData: UserData;
-  boardData: BoardData[];
+  boardData: Board[];
 }
 
 const initialState: ProfileSliceProps = {
@@ -33,7 +33,7 @@ export const profileSlice = createSlice({
     SET_USER_DATA: (state, action: PayloadAction<UserData>) => {
       state.userData = action.payload;
     },
-    SET_BOARD_DATA: (state, action: PayloadAction<BoardData[]>) => {
+    SET_BOARD_DATA: (state, action: PayloadAction<Board[]>) => {
       state.boardData = action.payload;
     },
   },
@@ -59,7 +59,7 @@ export function initialBanner() {
   };
 }
 
-export function setBoardData(data: BoardData[]) {
+export function setBoardData(data: Board[]) {
   return async (dispatch: any) => {
     dispatch(SET_BOARD_DATA(data));
   };

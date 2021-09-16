@@ -4,15 +4,19 @@ import { Container } from 'components/ui/Container';
 import { GetStaticProps } from 'next';
 import { getAllBoard } from 'lib/redux/explore/exploreApis';
 import { BoardContainer } from 'components/profile';
-import type { BoardData } from 'types/profile/types';
-import { useDispatch } from 'react-redux';
+import type { Board, BoardData } from 'types/profile/types';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBoardData } from 'lib/redux/profile/profileSlice';
+import { selectModal, setBoardModal } from 'lib/redux/modal/modalSlice';
+import BoardModal from 'components/common/BoardModal';
 
-const Explore = ({ boardList }: { boardList: BoardData[] }) => {
+const Explore = ({ boardList }: { boardList: Board[] }) => {
+  const { showBoardModal } = useSelector(selectModal);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(setBoardData(boardList));
+    dispatch(setBoardModal(false));
   }, []);
   return (
     <>
@@ -20,9 +24,10 @@ const Explore = ({ boardList }: { boardList: BoardData[] }) => {
         <title>instagram</title>
         <meta />
       </Head>
-      <Container>
-        <BoardContainer />
+      <Container modalOn={showBoardModal}>
+        <BoardContainer className={'pt'} />
       </Container>
+      {showBoardModal && <BoardModal />}
     </>
   );
 };
@@ -30,7 +35,7 @@ const Explore = ({ boardList }: { boardList: BoardData[] }) => {
 export default Explore;
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const boardList = (await getAllBoard()) as BoardData[];
+  const boardList = (await getAllBoard()) as Board[];
   return {
     props: { boardList },
   };
