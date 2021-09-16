@@ -71,7 +71,7 @@ const Navbar = () => {
               <Link href="/winter">
                 <a>
                   <ProfileImage
-                    size={'s'}
+                    size={'nav'}
                     border={true}
                     borderColor={'black'}
                     imageUrl={'/profile/winter.png'}

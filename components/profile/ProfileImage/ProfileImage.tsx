@@ -4,10 +4,10 @@ import s from './ProfileImage.module.css';
 import cn from 'classnames';
 
 interface ImageProps {
-  size: 'profile' | 'story' | 's' | 'm' | 'l';
+  size: 'profile' | 'story' | 'board' | 'nav' | 'm' | 'l';
   border?: boolean;
   borderColor?: 'black' | 'gray' | 'gradient';
-  imageUrl: string;
+  imageUrl: string | undefined;
 }
 
 const ProfileImage: React.FC<ImageProps> = ({
@@ -23,7 +23,7 @@ const ProfileImage: React.FC<ImageProps> = ({
     // size
     // profile : 프로필 페이지 메인 이미지
     // story : main page or profile page story 이미지
-    // s : navbar 오른쪽 상단 프로필 이미지
+    // nav : navbar 오른쪽 상단 프로필 이미지
     // m : 메인 페이지 게시글 왼쪽 상단 프로필 이미지
     // l : 프로필 페이지 반응형 모바일 사이즈 크기
     <div className={cn(size === 'profile' && s.container)}>
@@ -32,7 +32,8 @@ const ProfileImage: React.FC<ImageProps> = ({
           border && s.border,
           size === 'profile' ? s.borderProfile : '',
           size === 'story' ? s.borderStory : '',
-          size === 's' ? s.borderS : '',
+          size === 'board' ? s.borderBoard : '',
+          size === 'nav' ? s.borderNav : '',
           size === 'm' ? s.borderM : '',
           size === 'l' ? s.borderL : '',
         )}
@@ -42,7 +43,8 @@ const ProfileImage: React.FC<ImageProps> = ({
             s.round,
             size === 'profile' && s.profile,
             size === 'story' && s.story,
-            size === 's' && s.s,
+            size === 'board' ? s.board : '',
+            size === 'nav' && s.nav,
             size === 'm' && s.m,
             size === 'l' && s.l,
           )}

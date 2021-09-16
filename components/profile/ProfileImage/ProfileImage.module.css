@@ -48,7 +48,11 @@
   width: 80px;
   height: 80px;
 }
-.s {
+.board {
+  width: 32px;
+  height: 32px;
+}
+.nav {
   width: 24px;
   height: 24px;
 }
@@ -68,7 +72,11 @@
   width: 86px;
   height: 86px;
 }
-.borderS {
+.borderBoard {
+  width: 36px;
+  height: 36px;
+}
+.borderNav {
   width: 28px;
   height: 28px;
 }
