@@ -6,21 +6,21 @@ import BoardBox from '../BoardBox';
 import { useSelector } from 'react-redux';
 import { selectProfile } from 'lib/redux/profile/profileSlice';
 
-interface Props {}
+import cn from 'classnames';
 
-const BoardContainer: React.FC<Props> = ({}) => {
+interface Props {
+  className?: 'pt';
+}
+
+const BoardContainer: React.FC<Props> = ({ className }) => {
   const { boardData } = useSelector(selectProfile);
 
   return (
-    <div className={s.grid}>
-      {boardData
-        .map((data) => {
-          return data.imageUrl;
-        })
-        .flat()
-        .map((arr, idx) => {
-          return <BoardBox key={idx} size={180} imageUrl={arr} />;
-        })}
+    <div className={cn(s.grid, className === 'pt' && s.pt)}>
+      {console.log(boardData)}
+      {boardData.map((arr, idx) => {
+        return <BoardBox key={idx} size={180} board={arr} />;
+      })}
     </div>
   );
 };

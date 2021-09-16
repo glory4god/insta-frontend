@@ -2,7 +2,6 @@
   min-height: 100vh;
   max-width: 934px;
   text-align: center;
-  padding-top: 84px;
   color: black;
   margin: 0 auto;
   z-index: 1;
@@ -13,7 +12,6 @@
     min-height: 100vh;
     max-width: 934px;
     text-align: center;
-    padding-top: 84px;
     padding-left: 22px;
     padding-right: 22px;
     color: black;
@@ -26,7 +24,6 @@
   min-height: 100vh;
   max-width: 934px;
   text-align: center;
-  padding-top: 84px;
   color: black;
   margin: 0 auto;
   z-index: 1;
@@ -37,11 +34,15 @@
     min-height: 100vh;
     max-width: 934px;
     text-align: center;
-    padding-top: 84px;
     padding-left: 2px;
     padding-right: 2px;
     color: black;
     margin: 0 auto;
     z-index: 1;
   }
+}
+
+.blockScroll {
+  height: 100vh;
+  overflow-y: hidden;
 }

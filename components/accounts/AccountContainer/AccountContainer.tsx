@@ -10,14 +10,16 @@ interface AccountProps {
 
 const AccountContainer: React.FC<AccountProps> = ({ page }) => {
   return (
-    <div className={s.container}>
-      <div className={s.lmb}>
-        <AccountLMB />
-      </div>
-      <div className={s.rightScreen}>
-        {page === 'edit' && <AccountEdit />}
-        {page === 'password_change' && <AccountPassword />}
-        {page === 'manage_access' && <AccountManage />}
+    <div style={{ paddingTop: '84px' }}>
+      <div className={s.container}>
+        <div className={s.lmb}>
+          <AccountLMB />
+        </div>
+        <div className={s.rightScreen}>
+          {page === 'edit' && <AccountEdit />}
+          {page === 'password_change' && <AccountPassword />}
+          {page === 'manage_access' && <AccountManage />}
+        </div>
       </div>
     </div>
   );

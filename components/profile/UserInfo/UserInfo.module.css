@@ -2,6 +2,7 @@
   display: flex;
   text-align: left;
   margin-bottom: 1.5rem;
+  padding-top: 68px;
 }
 .container .tit02 {
   font-size: 16px;
@@ -64,7 +65,7 @@
   .container {
     display: flex;
     text-align: left;
-    padding-top: 6px;
+    padding-top: 84px;
   }
   .pcinfo {
     padding-left: 40px;
