@@ -136,10 +136,7 @@ const AccountEdit = () => {
           value={userProfile.sex}
           // onChange={(e) =>
           //   // FIXME: e.target.value와 타입유추에서 해결방안 고려 ,,,
-          //   setUserProfile({
-          //     ...userProfile,
-          //     sex: e.target.value,
-          //   })
+
           // }
         >
           {selectBox.map((arr, key) => {
