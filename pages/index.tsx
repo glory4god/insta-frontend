@@ -11,9 +11,7 @@ const Main: NextPage = () => {
         <meta name="description" content="instagram" />
       </Head>
 
-      <Container>
-        <h1>메인페이지</h1>
-      </Container>
+      <Container></Container>
     </>
   );
 };
