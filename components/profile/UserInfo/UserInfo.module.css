@@ -22,12 +22,13 @@
   display: none;
   justify-content: space-between;
 }
-
 .tit02 > p {
   margin-right: 32px;
 }
-
-.tit02 > p > span {
+.tit02 > a {
+  margin-right: 32px;
+}
+.tit02 > a > p > span {
   font-weight: bold;
 }
 

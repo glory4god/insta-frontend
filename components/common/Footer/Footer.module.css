@@ -17,3 +17,7 @@
   color: rgb(167, 166, 166);
   padding: 0px 10px;
 }
+
+.modalOn {
+  display: none;
+}
