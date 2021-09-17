@@ -2,37 +2,30 @@ import React from 'react';
 import Link from 'next/link';
 import s from './AccountLMB.module.css';
 
-import {
-  getAccountsIds,
-  getAccountsValues,
-} from 'lib/redux/accounts/accountsApis';
+import { accountMenuBar } from 'lib/redux/accounts/accountsApis';
 import { useRouter } from 'next/dist/client/router';
 
 const AccountLMB = ({}) => {
   const pages = useRouter();
-  const valueList = getAccountsValues();
-  const keyList = getAccountsIds();
 
   return (
     <>
-      {valueList.map((arr, idx) => {
+      {accountMenuBar.map((arr) => {
         return (
-          <Link href={`/accounts/${keyList[idx]}`} key={arr}>
+          <Link href={`/accounts/${arr.link}`} key={arr.name}>
             <a
               className={s.linktag}
               style={{
                 borderLeft: `${
-                  pages.asPath === `/accounts/${keyList[idx]}`
+                  pages.asPath === `/accounts/${arr.link}`
                     ? '2px solid black'
                     : ''
                 }`,
                 fontWeight: `${
-                  pages.asPath === `/accounts/${keyList[idx]}`
-                    ? 'bold'
-                    : 'normal'
+                  pages.asPath === `/accounts/${arr.link}` ? 'bold' : 'normal'
                 }`,
               }}>
-              <span>{arr}</span>
+              <span>{arr.name}</span>
             </a>
           </Link>
         );
