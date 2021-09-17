@@ -19,9 +19,14 @@ import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
-import { Board, BoardData, UserData } from 'types/profile/types';
-import BoardModal from 'components/common/BoardModal';
-import { selectModal, setBoardModal } from 'lib/redux/modal/modalSlice';
+import { Board, UserData } from 'types/profile/types';
+import {
+  selectModal,
+  setBoardModal,
+  setModalInitial,
+} from 'lib/redux/modal/modalSlice';
+import { Modal, BoardModal } from 'components/modal';
+import { accountMenuBar } from 'lib/redux/accounts/accountsApis';
 
 const UserProfile = ({
   bannerList,
@@ -32,14 +37,21 @@ const UserProfile = ({
   userData: UserData;
   boardData: Board[];
 }) => {
-  const { showBoardModal } = useSelector(selectModal);
+  const { showBoardModal, showModal } = useSelector(selectModal);
   const dispatch = useDispatch();
+
+  const modalOnChecker = () => {
+    var check: boolean;
+    check = Object.values(showModal).includes(true);
+    console.log(check);
+    return check || showBoardModal;
+  };
 
   React.useEffect(() => {
     dispatch(initialBanner());
     dispatch(setBoardData(boardData));
     dispatch(setUserData(userData));
-    dispatch(setBoardModal(false));
+    dispatch(setModalInitial());
   }, []);
 
   return (
@@ -48,12 +60,19 @@ const UserProfile = ({
         <title>(@{userData.id}) instagram 사진 및 동영상</title>
         <meta name={`${userData.id}`} content={`${userData.id}`}></meta>
       </Head>
-      <Container modalOn={showBoardModal}>
+      <Container modalOn={modalOnChecker()}>
         <UserInfo />
         <BoardBanner bannerList={bannerList} />
         <BoardContainer />
       </Container>
       {showBoardModal && <BoardModal />}
+      {showModal.setting && <Modal title={accountMenuBar} />}
+      {showModal.followers && (
+        <Modal title={[{ name: '팔로워', link: null }]} />
+      )}
+      {showModal.followings && (
+        <Modal title={[{ name: '팔로우', link: null }]} />
+      )}
     </>
   );
 };

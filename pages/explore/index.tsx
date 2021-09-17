@@ -8,7 +8,7 @@ import type { Board, BoardData } from 'types/profile/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoardData } from 'lib/redux/profile/profileSlice';
 import { selectModal, setBoardModal } from 'lib/redux/modal/modalSlice';
-import BoardModal from 'components/common/BoardModal';
+import BoardModal from 'components/modal/BoardModal';
 
 const Explore = ({ boardList }: { boardList: Board[] }) => {
   const { showBoardModal } = useSelector(selectModal);

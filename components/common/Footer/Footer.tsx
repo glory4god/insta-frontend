@@ -1,9 +1,16 @@
 import React from 'react';
 import s from './Footer.module.css';
+import { selectModal } from 'lib/redux/modal/modalSlice';
+import { useSelector } from 'react-redux';
+
+import cn from 'classnames';
 
 const Footer = () => {
+  const { showModal, showBoardModal } = useSelector(selectModal);
+
   return (
-    <div className={s.container}>
+    <div
+      className={cn(s.container, (showModal || showBoardModal) && s.modalOn)}>
       <div className={s.footer}>
         {footer.map((arr) => {
           return <span key={arr}>{arr}</span>;
