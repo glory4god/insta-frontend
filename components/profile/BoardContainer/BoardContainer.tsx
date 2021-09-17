@@ -25,4 +25,4 @@ const BoardContainer: React.FC<Props> = ({ className }) => {
   );
 };
 
-export default BoardContainer;
+export default React.memo(BoardContainer);

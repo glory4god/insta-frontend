@@ -75,4 +75,4 @@ const BoardBanner: React.FC<BannerProps> = ({ bannerList }) => {
   );
 };
 
-export default BoardBanner;
+export default React.memo(BoardBanner);

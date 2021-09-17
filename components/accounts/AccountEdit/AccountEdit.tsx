@@ -36,6 +36,7 @@ const AccountEdit = () => {
           </div>
         </div>
       </div>
+
       {/* TODO: 지금은 하드코딩인데 객체로 바꾼 담에 map으로 간단히 할 수 있을듯! */}
       <div className={s.editbox}>
         <div className={s.tit}>이름</div>
@@ -136,7 +137,10 @@ const AccountEdit = () => {
           value={userProfile.sex}
           // onChange={(e) =>
           //   // FIXME: e.target.value와 타입유추에서 해결방안 고려 ,,,
-
+          //   setUserProfile({
+          //     ...userProfile,
+          //     sex: e.target.value,
+          //   })
           // }
         >
           {selectBox.map((arr, key) => {

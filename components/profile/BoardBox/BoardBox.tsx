@@ -73,4 +73,4 @@ const BoardBox: React.FC<BoardBoxProps> = ({ size, board }) => {
   );
 };
 
-export default BoardBox;
+export default React.memo(BoardBox);
