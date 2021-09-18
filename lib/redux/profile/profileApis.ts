@@ -1,7 +1,7 @@
 import type { UserData, BoardData, Board } from 'types/profile/types';
 
 export async function getProfileData(pages: string) {
-  const data: UserData[] = testData.filter((arr) => {
+  const data: UserData[] = testUserData.filter((arr) => {
     if (arr.id === pages) {
       return arr;
     }
@@ -10,20 +10,23 @@ export async function getProfileData(pages: string) {
 }
 
 export async function getProfileIds() {
-  const paths: string[] = testData.map((arr) => {
+  const paths: string[] = testUserData.map((arr) => {
     return arr.id.toString();
   });
   return paths;
 }
 
-const testData: UserData[] = [
+const testUserData: UserData[] = [
   {
     id: 'winter',
     name: '윈터',
     board: 6,
-    follower: 10272334,
-    following: 100,
+    follower: ['karina', 'irene', 'young'],
+    following: ['karina', 'young'],
     webSite: 'www.github.com',
+    phone: '010-0000-0000',
+    email: 'winter@facebook.com',
+    sex: '여성',
     introduce: '에스빠',
     imageUrl: '/profile/winter.png',
   },
@@ -31,9 +34,12 @@ const testData: UserData[] = [
     id: 'irene',
     name: '아이린',
     board: 3,
-    follower: 10000000,
-    following: 1002,
+    follower: ['irene'],
+    following: ['karina', 'irene', 'young'],
     webSite: 'www.github.com',
+    phone: '010-0000-0000',
+    email: 'irene@facebook.com',
+    sex: '여성',
     introduce: 'red velvet',
     imageUrl: '/profile/irene.png',
   },
@@ -42,9 +48,12 @@ const testData: UserData[] = [
     id: 'karina',
     name: '카리나',
     board: 4,
-    follower: 1000090,
-    following: 100,
+    follower: ['karina', 'irene', 'young'],
+    following: ['karina', 'irene'],
     webSite: 'www.github.com',
+    phone: '010-0000-0000',
+    email: 'karina@facebook.com',
+    sex: '여성',
     introduce: 'next level',
     imageUrl: '/profile/karina.png',
   },

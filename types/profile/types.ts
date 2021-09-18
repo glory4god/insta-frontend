@@ -2,11 +2,14 @@ export type UserData = {
   id: string;
   name: string;
   board: number;
-  follower: number;
-  following: number;
+  follower: string[];
+  following: string[];
   webSite: string;
   introduce: string;
+  phone: string;
   imageUrl: string;
+  email: string;
+  sex: '남성' | '여성' | '비공개';
 };
 
 export type BoardData = {

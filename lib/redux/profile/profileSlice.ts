@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import type { Banner, Board, BoardData, UserData } from 'types/profile/types';
+import type { Banner, Board, UserData } from 'types/profile/types';
+import { getProfileData } from './profileApis';
 
 interface ProfileSliceProps {
   currentBanner: Banner;
@@ -14,11 +15,14 @@ const initialState: ProfileSliceProps = {
     id: '',
     name: '',
     board: 0,
-    follower: 0,
-    following: 0,
+    follower: [],
+    following: [],
     webSite: '',
+    email: '',
+    phone: '',
     introduce: '',
     imageUrl: '',
+    sex: '비공개',
   },
   boardData: [],
 };
@@ -65,8 +69,8 @@ export function setBoardData(data: Board[]) {
   };
 }
 
-export function setUserData(data: UserData) {
+export function setUserData(name: string) {
   return async (dispatch: any) => {
-    dispatch(SET_USER_DATA(data));
+    dispatch(SET_USER_DATA((await getProfileData(name)) as UserData));
   };
 }

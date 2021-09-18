@@ -14,18 +14,14 @@ import {
   setUserData,
 } from 'lib/redux/profile/profileSlice';
 
+import { Modal, BoardModal } from 'components/modal';
 import { BoardBanner, BoardContainer, UserInfo } from 'components/profile';
 import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
 import { Board, UserData } from 'types/profile/types';
-import {
-  selectModal,
-  setBoardModal,
-  setModalInitial,
-} from 'lib/redux/modal/modalSlice';
-import { Modal, BoardModal } from 'components/modal';
+import { selectModal, setModalInitial } from 'lib/redux/modal/modalSlice';
 import { accountMenuBar } from 'lib/redux/accounts/accountsApis';
 
 const UserProfile = ({
@@ -43,14 +39,12 @@ const UserProfile = ({
   const modalOnChecker = () => {
     var check: boolean;
     check = Object.values(showModal).includes(true);
-    console.log(check);
     return check || showBoardModal;
   };
 
   React.useEffect(() => {
     dispatch(initialBanner());
     dispatch(setBoardData(boardData));
-    dispatch(setUserData(userData));
     dispatch(setModalInitial());
   }, []);
 
@@ -96,6 +90,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
+
 export const getStaticProps: GetStaticProps = async (context) => {
   const bannerList: object = {
     main: '게시물',
