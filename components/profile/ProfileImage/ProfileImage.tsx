@@ -1,4 +1,5 @@
 import React from 'react';
+import StoryCanvas from './StoryCanvas';
 import s from './ProfileImage.module.css';
 
 import cn from 'classnames';
@@ -8,6 +9,7 @@ interface ImageProps {
   border?: boolean;
   borderColor?: 'black' | 'gray' | 'gradient';
   imageUrl: string | undefined;
+  story?: 'story';
 }
 
 const ProfileImage: React.FC<ImageProps> = ({
@@ -15,6 +17,7 @@ const ProfileImage: React.FC<ImageProps> = ({
   size,
   borderColor,
   imageUrl,
+  story,
 }) => {
   return (
     // FIXME: 테두리 색 칠하는건 어떻게 할지 생각해봐야할듯!  => 해결 border props true
@@ -27,6 +30,7 @@ const ProfileImage: React.FC<ImageProps> = ({
     // m : 메인 페이지 게시글 왼쪽 상단 프로필 이미지
     // l : 프로필 페이지 반응형 모바일 사이즈 크기
     <div className={cn(size === 'profile' && s.container)}>
+      {story && <StoryCanvas />}
       <div
         className={cn(
           border && s.border,

@@ -30,8 +30,8 @@
     justify-content: center;
   }
   .container .borderProfile .profile {
-    width: 148px;
-    height: 148px;
+    width: 150px;
+    height: 150px;
   }
 
   .container .borderProfile {
@@ -41,8 +41,8 @@
 }
 
 .borderProfile .profile {
-  width: 80px;
-  height: 80px;
+  width: 77px;
+  height: 77px;
 }
 .story {
   width: 80px;
