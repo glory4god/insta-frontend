@@ -53,3 +53,54 @@ export function getAccountsIds() {
     return arr.link;
   });
 }
+
+export const accountEditMap: {
+  tit: string;
+  name: string;
+  tag?: string;
+  subTag?: string;
+  size: 's' | 'm';
+  area: 'line' | 'field';
+}[] = [
+  {
+    tit: '이름',
+    name: 'name',
+    subTag: '이름은 14일 안에 두 번만 변경할 수 있습니다. 어어어어어어어어어어',
+    size: 's',
+    area: 'line',
+  },
+  {
+    tit: '사용자 이름',
+    name: 'id',
+    subTag: `대부분의 경우 14일 이내에 사용자 이름을 바꾸기 전 이름으로 변경할 수 있습니다.`,
+    size: 's',
+    area: 'line',
+  },
+  {
+    tit: '웹사이트',
+    name: 'webSite',
+    size: 's',
+    area: 'line',
+  },
+  {
+    tit: '소개',
+    name: 'introduce',
+    tag: '개인정보',
+    subTag:
+      '비즈니스나 반려동물 등에 사용된 계정인 경우에도 회원님의 개인 정보를 입력하세요. 공개 프로필에는 포함되지 않습니다.',
+    size: 's',
+    area: 'field',
+  },
+  {
+    tit: '이메일',
+    name: 'email',
+    size: 's',
+    area: 'line',
+  },
+  {
+    tit: '전화번호',
+    name: 'phone',
+    size: 's',
+    area: 'line',
+  },
+];
