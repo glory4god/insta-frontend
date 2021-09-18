@@ -18,6 +18,13 @@
   padding-right: 16px;
 }
 
+.prs {
+  padding-right: 0.5rem;
+}
+.prl {
+  padding-right: 1rem;
+}
+
 .tit02 {
   display: none;
   justify-content: space-between;
