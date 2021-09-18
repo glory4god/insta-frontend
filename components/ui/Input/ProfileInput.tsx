@@ -3,6 +3,7 @@ import React from 'react';
 interface Props {
   area?: 'line' | 'field';
   size: 's' | 'm';
+  name?: string;
   value: string;
   type?: 'text' | 'number' | 'password';
   backgroundColor?: true;
@@ -16,6 +17,7 @@ interface Props {
 const ProfileInput: React.FC<Props> = ({
   area = 'line',
   type = 'text',
+  name,
   size,
   value,
   backgroundColor = false,
@@ -35,6 +37,7 @@ const ProfileInput: React.FC<Props> = ({
               backgroundColor ? 'rgb(248,248,248)' : 'white'
             }`,
           }}
+          name={name}
           type={type}
           value={value}
           onChange={onChange}
@@ -48,6 +51,7 @@ const ProfileInput: React.FC<Props> = ({
             border: '1px solid rgb(210,210,210)',
             borderRadius: '3px',
           }}
+          name={name}
           value={value}
           onChange={onChange}
         />
