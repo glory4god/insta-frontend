@@ -1,3 +1,4 @@
+import React from 'react';
 import type { AppProps } from 'next/app';
 import 'styles/globals.css';
 import { Provider } from 'react-redux';
@@ -7,12 +8,13 @@ import { store } from 'lib/redux/store';
 import { useRouter } from 'next/dist/client/router';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const pages = useRouter();
+  const router = useRouter();
+
   return (
     <>
       <Head />
       <Provider store={store}>
-        {pages.asPath === '/login' ? (
+        {router.asPath === '/login' ? (
           <Component {...pageProps} />
         ) : (
           <Layout>
