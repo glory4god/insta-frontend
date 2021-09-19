@@ -191,16 +191,7 @@ const AccountEdit = () => {
       <div className={s.editbox}>
         <div className={s.tit}>성별</div>
         {/* FIXME: 셀렉트 박스형식으로 성별 선택하는거로 바뀌면 좋을듯   =>  셀렉트 박스로 해결  */}
-        <select
-          value={userProfile.sex}
-          // onChange={(e) =>
-          //   // FIXME: e.target.value와 타입유추에서 해결방안 고려 ,,,
-          //   setUserProfile({
-          //     ...userProfile,
-          //     sex: e.target.value,
-          //   })
-          // }
-        >
+        <select name={'sex'} value={userProfile.sex} onChange={onChange}>
           {selectBox.map((arr, key) => {
             return (
               <option value={arr} key={key}>
