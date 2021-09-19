@@ -36,6 +36,7 @@ const UserProfile = ({
   const { showBoardModal, showModal } = useSelector(selectModal);
   const dispatch = useDispatch();
 
+  // FIXME:이 부분 좀 자연스럽게할지 고민해보자
   const modalOnChecker = () => {
     var check: boolean;
     check = Object.values(showModal).includes(true);

@@ -7,10 +7,14 @@ import cn from 'classnames';
 
 const Footer = () => {
   const { showModal, showBoardModal } = useSelector(selectModal);
+  const modalOnChecker = () => {
+    var check: boolean;
+    check = Object.values(showModal).includes(true);
+    return check || showBoardModal;
+  };
 
   return (
-    <div
-      className={cn(s.container, (showModal || showBoardModal) && s.modalOn)}>
+    <div className={cn(s.container, modalOnChecker() && s.modalOn)}>
       <div className={s.footer}>
         {footer.map((arr) => {
           return <span key={arr}>{arr}</span>;
