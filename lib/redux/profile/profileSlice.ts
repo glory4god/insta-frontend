@@ -69,8 +69,8 @@ export function setBoardData(data: Board[]) {
   };
 }
 
-export function setUserData(name: string) {
+export function setUserData(data: UserData) {
   return async (dispatch: any) => {
-    dispatch(SET_USER_DATA((await getProfileData(name)) as UserData));
+    dispatch(SET_USER_DATA(data));
   };
 }

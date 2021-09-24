@@ -13,6 +13,13 @@ import {
   setBoardData,
   setUserData,
 } from 'lib/redux/profile/profileSlice';
+import {
+  selectModal,
+  setModal,
+  setModalInitial,
+  setSelectBoard,
+} from 'lib/redux/modal/modalSlice';
+import { accountMenuBar } from 'lib/redux/accounts/accountsApis';
 
 import { Modal, BoardModal } from 'components/modal';
 import { BoardBanner, BoardContainer, UserInfo } from 'components/profile';
@@ -21,8 +28,7 @@ import { Container } from 'components/ui/Container';
 import { ParsedUrlQuery } from 'querystring';
 
 import { Board, UserData } from 'types/profile/types';
-import { selectModal, setModalInitial } from 'lib/redux/modal/modalSlice';
-import { accountMenuBar } from 'lib/redux/accounts/accountsApis';
+import { ModalDataType } from 'types/modal/types';
 
 const UserProfile = ({
   bannerList,
@@ -33,10 +39,11 @@ const UserProfile = ({
   userData: UserData;
   boardData: Board[];
 }) => {
-  const { showBoardModal, showModal } = useSelector(selectModal);
+  const { selectedBoard, selectedReplyIdx, showBoardModal, showModal } =
+    useSelector(selectModal);
   const dispatch = useDispatch();
 
-  // FIXME:이 부분 좀 자연스럽게할지 고민해보자
+  // FIXME:이 부분 좀 어떻게하면 자연스럽게할지 고민해보자
   const modalOnChecker = () => {
     var check: boolean;
     check = Object.values(showModal).includes(true);
@@ -45,9 +52,44 @@ const UserProfile = ({
 
   React.useEffect(() => {
     dispatch(initialBanner());
+    dispatch(setUserData(userData));
     dispatch(setBoardData(boardData));
     dispatch(setModalInitial());
   }, []);
+
+  const followerModal: ModalDataType[] = [{ name: '팔로워', link: undefined }];
+  const follwingModal: ModalDataType[] = [{ name: '팔로우', link: undefined }];
+  const settingModal: ModalDataType[] = accountMenuBar;
+  const replyModal: ModalDataType[] = [
+    {
+      name: '삭제',
+      link: undefined,
+      color: 'red',
+      onClick: () => {
+        var board = selectedBoard;
+        // TODO: restapi 연결시 api로 삭제할 인덱스 보내는 함수 작성
+        if (board !== undefined) {
+          dispatch(
+            setSelectBoard({
+              ...board,
+              reply: board.reply.filter((arr, idx) => {
+                console.log(selectedReplyIdx, idx);
+                if (idx !== selectedReplyIdx) {
+                  return arr;
+                }
+              }),
+            }),
+          );
+        }
+        dispatch(setModalInitial());
+      },
+    },
+    {
+      name: '취소',
+      link: undefined,
+      onClick: () => dispatch(setModal('reply', false)),
+    },
+  ];
 
   return (
     <>
@@ -61,13 +103,10 @@ const UserProfile = ({
         <BoardContainer />
       </Container>
       {showBoardModal && <BoardModal />}
-      {showModal.setting && <Modal title={accountMenuBar} />}
-      {showModal.followers && (
-        <Modal title={[{ name: '팔로워', link: null }]} />
-      )}
-      {showModal.followings && (
-        <Modal title={[{ name: '팔로우', link: null }]} />
-      )}
+      {showModal.setting && <Modal modalData={settingModal} />}
+      {showModal.followers && <Modal modalData={followerModal} />}
+      {showModal.followings && <Modal modalData={follwingModal} />}
+      {showModal.reply && <Modal modalData={replyModal} />}
     </>
   );
 };
@@ -102,10 +141,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { profile } = context.params as IParams;
 
   // TODO: 백엔드 연동시 추후에 api로 가져오기
-  const userData = (await getProfileData(profile)) as UserData;
-  const boardData = (await getUserBoard(profile)) as Board[];
+  // const userData = (await getProfileData(profile)) as UserData;
+  // const boardData = (await getUserBoard(profile)) as Board[];
 
   return {
-    props: { userData, bannerList, boardData },
+    props: {
+      userData: (await getProfileData(profile)) as UserData,
+      bannerList,
+      boardData: (await getUserBoard(profile)) as Board[],
+    },
+    revalidate: 1,
   };
 };

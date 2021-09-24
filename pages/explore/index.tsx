@@ -4,7 +4,7 @@ import { Container } from 'components/ui/Container';
 import { GetStaticProps } from 'next';
 import { getAllBoard } from 'lib/redux/explore/exploreApis';
 import { BoardContainer } from 'components/profile';
-import type { Board, BoardData } from 'types/profile/types';
+import type { Board } from 'types/profile/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoardData } from 'lib/redux/profile/profileSlice';
 import { selectModal, setBoardModal } from 'lib/redux/modal/modalSlice';

@@ -37,6 +37,11 @@
   z-index: 9;
 }
 
+.flex {
+  color: white;
+  font-weight: bold;
+}
+
 .flex > div {
   display: flex;
   font-size: 14px;
@@ -46,20 +51,15 @@
 }
 
 .flex > div > span {
-  padding-left: 4px;
-}
-
-.flex {
-  color: white;
-  font-weight: bold;
+  padding-left: 2px;
 }
 
 @media (min-width: 740px) {
   .flex {
     color: white;
     display: flex;
+    padding: 0 2rem;
     justify-content: space-between;
-    padding: 2rem;
   }
 
   .boardinfo {

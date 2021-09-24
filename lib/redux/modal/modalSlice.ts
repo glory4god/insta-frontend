@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
 import { Board, UserData } from 'types/profile/types';
 import { getProfileData } from '../profile/profileApis';
 import { RootState } from '../store';
@@ -16,9 +15,11 @@ interface ModalSliceProps {
   selectedBoard: Board | undefined;
   selectedBoardUser: UserData | undefined;
 
+  selectedReplyIdx: number | undefined;
+
   showModal: ShowModal;
 }
-export const initialShowModal = {
+export const initialShowModal: ShowModal = {
   followers: false,
   followings: false,
   setting: false,
@@ -29,6 +30,7 @@ const initialState: ModalSliceProps = {
   showBoardModal: false,
   selectedBoard: undefined,
   selectedBoardUser: undefined,
+  selectedReplyIdx: undefined,
 
   showModal: initialShowModal,
 };
@@ -64,6 +66,9 @@ export const modalSlice = createSlice({
     SET_SHOW_MODAL_INITIAL: (state, action: PayloadAction<ShowModal>) => {
       state.showModal = action.payload;
     },
+    SET_SELECTED_REPLY_IDX: (state, action: PayloadAction<number>) => {
+      state.selectedReplyIdx = action.payload;
+    },
   },
 });
 
@@ -73,6 +78,7 @@ export const {
   SET_SELECETED_BOARD_USER,
   SET_SHOW_MODAL,
   SET_SHOW_MODAL_INITIAL,
+  SET_SELECTED_REPLY_IDX,
 } = modalSlice.actions;
 export const selectModal = (state: RootState) => state.modal;
 
@@ -84,7 +90,7 @@ export function setBoardModal(state: boolean) {
   };
 }
 
-export function setSelectedModal(board: Board) {
+export function setSelectBoard(board: Board) {
   return async (dispatch: any) => {
     dispatch(SET_SELECETED_BOARD(board));
     dispatch(
@@ -101,6 +107,10 @@ export function setModal(key: string, state: boolean) {
 export function setModalInitial() {
   return (dispatch: any) => {
     dispatch(SET_SHOW_MODAL_INITIAL(initialShowModal));
-    dispatch(SET_SHOW_BOARD_MODAL(false));
+  };
+}
+export function setSelectedReplyIdx(idx: number) {
+  return (dispatch: any) => {
+    dispatch(SET_SELECTED_REPLY_IDX(idx));
   };
 }

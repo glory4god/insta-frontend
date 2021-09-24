@@ -12,18 +12,15 @@ const AccountLMB = ({}) => {
     <>
       {accountMenuBar.map((arr) => {
         return (
-          <Link href={`/accounts/${arr.link}`} key={arr.name}>
+          <Link href={arr.link} key={arr.name}>
             <a
               className={s.linktag}
               style={{
-                borderLeft: `${
-                  pages.asPath === `/accounts/${arr.link}`
+                borderLeft: `${pages.asPath === arr.link}
                     ? '2px solid black'
                     : ''
                 }`,
-                fontWeight: `${
-                  pages.asPath === `/accounts/${arr.link}` ? 'bold' : 'normal'
-                }`,
+                fontWeight: `${pages.asPath === arr.link ? 'bold' : 'normal'}`,
               }}>
               <span>{arr.name}</span>
             </a>

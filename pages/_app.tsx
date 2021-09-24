@@ -14,13 +14,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head />
       <Provider store={store}>
-        {router.asPath === '/login' ? (
+        <Layout>
           <Component {...pageProps} />
-        ) : (
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        )}
+        </Layout>
       </Provider>
     </>
   );

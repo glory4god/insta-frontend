@@ -3,9 +3,9 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" style={{ height: '100%' }}>
         <Head />
-        <body style={{ margin: '0 0' }}>
+        <body style={{ margin: '0 0', height: '100%' }}>
           <Main />
           <NextScript />
         </body>

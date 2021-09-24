@@ -11,46 +11,46 @@
 // };
 export const accountMenuBar = [
   {
-    link: 'edit',
+    link: '/accounts/edit',
     name: '프로필 편집',
   },
   {
-    link: 'password_change',
+    link: '/accounts/password_change',
     name: '비밀번호 변경',
   },
   {
-    link: 'manage_access',
+    link: '/accounts/manage_access',
     name: '앱 및 웹사이트',
   },
   {
-    link: 'emails',
+    link: '/accounts/emails',
     name: '이메일 및 SMS',
   },
   {
-    link: 'push',
+    link: '/accounts/push',
     name: '푸시 알림',
   },
   {
-    link: 'contact',
+    link: '/accounts/contact',
     name: '연락처 관리',
   },
   {
-    link: 'security',
+    link: '/accounts/security',
     name: '개인정보 및 보안',
   },
   {
-    link: 'activity',
+    link: '/accounts/activity',
     name: '로그인 활동',
   },
   {
-    link: 'professional',
+    link: '/accounts/professional',
     name: '프로페셔널 계정으로 전환',
   },
 ];
 
 export function getAccountsIds() {
   return accountMenuBar.map((arr) => {
-    return arr.link;
+    return arr.link.substr(10);
   });
 }
 

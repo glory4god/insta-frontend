@@ -3,12 +3,12 @@ import { RootState } from '../store';
 
 interface LoginSliceProps {
   login: boolean;
-  name: string;
+  id: string;
 }
 
 const initialState: LoginSliceProps = {
   login: true,
-  name: 'winter',
+  id: 'winter',
 };
 
 export const loginSlice = createSlice({
@@ -19,7 +19,7 @@ export const loginSlice = createSlice({
   },
 });
 
-export const {} = loginSlice.actions;
+export const { SET_LOGIN } = loginSlice.actions;
 export const selectLogin = (state: RootState) => state.login;
 
 export default loginSlice.reducer;

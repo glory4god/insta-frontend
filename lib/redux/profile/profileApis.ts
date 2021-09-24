@@ -1,4 +1,4 @@
-import type { UserData, BoardData, Board } from 'types/profile/types';
+import type { UserData, Board } from 'types/profile/types';
 
 export async function getProfileData(pages: string) {
   const data: UserData[] = testUserData.filter((arr) => {
@@ -21,8 +21,11 @@ const testUserData: UserData[] = [
     id: 'winter',
     name: '윈터',
     board: 6,
-    follower: ['karina', 'irene', 'young'],
-    following: ['karina', 'young'],
+    follower: [
+      { id: 'karina', imageUrl: '/profile/karina.png' },
+      { id: 'irene', imageUrl: '/profile/irene.png' },
+    ],
+    following: [{ id: 'karina', imageUrl: '/profile/karina.png' }],
     webSite: 'www.github.com',
     phone: '010-0000-0000',
     email: 'winter@facebook.com',
@@ -34,8 +37,8 @@ const testUserData: UserData[] = [
     id: 'irene',
     name: '아이린',
     board: 3,
-    follower: ['irene'],
-    following: ['karina', 'irene', 'young'],
+    follower: [{ id: 'irene', imageUrl: '/profile/irene.png' }],
+    following: [{ id: 'karina', imageUrl: '/profile/karina.png' }],
     webSite: 'www.github.com',
     phone: '010-0000-0000',
     email: 'irene@facebook.com',
@@ -48,8 +51,8 @@ const testUserData: UserData[] = [
     id: 'karina',
     name: '카리나',
     board: 4,
-    follower: ['karina', 'irene', 'young'],
-    following: ['karina', 'irene'],
+    follower: [{ id: 'winter', imageUrl: '/profile/winter.png' }],
+    following: [{ id: 'irene', imageUrl: '/profile/irene.png' }],
     webSite: 'www.github.com',
     phone: '010-0000-0000',
     email: 'karina@facebook.com',
@@ -77,38 +80,24 @@ export async function getUserBoard(name: string) {
 export const testBoardData: Board[] = [
   {
     name: 'winter',
-    imageUrl: ['/profile/winter1.png'],
+    imageUrl: ['/profile/winter1.png', '/profile/winter4.png'],
     title: '윈터 1',
     good: 12333,
     createdDate: '2021-09-08',
-  },
-  {
-    name: 'winter',
-    imageUrl: ['/profile/winter1.png'],
-    title: '윈터 1',
-    good: 12333,
-    createdDate: '2021-09-08',
-  },
-  {
-    name: 'winter',
-    imageUrl: ['/profile/winter1.png'],
-    title: '윈터 1',
-    good: 12333,
-    createdDate: '2021-09-08',
-  },
-  {
-    name: 'winter',
-    imageUrl: ['/profile/winter1.png'],
-    title: '윈터 1',
-    good: 12333,
-    createdDate: '2021-09-08',
-  },
-  {
-    name: 'winter',
-    imageUrl: ['/profile/winter1.png'],
-    title: '윈터 1',
-    good: 12333,
-    createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+      {
+        name: 'irene',
+        imageUrl: '/profile/irene.png',
+        content: '이ㅃㅓ이뻐',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'winter',
@@ -116,6 +105,14 @@ export const testBoardData: Board[] = [
     title: '윈터 2',
     good: 123123,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당!',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'winter',
@@ -123,6 +120,14 @@ export const testBoardData: Board[] = [
     title: '윈터 3',
     good: 15124124,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당!!',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'winter',
@@ -130,6 +135,14 @@ export const testBoardData: Board[] = [
     title: '윈터 4',
     good: 4235,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'winter',
@@ -137,6 +150,14 @@ export const testBoardData: Board[] = [
     title: '윈터 5',
     good: 312312,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'irene',
+        imageUrl: '/profile/irene.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'winter',
@@ -144,6 +165,14 @@ export const testBoardData: Board[] = [
     title: '윈터 6',
     good: 123434,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'irene',
+        imageUrl: '/profile/irene.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'karina',
@@ -151,6 +180,14 @@ export const testBoardData: Board[] = [
     title: '카리나 1',
     good: 72434,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'karina',
@@ -158,6 +195,14 @@ export const testBoardData: Board[] = [
     title: '카리나 2',
     good: 845574,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'karina',
@@ -165,6 +210,14 @@ export const testBoardData: Board[] = [
     title: '카리나 3',
     good: 6748,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'karina',
@@ -172,6 +225,14 @@ export const testBoardData: Board[] = [
     title: '카리나 4',
     good: 467979,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
   {
     name: 'irene',
@@ -179,5 +240,13 @@ export const testBoardData: Board[] = [
     title: '아이린 1',
     good: 796789,
     createdDate: '2021-09-08',
+    reply: [
+      {
+        name: 'karina',
+        imageUrl: '/profile/karina1.png',
+        content: '이쁘당',
+        createdDate: '20210919',
+      },
+    ],
   },
 ];

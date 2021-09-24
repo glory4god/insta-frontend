@@ -18,7 +18,7 @@ import { selectLogin } from 'lib/redux/login/loginSlice';
 interface UserInfoProps {}
 
 const UserInfo: React.FC<UserInfoProps> = ({}) => {
-  const { login, name } = useSelector(selectLogin);
+  const { login, id } = useSelector(selectLogin);
   const { userData } = useSelector(selectProfile);
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const UserInfo: React.FC<UserInfoProps> = ({}) => {
         <div className={s.pcinfo}>
           <div className={s.tit01}>
             <div>{userData.id}</div>
-            {name === userData.id ? (
+            {id === userData.id ? (
               <>
                 <div>
                   <Link href="/accounts/edit">
@@ -55,7 +55,11 @@ const UserInfo: React.FC<UserInfoProps> = ({}) => {
               </>
             ) : (
               <>
-                {userData.follower.includes(name) ? (
+                {userData.follower
+                  .map((arr) => {
+                    return arr.id;
+                  })
+                  .includes(id) ? (
                   <>
                     <span className={s.prs}>
                       <Button size="small" variant="outlined">

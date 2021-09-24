@@ -5,14 +5,15 @@ import ProfileInput from 'components/ui/Input';
 import { ProfileImage } from 'components/profile';
 import { EditUserProfile, Sex } from 'types/accounts/types';
 
-import cn from 'classnames';
 import { useSelector } from 'react-redux';
 import { selectProfile } from 'lib/redux/profile/profileSlice';
 import { selectLogin } from 'lib/redux/login/loginSlice';
 import { accountEditMap } from 'lib/redux/accounts/accountsApis';
 
+import cn from 'classnames';
+
 const AccountEdit = () => {
-  const { name } = useSelector(selectLogin);
+  const { id } = useSelector(selectLogin);
   const { userData } = useSelector(selectProfile);
 
   const [userProfile, setUserProfile] = React.useState<EditUserProfile>({
@@ -58,7 +59,7 @@ const AccountEdit = () => {
           <ProfileImage size="m" imageUrl={'/profile/winter.png'} />
         </div>
         <div className={s.content}>
-          <span className={s.name}>{name}</span>
+          <span className={s.name}>{id}</span>
           <div>
             <a className={s.changeProfile}>프로필 사진 바꾸기</a>
           </div>
@@ -191,7 +192,7 @@ const AccountEdit = () => {
       <div className={s.editbox}>
         <div className={s.tit}>성별</div>
         {/* FIXME: 셀렉트 박스형식으로 성별 선택하는거로 바뀌면 좋을듯   =>  셀렉트 박스로 해결  */}
-        <select name={'sex'} value={userProfile.sex} onChange={onChange}>
+        <select value={userProfile.sex} name={'sex'} onChange={onChange}>
           {selectBox.map((arr, key) => {
             return (
               <option value={arr} key={key}>
