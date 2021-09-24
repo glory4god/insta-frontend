@@ -1,12 +1,12 @@
 export type EmailProps = {
   email: string;
   setEmail: Function;
-}
+};
 
 export type PhonenumberProps = {
   phonenumber: string;
   setPhonenumber: Function;
-}
+};
 
 export type SignupProps = {
   id: string;
@@ -19,7 +19,7 @@ export type SignupProps = {
   setPassword: Function;
   setEmail: Function;
   setPhonenumber: Function;
-}
+};
 
 export interface IFormInputs {
   id: string;

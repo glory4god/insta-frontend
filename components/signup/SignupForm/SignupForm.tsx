@@ -4,10 +4,21 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { SignupProps } from 'types/signup/types'
-import { IFormInputs } from 'types/signup/types'
+import { SignupProps } from 'types/signup/types';
+import { IFormInputs } from 'types/signup/types';
 
-const SignupForm: React.FC<SignupProps> = ({id, setId, name, setName, username, setUsername, password, setPassword, setEmail, setPhonenumber}) => {
+const SignupForm: React.FC<SignupProps> = ({
+  id,
+  setId,
+  name,
+  setName,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  setEmail,
+  setPhonenumber,
+}) => {
   const {
     register,
     formState: { errors },
@@ -16,10 +27,11 @@ const SignupForm: React.FC<SignupProps> = ({id, setId, name, setName, username, 
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     console.log(data);
-    const regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    const regExpEmail =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     const regExpPhone: RegExp = /^01[016789][0-9]{8}$/;
-    if(regExpEmail.test(data.id)) setEmail(data.id)
-    if(regExpPhone.test(data.id)) setPhonenumber(data.id)
+    if (regExpEmail.test(data.id)) setEmail(data.id);
+    if (regExpPhone.test(data.id)) setPhonenumber(data.id);
   };
 
   return (

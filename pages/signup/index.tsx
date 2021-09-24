@@ -10,8 +10,8 @@ const Signup: React.FC = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
+  const [email, setEmail] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
   return (
     <>
       <Head>
@@ -21,9 +21,27 @@ const Signup: React.FC = () => {
 
       <SignupMain role="main">
         <article>
-          {!email && !phonenumber && <SignupForm id={id} setId={setId} name={name} setName={setName} username={username} setUsername={setUsername} password={password} setPassword={setPassword} setEmail={setEmail} setPhonenumber={setPhonenumber}/>}
-          {email && <Certification email={email} setEmail={setEmail}/>}
-          {phonenumber && <PhonenumberCertification phonenumber={phonenumber} setPhonenumber={setPhonenumber}/>}
+          {!email && !phonenumber && (
+            <SignupForm
+              id={id}
+              setId={setId}
+              name={name}
+              setName={setName}
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+              setEmail={setEmail}
+              setPhonenumber={setPhonenumber}
+            />
+          )}
+          {email && <Certification email={email} setEmail={setEmail} />}
+          {phonenumber && (
+            <PhonenumberCertification
+              phonenumber={phonenumber}
+              setPhonenumber={setPhonenumber}
+            />
+          )}
         </article>
       </SignupMain>
     </>
