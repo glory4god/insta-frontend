@@ -1,14 +1,21 @@
-import React, { ChangeEvent, ReactEventHandler } from 'react';
+import React, { ChangeEvent } from 'react';
 import Image from 'next/image';
 import s from '../CommonModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectModal, setBoardModal } from 'lib/redux/modal/modalSlice';
+import {
+  selectModal,
+  setBoardModal,
+  setModal,
+  setSelectBoard,
+  setSelectedReplyIdx,
+} from 'lib/redux/modal/modalSlice';
 
 import { ProfileImage } from 'components/profile';
 
 import cn from 'classnames';
 import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
+import { Reply } from 'types/profile/types';
 
 interface BoardModalProps {}
 
@@ -16,10 +23,33 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
   const { selectedBoard, selectedBoardUser } = useSelector(selectModal);
   const dispatch = useDispatch();
 
-  const [reply, setReply] = React.useState<string>('댓글 달기...');
+  const [reply, setReply] = React.useState<Reply>({
+    name: '익명',
+    imageUrl: '/profile/winter.png',
+    content: '',
+    createdDate: new Date().toString(),
+  });
 
-  const replyHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setReply(e.target.value);
+  const onReplyHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setReply({
+      ...reply,
+      content: e.target.value,
+    });
+  };
+
+  const postReplyHandler = (reply: Reply) => {
+    //TODO: rest api post 과정 추가
+    // 현재는 테스트식으로 확인 가능하게 만든 로직임
+    var board = selectedBoard;
+    if (board !== undefined) {
+      dispatch(setSelectBoard({ ...board, reply: [...board.reply, reply] }));
+      setReply({
+        name: '익명',
+        imageUrl: '/profile/winter.png',
+        content: '',
+        createdDate: new Date().toString(),
+      });
+    }
   };
 
   React.useEffect(() => {}, []);
@@ -84,25 +114,25 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
               </div>
               <div className={s.comment}>
                 {/* TODO: 댓글 목록 map 으로 하기 */}
-                {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((arr, idx) => {
+                {selectedBoard.reply.map((reply, idx) => {
                   return (
                     <div key={idx} className={s.form}>
                       <div>
-                        <ProfileImage
-                          size="board"
-                          imageUrl={selectedBoardUser?.imageUrl}
-                        />
+                        <ProfileImage size="board" imageUrl={reply.imageUrl} />
                         <div>
-                          <b>{selectedBoard.name}</b>{' '}
-                          <span>
-                            {selectedBoard.title}
-                            {idx} 댓글이 길어도 끝까지 나올까??!??!!??!?!
-                            어띠까지 나올까?!?!?!
-                          </span>
+                          <b>{reply.name}</b> <span>{reply.content}</span>
                           <div className={s.date}>1주</div>
                         </div>
                       </div>
-                      <MoreHorizSharpIcon fontSize="small" />
+                      <MoreHorizSharpIcon
+                        className={s.hoverIcon}
+                        fontSize="small"
+                        onClick={() => {
+                          console.log('click');
+                          dispatch(setSelectedReplyIdx(idx));
+                          dispatch(setModal('reply', true));
+                        }}
+                      />
                     </div>
                   );
                 })}
@@ -110,7 +140,18 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
               <div className={cn(s.footer, s.pc)}>
                 좋아요, 디엠, 저장 기능 풋터
               </div>
-              <div className={s.edit}>댓글 input </div>
+              <div className={s.edit}>
+                <input
+                  type="text"
+                  value={reply.content}
+                  onChange={onReplyHandler}
+                />
+                <button
+                  onClick={() => postReplyHandler(reply)}
+                  disabled={reply.content.length === 0}>
+                  게시
+                </button>
+              </div>
             </div>
           </div>
         </>
