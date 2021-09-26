@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import styled from '@emotion/styled';
-import SignupForm from 'components/signup/SignupForm';
-import Certification from 'components/signup/Certification';
-import PhonenumberCertification from 'components/signup/PhonenumberCertification';
+import {
+  SignupForm,
+  Certification,
+  PhonenumberCertification,
+} from 'components/signup';
 
 const Signup: React.FC = () => {
   const [id, setId] = useState('');
@@ -24,22 +26,27 @@ const Signup: React.FC = () => {
           {!email && !phonenumber && (
             <SignupForm
               id={id}
-              setId={setId}
+              setId={(e) => setId(e.target.value)}
               name={name}
-              setName={setName}
+              setName={(e) => setName(e.target.value)}
               username={username}
-              setUsername={setUsername}
+              setUsername={(e) => setUsername(e.target.value)}
               password={password}
-              setPassword={setPassword}
-              setEmail={setEmail}
-              setPhonenumber={setPhonenumber}
+              setPassword={(e) => setPassword(e.target.value)}
+              setEmail={(value) => setEmail(value)}
+              setPhonenumber={(value) => setPhonenumber(value)}
             />
           )}
-          {email && <Certification email={email} setEmail={setEmail} />}
+          {email && (
+            <Certification
+              email={email}
+              backForm={() => setEmail("")}
+            />
+          )}
           {phonenumber && (
             <PhonenumberCertification
               phonenumber={phonenumber}
-              setPhonenumber={setPhonenumber}
+              backForm={() => setPhonenumber("")}
             />
           )}
         </article>
