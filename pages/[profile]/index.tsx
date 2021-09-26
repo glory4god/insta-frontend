@@ -94,7 +94,9 @@ const UserProfile = ({
   return (
     <>
       <Head>
-        <title>(@{userData.id}) instagram 사진 및 동영상</title>
+        <title>
+          {userData.name}(@{userData.id}) instagram 사진 및 동영상
+        </title>
         <meta name={`${userData.id}`} content={`${userData.id}`}></meta>
       </Head>
       <Container modalOn={modalOnChecker()}>
