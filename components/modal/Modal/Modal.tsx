@@ -142,7 +142,11 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                       className={s.content2}>
                       <div>
                         <ProfileImage size={'board'} imageUrl={p.imageUrl} />
-                        <span>{p.id}</span>
+                        <div>
+                          <span>
+                            <b>{p.id}</b>
+                          </span>
+                        </div>
                       </div>
                       {/*TODO: 내 상태알 때, 나랑 팔로우 상태인지 아닌지에 따른 결과보여주는 로직 짜야함*/}
                       {['winter', 'irene'].includes(p.id) ? (

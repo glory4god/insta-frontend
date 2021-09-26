@@ -94,7 +94,7 @@ export function setSelectBoard(board: Board) {
   return async (dispatch: any) => {
     dispatch(SET_SELECETED_BOARD(board));
     dispatch(
-      SET_SELECETED_BOARD_USER((await getProfileData(board.name)) as UserData),
+      SET_SELECETED_BOARD_USER((await getProfileData(board.id)) as UserData),
     );
   };
 }

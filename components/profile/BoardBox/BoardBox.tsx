@@ -66,11 +66,11 @@ const BoardBox: React.FC<BoardBoxProps> = ({ size, board }) => {
           <div className={s.flex}>
             <div>
               <FavoriteIcon fontSize="small" />
-              <span>{formatNumber(board.good)}</span>
+              <span>{formatNumber(board.favorite.length)}</span>
             </div>
             <div>
               <ModeCommentIcon fontSize="small" />
-              <span>{formatNumber(367376)}</span>
+              <span>{formatNumber(board.reply.length)}</span>
             </div>
           </div>
         </div>

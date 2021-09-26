@@ -20,16 +20,16 @@ export type UserIdAndImage = {
 export type Banner = 'main' | 'saved' | 'channel' | 'tagged';
 
 export type Board = {
-  name: string;
+  id: string;
   imageUrl: string[];
   title: string;
-  good: number;
+  favorite: UserIdAndImage[];
   createdDate: string;
   reply: Reply[];
 };
 
 export type Reply = {
-  name: string;
+  id: string;
   imageUrl: string;
   content: string;
   createdDate: string;

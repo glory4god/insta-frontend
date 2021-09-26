@@ -71,7 +71,7 @@ export async function getUserBoard(name: string) {
   // }) as BoardData[];
 
   return testBoardData.filter((arr) => {
-    if (arr.name === name) {
+    if (arr.id === name) {
       return arr;
     }
   }) as Board[];
@@ -79,20 +79,25 @@ export async function getUserBoard(name: string) {
 
 export const testBoardData: Board[] = [
   {
-    name: 'winter',
+    id: 'winter',
     imageUrl: ['/profile/winter1.png', '/profile/winter4.png'],
     title: '윈터 1',
-    good: 12333,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
         createdDate: '20210919',
       },
       {
-        name: 'irene',
+        id: 'irene',
         imageUrl: '/profile/irene.png',
         content: '이ㅃㅓ이뻐',
         createdDate: '20210919',
@@ -100,14 +105,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'winter',
+    id: 'winter',
     imageUrl: ['/profile/winter2.png'],
     title: '윈터 2',
-    good: 123123,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당!',
         createdDate: '20210919',
@@ -115,14 +125,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'winter',
+    id: 'winter',
     imageUrl: ['/profile/winter3.png'],
     title: '윈터 3',
-    good: 15124124,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당!!',
         createdDate: '20210919',
@@ -130,14 +145,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'winter',
+    id: 'winter',
     imageUrl: ['/profile/winter4.png'],
     title: '윈터 4',
-    good: 4235,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
         createdDate: '20210919',
@@ -145,14 +165,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'winter',
+    id: 'winter',
     imageUrl: ['/profile/winter5.png'],
     title: '윈터 5',
-    good: 312312,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'irene',
+        id: 'irene',
         imageUrl: '/profile/irene.png',
         content: '이쁘당',
         createdDate: '20210919',
@@ -160,14 +185,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'winter',
+    id: 'winter',
     imageUrl: ['/profile/winter6.png'],
     title: '윈터 6',
-    good: 123434,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'irene',
+        id: 'irene',
         imageUrl: '/profile/irene.png',
         content: '이쁘당',
         createdDate: '20210919',
@@ -175,14 +205,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'karina',
+    id: 'karina',
     imageUrl: ['/profile/karina1.png'],
     title: '카리나 1',
-    good: 72434,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
         createdDate: '20210919',
@@ -190,14 +225,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'karina',
+    id: 'karina',
     imageUrl: ['/profile/karina2.png'],
     title: '카리나 2',
-    good: 845574,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
         createdDate: '20210919',
@@ -205,14 +245,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'karina',
+    id: 'karina',
     imageUrl: ['/profile/karina3.png'],
     title: '카리나 3',
-    good: 6748,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
         createdDate: '20210919',
@@ -220,14 +265,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'karina',
+    id: 'karina',
     imageUrl: ['/profile/karina4.png'],
     title: '카리나 4',
-    good: 467979,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
         createdDate: '20210919',
@@ -235,14 +285,19 @@ export const testBoardData: Board[] = [
     ],
   },
   {
-    name: 'irene',
+    id: 'irene',
     imageUrl: ['/profile/irene.png'],
     title: '아이린 1',
-    good: 796789,
+    favorite: [
+      { id: 'winter', imageUrl: '/profile/winter.png' },
+      { id: 'winter2', imageUrl: '/profile/winter.png' },
+      { id: 'winter3', imageUrl: '/profile/winter.png' },
+      { id: 'winter4', imageUrl: '/profile/winter.png' },
+    ],
     createdDate: '2021-09-08',
     reply: [
       {
-        name: 'karina',
+        id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
         createdDate: '20210919',
