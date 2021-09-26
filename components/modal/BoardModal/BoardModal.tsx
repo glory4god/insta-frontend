@@ -104,10 +104,10 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
   React.useEffect(() => {
     if (selectedBoard !== undefined) {
       setFavorite(selectedBoard.favorite.length);
-      console.log(pressChecker(selectedBoard.favorite, id));
-      // pressChecker(selectedBoard.favorite, id)
-      //   ? setPressFavorite(true)
-      //   : setPressFavorite(false);
+      // console.log(pressChecker(selectedBoard.favorite, id));
+      pressChecker(selectedBoard.favorite, id)
+        ? setPressFavorite(true)
+        : setPressFavorite(false);
     }
   }, []);
 
