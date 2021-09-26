@@ -13,7 +13,7 @@ const ReplyContent: React.FC<ReplyProps> = ({ reply }) => {
     <div className={s.content}>
       <ProfileImage size="board" imageUrl={reply.imageUrl} />
       <div className={s.reply}>
-        <b>{reply.name}</b> <span>{reply.content}</span>
+        <b>{reply.id}</b> <span>{reply.content}</span>
         <div className={s.date}>1주</div>
       </div>
     </div>

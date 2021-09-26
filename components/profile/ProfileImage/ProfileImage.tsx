@@ -33,6 +33,7 @@ const ProfileImage: React.FC<ImageProps> = ({
       {story && <StoryCanvas />}
       <div
         className={cn(
+          s.commonBorder,
           border && s.border,
           size === 'profile' ? s.borderProfile : '',
           size === 'story' ? s.borderStory : '',
@@ -54,7 +55,8 @@ const ProfileImage: React.FC<ImageProps> = ({
           )}
           style={{
             backgroundImage: `url(${imageUrl})`,
-          }}></div>
+          }}
+        />
       </div>
     </div>
   );

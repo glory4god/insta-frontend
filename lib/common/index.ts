@@ -1,4 +1,10 @@
-export const formatNumber = (n: number | string) => {
+export const formatNumber = (
+  n: number | string | undefined,
+): string | number => {
+  if (n === undefined) {
+    return 0;
+  }
+
   if (typeof n === 'string') {
     var fn = +n;
   } else {
@@ -17,3 +23,27 @@ export const formatNumber = (n: number | string) => {
     return Math.ceil(fn / 100000) / 10 + '백만';
   }
 };
+
+export const postFormatNumber = (n: number | string) => {
+  if (typeof n === 'string') {
+    var fn = +n;
+  } else {
+    var fn = n;
+  }
+  const reg = /(^[+-]?\d+)(\d{3})/;
+  let str = fn + '';
+
+  while (reg.test(str)) str = str.replace(reg, '$1' + ',' + '$2');
+
+  return str;
+};
+export function pressChecker<T extends { id: string }>(
+  arr: T[],
+  id: string,
+): boolean {
+  const ids = arr.map((l) => {
+    return l.id;
+  }) as string[];
+  // console.log(ids.includes(id));
+  return ids.includes(id);
+}
