@@ -4,8 +4,26 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { SignupProps } from 'types/signup/types';
-import { IFormInputs } from 'types/signup/types';
+
+type SignupProps = {
+  id: string;
+  setId: (e: any) => void;
+  name: string;
+  setName: (e: any) => void;
+  username: string;
+  setUsername: (e: any) => void;
+  password: string;
+  setPassword: (e: any) => void;
+  setEmail: (value: string) => void;
+  setPhonenumber: (value: string) => void;
+};
+
+interface IFormInputs {
+  id: string;
+  name: string;
+  username: string;
+  password: string;
+}
 
 const SignupForm: React.FC<SignupProps> = ({
   id,
@@ -74,7 +92,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="id"
                     type="text"
                     value={id}
-                    onChange={(e) => setId(e.currentTarget.value)}
+                    onChange={setId}
                   />
                 </Label>
                 <div></div>
@@ -90,7 +108,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="name"
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.currentTarget.value)}
+                    onChange={setName}
                   />
                 </Label>
                 <div></div>
@@ -106,7 +124,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="username"
                     type="text"
                     value={username}
-                    onChange={(e) => setUsername(e.currentTarget.value)}
+                    onChange={setUsername}
                   />
                 </Label>
                 <div></div>
@@ -121,7 +139,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="password"
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.currentTarget.value)}
+                    onChange={setPassword}
                   />
                 </Label>
                 <div></div>
@@ -132,8 +150,8 @@ const SignupForm: React.FC<SignupProps> = ({
                     password.length < 6
                       ? true
                       : (!id ? true : !username)
-                      ? true
-                      : false
+                        ? true
+                        : false
                   }>
                   <div>가입하기</div>
                 </SignupButton>

@@ -4,39 +4,47 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { EmailProps } from 'types/signup/types'
-import { ICodeInputs } from 'types/signup/types'
 
-const Certificaiton: React.FC<EmailProps> = ({email, setEmail}) => {
-  const { register, formState: { errors }, handleSubmit } = useForm<ICodeInputs>();
+type EmailProps = {
+  email: string;
+  backForm: (e: any) => void;
+};
+
+interface ICodeInputs {
+  certificationCode?: string;
+}
+
+const Certificaiton: React.FC<EmailProps> = ({ email, backForm }) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<ICodeInputs>();
   const [certificationCode, setCertificationCode] = useState('');
 
   const onSubmit: SubmitHandler<ICodeInputs> = (data) => {
     console.log(data);
-  }
-
-  const backForm = () => {
-    setEmail("");
-  }
+  };
 
   return (
     <SignupWrapper>
       <MainWrapper>
         <InfoWrapper>
-            <span
+          <span
             style={{
-                backgroundImage: `url(/instagramIcon2.png)`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '-426px -72px',
+              backgroundImage: `url(/instagramIcon2.png)`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: '-426px -72px',
             }}></span>
+          <div>
+            <div>인증 코드 입력</div>
+          </div>
+          <div>
             <div>
-              <div>인증 코드 입력</div>
+              {email} 주소로 전송된 인증 코드를 입력하세요.&nbsp;
+              <button>코드 재전송.</button>
             </div>
-            <div>
-              <div>{email} 주소로 전송된 인증 코드를 입력하세요.&nbsp;
-                <button>코드 재전송.</button>
-              </div>
-            </div>
+          </div>
         </InfoWrapper>
         <div>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -51,17 +59,17 @@ const Certificaiton: React.FC<EmailProps> = ({email, setEmail}) => {
                     name="certificationCode"
                     type="text"
                     value={certificationCode}
-                    onChange={(e: { currentTarget: { value: React.SetStateAction<string>; }; }) => setCertificationCode(e.currentTarget.value)}
+                    onChange={(e: {
+                      currentTarget: { value: React.SetStateAction<string> };
+                    }) => setCertificationCode(e.currentTarget.value)}
                   />
                 </Label>
                 <div></div>
                 {/* <p>{errors.username && "username is required"}</p> */}
               </LabelWrapper>
-              <ButtonWrapper> 
+              <ButtonWrapper>
                 <SignupButton
-                  disabled={
-                    certificationCode.length < 6 ? true : false
-                  }>
+                  disabled={certificationCode.length < 6 ? true : false}>
                   <div>다음</div>
                 </SignupButton>
               </ButtonWrapper>
@@ -71,8 +79,8 @@ const Certificaiton: React.FC<EmailProps> = ({email, setEmail}) => {
             </div>
           </Form>
           <BackButtonWrapper>
-						<button onClick={backForm}>돌아가기</button>
-					</BackButtonWrapper>
+            <button onClick={backForm}>돌아가기</button>
+          </BackButtonWrapper>
         </div>
       </MainWrapper>
       <LinkWrapper>
@@ -308,19 +316,19 @@ const SignupButton = styled.button`
 `;
 
 const BackButtonWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-	& > button {
-		border: 0;
-		color: #0095f6;
-		display: inline;
-		cursor: pointer;
-		font-weight: 600;
-		background: 0 0;
-		padding: 0;
-		position: relative;
-	}
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  & > button {
+    border: 0;
+    color: #0095f6;
+    display: inline;
+    cursor: pointer;
+    font-weight: 600;
+    background: 0 0;
+    padding: 0;
+    position: relative;
+  }
 `;
 
 const ErrorWrapper = styled.div`
@@ -332,4 +340,3 @@ const ErrorWrapper = styled.div`
     margin: 0;
   }
 `;
-

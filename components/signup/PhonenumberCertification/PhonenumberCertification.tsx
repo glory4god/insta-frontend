@@ -4,46 +4,54 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import { PhonenumberProps } from 'types/signup/types'
-import { ICodeInputs } from 'types/signup/types'
 
-const PhonenumberCertification: React.FC<PhonenumberProps> = ({phonenumber, setPhonenumber}) => {
-  const { register, formState: { errors }, handleSubmit } = useForm<ICodeInputs>();
+type PhonenumberProps = {
+  phonenumber: string;
+  backForm: (e: any) => void;
+};
+
+interface ICodeInputs {
+  certificationCode?: string;
+}
+
+const PhonenumberCertification: React.FC<PhonenumberProps> = ({
+  phonenumber,
+  backForm,
+}) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<ICodeInputs>();
   const [certificationCode, setCertificationCode] = useState('');
 
   const onSubmit: SubmitHandler<ICodeInputs> = (data) => {
     console.log(data);
-  }
-
-	const backForm = () => {
-    setPhonenumber("");
-  }
+  };
 
   return (
     <SignupWrapper>
       <MainWrapper>
         <InfoWrapper>
-            <span
+          <span
             style={{
-                backgroundImage: `url(/instagramIcon2.png)`,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '-426px -220px',
+              backgroundImage: `url(/instagramIcon2.png)`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: '-426px -220px',
             }}></span>
-            <div>
-              <div>인증 코드 입력</div>
-            </div>
-            <div>
-              <div>{phonenumber}번으로 전송된 6자리 코드를 입력하세요</div>
-            </div>
+          <div>
+            <div>인증 코드 입력</div>
+          </div>
+          <div>
+            <div>{phonenumber}번으로 전송된 6자리 코드를 입력하세요</div>
+          </div>
         </InfoWrapper>
         <div>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <LabelWrapper>
                 <Label htmlFor="certificationCode">
-                	<Span value={certificationCode}>
-                    ######
-                  </Span>
+                  <Span value={certificationCode}>######</Span>
                   <Input
                     {...register('certificationCode', { required: true })}
                     autoCorrect="off"
@@ -51,17 +59,17 @@ const PhonenumberCertification: React.FC<PhonenumberProps> = ({phonenumber, setP
                     name="certificationCode"
                     type="text"
                     value={certificationCode}
-                    onChange={(e: { currentTarget: { value: React.SetStateAction<string>; }; }) => setCertificationCode(e.currentTarget.value)}
+                    onChange={(e: {
+                      currentTarget: { value: React.SetStateAction<string> };
+                    }) => setCertificationCode(e.currentTarget.value)}
                   />
                 </Label>
                 <div></div>
                 {/* <p>{errors.username && "username is required"}</p> */}
               </LabelWrapper>
-              <ButtonWrapper> 
+              <ButtonWrapper>
                 <SignupButton
-                  disabled={
-                    certificationCode.length < 6 ? true : false
-                  }>
+                  disabled={certificationCode.length < 6 ? true : false}>
                   <div>확인</div>
                 </SignupButton>
               </ButtonWrapper>
@@ -70,12 +78,12 @@ const PhonenumberCertification: React.FC<PhonenumberProps> = ({phonenumber, setP
               </ErrorWrapper> */}
             </div>
           </Form>
-					<RequestButtonWrapper>
-						<button onClick={backForm}>휴대폰 번호 변경</button>
-						&nbsp;|&nbsp;
-						<button>새 코드 요청하기</button>
-					</RequestButtonWrapper>
-				</div>
+          <RequestButtonWrapper>
+            <button onClick={backForm}>휴대폰 번호 변경</button>
+            &nbsp;|&nbsp;
+            <button>새 코드 요청하기</button>
+          </RequestButtonWrapper>
+        </div>
       </MainWrapper>
       <LinkWrapper>
         <div>
@@ -144,7 +152,6 @@ const MainWrapper = styled.div`
   justify-content: center;
   align-items: center;
   & > div {
-    
   }
 `;
 
@@ -330,19 +337,19 @@ const SignupButton = styled.button`
 `;
 
 const RequestButtonWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-	& > button {
-		border: 0;
-		color: #0095f6;
-		display: inline;
-		cursor: pointer;
-		font-weight: 600;
-		background: 0 0;
-		padding: 0;
-		position: relative;
-	}
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  & > button {
+    border: 0;
+    color: #0095f6;
+    display: inline;
+    cursor: pointer;
+    font-weight: 600;
+    background: 0 0;
+    padding: 0;
+    position: relative;
+  }
 `;
 
 const ErrorWrapper = styled.div`
@@ -354,4 +361,3 @@ const ErrorWrapper = styled.div`
     margin: 0;
   }
 `;
-
