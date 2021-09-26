@@ -53,6 +53,11 @@
   height: 56px;
   padding: 0 1rem;
 }
+.header > div > div {
+  padding-right: 8px;
+  font-size: 14px;
+}
+
 /* ㅅ크롤 바 안보이게 스크롤 가능하게 하는 기능 */
 .comment {
   max-height: 80px;
@@ -63,21 +68,26 @@
 .comment::-webkit-scrollbar {
   display: none;
 }
-.form {
+#form {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.form > div {
+#form:hover > #hoverIcon {
+  cursor: pointer;
+  opacity: 100%;
+}
+
+#form > div {
   display: flex;
-  padding: 0.4rem 0;
+  padding: 0.5rem 0;
   align-items: center;
 }
-.form > div > div {
+#form > div > div {
   padding-right: 8px;
   font-size: 14px;
 }
-.form > div > div > span {
+#form > div > div > span {
   font-size: 14px;
 }
 .date {
@@ -89,6 +99,26 @@
   display: none;
   height: 40px;
 }
+.footerIcon {
+  display: flex;
+  padding-top : 6px;
+  justify-content: space-between;
+}
+.footerNavi {
+  display: flex;
+  width: 100px;
+  justify-content: space-between;
+}
+.favorite{
+  font-size: 13px;
+  font-weight: bold;
+}
+.datef {
+  font-size: 10px;
+  padding-top:4px;
+  color: rgb(160, 160, 160);
+}
+
 .edit {
   height: 38px;
 }
@@ -133,21 +163,29 @@
     min-height: 344px;
   }
   .footer {
-    display: flex;
+    position: relative;
+    width: 100%;
     border-top: 1px solid rgb(240, 240, 240);
     border-bottom: 1px solid rgb(240, 240, 240);
     height: 80px;
   }
+
+
   .edit {
+    display: flex;
     height: 40px;
+    align-items: center;
   }
 
   /* mobile version */
   .mobile {
     display: none;
   }
-  .pc {
+  .pcFlex {
     display: flex;
+  }
+  .pcBlock {
+    display: block;
   }
 }
 
@@ -192,12 +230,8 @@
   cursor: pointer;
 }
 
-.hoverIcon {
+#hoverIcon {
   opacity: 0%;
-}
-.hoverIcon:hover {
-  cursor: pointer;
-  opacity: 100%;
 }
 
 .content2 {

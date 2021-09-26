@@ -7,7 +7,7 @@ import { selectLogin } from 'lib/redux/login/loginSlice';
 import { useRouter } from 'next/dist/client/router';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { login, id } = useSelector(selectLogin);
+  const { login } = useSelector(selectLogin);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -21,24 +21,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {router.asPath === '/login' || router.asPath === '/signup' ? 
-      <section style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
-        <div className={s.layout}>{children}</div>
-        <Footer />
-      </section> : (router.asPath === '/' ? 
-      <>
-        <header>
-          <Navbar />
-        </header>
-        <div className={s.layout}>{children}</div>
-      </> :
-      <>
-        <header>
-          <Navbar />
-        </header>
-        <div className={s.layout}>{children}</div>
-        <Footer />
-      </>
+      {router.asPath === '/login' || router.asPath === '/signup' ? (
+        <section
+          style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+          <div className={s.layout}>{children}</div>
+          <Footer />
+        </section>
+      ) : router.asPath === '/' ? (
+        <>
+          <header>
+            <Navbar />
+          </header>
+          <div className={s.layout}>{children}</div>
+        </>
+      ) : (
+        <>
+          <header>
+            <Navbar />
+          </header>
+          <div className={s.layout}>{children}</div>
+          <Footer />
+        </>
       )}
     </>
   );

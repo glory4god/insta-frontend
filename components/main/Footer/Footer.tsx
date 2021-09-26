@@ -50,4 +50,7 @@ const Wrapper = styled.div`
   & > span {
     display: flex;
   }
+  @media (max-width: 998px) {
+    display: none;
+  }
 `;

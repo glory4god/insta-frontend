@@ -81,7 +81,7 @@ const Canvas = styled.canvas`
     @media (min-width: 740px) {
       width: 168px;
       height: 168px;
-      transform: translate(-2px, -7px);
+      transform: translate(2px, 2px);
       }
   `;
 
