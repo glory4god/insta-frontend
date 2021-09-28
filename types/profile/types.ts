@@ -20,7 +20,6 @@ export type Banner = 'main' | 'saved' | 'channel' | 'tagged';
 
 export interface Board extends BaseUser3 {
   boardId: string;
-  imageUrl: string;
   boardImageUrl: string[];
   title: string;
   favorite: BaseUser3[];
