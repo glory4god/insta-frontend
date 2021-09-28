@@ -8,12 +8,14 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { postFormatNumber } from 'lib/common';
 import ExploreIcon from '@material-ui/icons/Explore';
+import Swipe from 'react-easy-swipe';
 
 import { Board } from 'types/profile/types';
 
 const Post = ({ postData }: { postData: Board }) => {
   const [imgCount, setImgCount] = useState(1);
   const [seeMore, setSeeMore] = useState(false);
+  const [positionx, setPositionx] = useState(0);
   const prevImg = () => {
     setImgCount((imgCount) => imgCount - 1);
   };
@@ -23,9 +25,36 @@ const Post = ({ postData }: { postData: Board }) => {
   const postSeeMore = () => {
     setSeeMore(() => true);
   };
-  useEffect(() => {
-    console.log(imgCount);
-  }, [imgCount]);
+  // useEffect(() => {
+  //   console.log(positionX);
+  // }, [positionX]);
+
+  const onSwipeMove = (position: { x: any; y: any }, event: any) => {
+    console.log(position.x);
+    if (imgCount == 1 && position.x < 0) {
+      setPositionx(() => position.x);
+      return;
+    }
+    if (imgCount > 1 && imgCount < postData.boardImageUrl.length) {
+      setPositionx(() => position.x);
+      return;
+    }
+    if (imgCount == postData.boardImageUrl.length && position.x > 0) {
+      setPositionx(() => position.x);
+      return;
+    }
+  };
+  const onSwipeEnd = () => {
+    if (positionx < -20) {
+      setPositionx(() => 0);
+      setImgCount((imgCount) => imgCount + 1);
+    }
+    if (positionx > 20) {
+      setPositionx(() => 0);
+      setImgCount((imgCount) => imgCount - 1);
+    }
+    setPositionx(() => 0);
+  };
   return (
     <Article>
       <div>
@@ -59,11 +88,13 @@ const Post = ({ postData }: { postData: Board }) => {
         <ImageWrapper>
           <div>
             <PostImage>
-              <ImgDiv imgCount={imgCount}>
-                {postData.boardImageUrl.map((imageUrl, index) => {
-                  return <Img key={index} src={imageUrl} alt="" />;
-                })}
-              </ImgDiv>
+              <Swipe onSwipeEnd={onSwipeEnd} onSwipeMove={onSwipeMove}>
+                <ImgDiv imgCount={imgCount} positionx={positionx}>
+                  {postData.boardImageUrl.map((imageUrl, index) => {
+                    return <Img key={index} src={imageUrl} alt="" />;
+                  })}
+                </ImgDiv>
+              </Swipe>
               {imgCount > 1 && (
                 <PrevButtonWrapper onClick={prevImg}>
                   <div
@@ -297,6 +328,7 @@ const ImageCounterWrapper = styled.div`
 
 type ImgCount = {
   imgCount: number;
+  positionx?: number;
   index?: number;
 };
 
@@ -323,7 +355,12 @@ const ImgDiv = styled.div<ImgCount>`
   width: 100%;
   height: 100%;
   transition: transform 0.3s;
-  transform: translateX(${(props) => -100 * (props.imgCount - 1)}%);
+  transform: translateX(
+    ${({ imgCount, positionx }) =>
+      positionx
+        ? `calc(${positionx}px + ${-100 * (imgCount - 1)}%)`
+        : `${-100 * (imgCount - 1)}%`}
+  );
 `;
 
 const Img = styled.img`
