@@ -37,7 +37,8 @@ export const postFormatNumber = (n: number | string) => {
 
   return str;
 };
-export function pressedChecker<T extends { id: string }>(
+
+export function idInListChecker<T extends { id: string }>(
   arr: T[],
   id: string,
 ): boolean {
@@ -46,4 +47,15 @@ export function pressedChecker<T extends { id: string }>(
   }) as string[];
   // console.log(ids.includes(id));
   return ids.includes(id);
+}
+
+export function idNotInList<T extends { id: string }>(
+  arr: T[],
+  id: string,
+): T[] {
+  return arr.filter((t) => {
+    if (t.id !== id) {
+      return t;
+    }
+  });
 }

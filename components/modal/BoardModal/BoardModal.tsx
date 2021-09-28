@@ -23,7 +23,7 @@ import ChatBubbleOutlineRoundedIcon from '@material-ui/icons/ChatBubbleOutlineRo
 import TelegramIcon from '@material-ui/icons/Telegram';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
-import { formatNumber, pressedChecker } from 'lib/common';
+import { formatNumber, idInListChecker, idNotInList } from 'lib/common';
 import cn from 'classnames';
 
 import { Reply } from 'types/profile/types';
@@ -37,6 +37,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
 
   const [reply, setReply] = React.useState<Reply>({
     id: '익명',
+    name: '익명',
     imageUrl: '/profile/winter.png',
     content: '',
     createdDate: new Date().toString(),
@@ -57,16 +58,10 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
   const goodHandler = (user: string) => {
     // TODO: rest api 통해서 좋아요 누르기 취소 기능 구현해야함
     if (selectedBoard !== undefined) {
-      const ids = selectedBoard.favorite.map((arr) => {
-        return arr.id;
-      }) as string[];
-      if (ids.includes(user)) {
+      if (idInListChecker(selectedBoard.favorite, user)) {
         // TODO: api 로직 다시 짜기
-        const newFav = selectedBoard.favorite.filter((arr) => {
-          if (arr.id !== user) {
-            return arr;
-          }
-        });
+        const newFav = idNotInList(selectedBoard.favorite, user);
+
         setFavorite((f) => f - 1);
         setPressFavorite(false);
         dispatch(setSelectBoard({ ...selectedBoard, favorite: newFav }));
@@ -78,7 +73,11 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
             ...selectedBoard,
             favorite: [
               ...selectedBoard.favorite,
-              { id: user, imageUrl: '/profile/winter.png' },
+              {
+                id: myUserInfo.id,
+                name: myUserInfo.name,
+                imageUrl: '/profile/winter.png',
+              },
             ],
           }),
         );
@@ -96,6 +95,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
       dispatch(setSelectBoard({ ...board, reply: [...board.reply, reply] }));
       setReply({
         id: '익명',
+        name: '익명',
         imageUrl: '/profile/winter.png',
         content: '',
         createdDate: new Date().toString(),
@@ -108,7 +108,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
   React.useEffect(() => {
     if (selectedBoard !== undefined) {
       setFavorite(selectedBoard.favorite.length);
-      pressedChecker(selectedBoard.favorite, myUserInfo.id)
+      idInListChecker(selectedBoard.favorite, myUserInfo.id)
         ? setPressFavorite(true)
         : setPressFavorite(false);
     }
