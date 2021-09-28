@@ -4,16 +4,18 @@ import { useRouter } from 'next/dist/client/router';
 import s from '../CommonModal.module.css';
 
 import { selectProfile } from 'lib/redux/profile/profileSlice';
+import { selectLogin } from 'lib/redux/login/loginSlice';
 import { setModalInitial } from 'lib/redux/modal/modalSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
 import Button from '@material-ui/core/Button';
 
-import cn from 'classnames';
 import { ProfileImage } from 'components/profile';
-import { selectLogin } from 'lib/redux/login/loginSlice';
+
+import cn from 'classnames';
 import { ModalDataType } from 'types/modal/types';
+import { idInListChecker } from 'lib/common';
 
 interface ModalProps {
   modalData: ModalDataType[];
@@ -34,7 +36,12 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
     dispatch(setModalInitial());
   };
 
-  const isMe: boolean = userData.id === myUserInfo.id ? true : false;
+  const isMe = myUserInfo.id === userData.id;
+
+  const followCheck: boolean = idInListChecker(
+    myUserInfo.follower,
+    myUserInfo.id,
+  );
 
   const followerHandler = async (id: string, state: string) => {
     // TODO: 팔로우하기/취소하기 api 기능 추가
@@ -82,20 +89,23 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                         <ProfileImage size={'board'} imageUrl={p.imageUrl} />
                         <div>
                           <span>
-                            <b>{p.id}</b>{' '}
-                            {isMe && (
-                              <span style={{ color: '#2294ff' }}>
-                                · <b>팔로우</b>
-                              </span>
-                            )}
+                            <b>{p.id}</b>
+                            {!idInListChecker(myUserInfo.follower, p.id) &&
+                              isMe && (
+                                <span style={{ color: '#2294ff' }}>
+                                  · <b>팔로우</b>
+                                </span>
+                              )}
                           </span>
                           <span style={{ color: 'rgb(140,140,140)' }}>
-                            {p.id}
+                            {p.name}
                           </span>
                         </div>
                       </div>
                       {/*TODO: 내 상태알 때, 나랑 팔로워 상태인지 아닌지에 따른 결과보여주는 로직 짜야함*/}
-                      {isMe ? (
+                      {p.id === myUserInfo.id ? (
+                        <></>
+                      ) : isMe ? (
                         <Button
                           size="small"
                           variant="outlined"
@@ -105,7 +115,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                           onClick={() => followerHandler(p.id, '')}>
                           <b>삭제</b>
                         </Button>
-                      ) : ['winter', 'irene'].includes(p.id) ? (
+                      ) : followCheck ? (
                         <Button
                           size="small"
                           variant="outlined"
@@ -149,7 +159,9 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                         </div>
                       </div>
                       {/*TODO: 내 상태알 때, 나랑 팔로우 상태인지 아닌지에 따른 결과보여주는 로직 짜야함*/}
-                      {['winter', 'irene'].includes(p.id) ? (
+                      {p.id === myUserInfo.id ? (
+                        <>/</>
+                      ) : idInListChecker(myUserInfo.following, p.id) ? (
                         <Button
                           size="small"
                           variant="outlined"
