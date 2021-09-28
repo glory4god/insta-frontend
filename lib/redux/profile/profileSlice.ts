@@ -22,7 +22,6 @@ const initialState: ProfileSliceProps = {
     email: '',
     phone: '',
     introduce: '',
-    sex: '비공개',
   },
   boardData: [],
 };
