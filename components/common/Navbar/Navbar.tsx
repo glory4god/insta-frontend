@@ -8,8 +8,11 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddIcon from '@material-ui/icons/Add';
 import ProfileImage from 'components/profile/ProfileImage';
+import { useSelector } from 'react-redux';
+import { selectLogin } from 'lib/redux/login/loginSlice';
 
 const Navbar = () => {
+  const { myUserInfo } = useSelector(selectLogin);
   return (
     <>
       <div className={s.paper}>
@@ -74,7 +77,7 @@ const Navbar = () => {
                     size={'nav'}
                     border={true}
                     borderColor={'black'}
-                    imageUrl={'/profile/winter.png'}
+                    imageUrl={myUserInfo.imageUrl}
                   />
                 </a>
               </Link>
