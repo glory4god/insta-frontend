@@ -24,9 +24,8 @@
 }
 .rightBanner {
   display: grid;
-  width: 260px;
+  width: 200px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  padding-left: 80px;
 }
 
 .input {
@@ -52,8 +51,15 @@
     border-radius: 5%;
     text-align: center;
     font-size: 14px;
+    margin-right: 40px;
   }
 
   .rightBanner {
+  width: 260px;
+  }
+}
+@media (min-width:1040px) {
+  .input {
+    margin-right: 80px;
   }
 }
