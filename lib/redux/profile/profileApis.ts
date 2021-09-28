@@ -80,8 +80,8 @@ export async function getUserBoard(name: string) {
 export const testBoardData: Board[] = [
   {
     id: 'winter',
-    imageUrl: ['/profile/winter1.png', '/profile/winter4.png'],
-    title: '윈터 1',
+    imageUrl: ['/profile/winter1.png', '/profile/winter2.png'],
+    title: "I'm on the Next Level Yeah✨✨\n절대적 룰을 지켜\n내 손을 놓지 말아\n결속은 나의 무기\n광야로 걸어가",
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
       { id: 'winter2', imageUrl: '/profile/winter.png' },
@@ -107,7 +107,7 @@ export const testBoardData: Board[] = [
   {
     id: 'winter',
     imageUrl: ['/profile/winter2.png'],
-    title: '윈터 2',
+    title: '안녕히 계세요 여러분🙋‍♀️\n\n저는 행복을 찾아 떠납니다!\n모두 행복하세요!!🧡💛💚',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
       { id: 'winter2', imageUrl: '/profile/winter.png' },
@@ -127,7 +127,7 @@ export const testBoardData: Board[] = [
   {
     id: 'winter',
     imageUrl: ['/profile/winter3.png'],
-    title: '윈터 3',
+    title: "I'm on the Next Level\n저 너머의 문을 열어\nNext Level\n널 결국엔 내가 부셔😢\nNext Level\nKOSMO에 닿을 때까지\nNext Level\n제껴라 제껴라 제껴라🎶",
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
       { id: 'winter2', imageUrl: '/profile/winter.png' },

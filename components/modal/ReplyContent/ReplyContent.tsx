@@ -20,4 +20,4 @@ const ReplyContent: React.FC<ReplyProps> = ({ reply }) => {
   );
 };
 
-export default ReplyContent;
+export default React.memo(ReplyContent);

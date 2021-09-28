@@ -77,7 +77,7 @@ const Canvas = styled.canvas`
     width: 87px;
     height: 87px;
     position: absolute;
-    transform: translate(-4px, -4px);
+    transform: translate(1px, 1px);
     @media (min-width: 740px) {
       width: 168px;
       height: 168px;

@@ -8,10 +8,19 @@ import {
 } from 'components/signup';
 
 const Signup: React.FC = () => {
-  const [id, setId] = useState('');
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [signupData, setSignupData] = useState({
+    id: '',
+    name: '',
+    username: '',
+    password: '',
+  })
+  const onchange = (e: any) => {
+    const { name, value } = e.target;
+    setSignupData({
+      ...signupData,
+      [name]: value,
+    });
+  };
   const [email, setEmail] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
   return (
@@ -25,14 +34,8 @@ const Signup: React.FC = () => {
         <article>
           {!email && !phonenumber && (
             <SignupForm
-              id={id}
-              setId={(e) => setId(e.target.value)}
-              name={name}
-              setName={(e) => setName(e.target.value)}
-              username={username}
-              setUsername={(e) => setUsername(e.target.value)}
-              password={password}
-              setPassword={(e) => setPassword(e.target.value)}
+              signupData={signupData}
+              onchange={onchange}
               setEmail={(value) => setEmail(value)}
               setPhonenumber={(value) => setPhonenumber(value)}
             />

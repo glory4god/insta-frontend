@@ -53,6 +53,10 @@
   height: 56px;
   padding: 0 1rem;
 }
+.header > div {
+  display: flex;
+  align-items: center;
+}
 .header > div > div {
   padding-right: 8px;
   font-size: 14px;
@@ -60,7 +64,7 @@
 
 /* ㅅ크롤 바 안보이게 스크롤 가능하게 하는 기능 */
 .comment {
-  max-height: 80px;
+  max-height: 60px;
   overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -97,7 +101,7 @@
 
 .footer {
   display: none;
-  height: 40px;
+  height: 80px;
 }
 .footerIcon {
   display: flex;
@@ -120,7 +124,9 @@
 }
 
 .edit {
+  display: flex;
   height: 38px;
+  align-items: center;
 }
 
 .hover {
@@ -128,11 +134,17 @@
 }
 
 /* mobile version */
-.pc {
+.pcFlex {
   display: none;
 }
-.mobile {
+.pcBlock{
+  display: none
+}
+.mobileFlex {
   display: flex;
+}
+.mobileBlock {
+  display: block;
 }
 
 @media (min-width: 940px) {
@@ -154,10 +166,6 @@
   .header {
     height: 68px;
   }
-  .header > div {
-    display: flex;
-    align-items: center;
-  }
 
   .comment {
     min-height: 344px;
@@ -172,13 +180,14 @@
 
 
   .edit {
-    display: flex;
     height: 40px;
-    align-items: center;
   }
 
   /* mobile version */
-  .mobile {
+  .mobileFlex {
+    display: none;
+  }
+  .mobileBlock {
     display: none;
   }
   .pcFlex {

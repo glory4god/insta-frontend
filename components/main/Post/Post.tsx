@@ -13,11 +13,15 @@ import { Board } from 'types/profile/types';
 
 const Post = ({ postData }: { postData: Board }) => {
   const [imgCount, setImgCount] = useState(1);
+  const [seeMore, setSeeMore] = useState(false);
   const prevImg = () => {
     setImgCount((imgCount) => imgCount - 1);
   };
   const nextImg = () => {
     setImgCount((imgCount) => imgCount + 1);
+  };
+  const postSeeMore = () => {
+    setSeeMore(() => true);
   };
   useEffect(() => {
     console.log(imgCount);
@@ -123,7 +127,6 @@ const Post = ({ postData }: { postData: Board }) => {
                 <div>
                   좋아요&nbsp;
                   <span>{postFormatNumber(postData.favorite.length)}</span>개
-                  <span>21</span>개
                 </div>
               </FavoriteSection>
               <WriteWrapper>
@@ -131,16 +134,23 @@ const Post = ({ postData }: { postData: Board }) => {
                   <PostDescriptionWrapper>
                     <div>
                       <NameSpan>
-                        <Link href={'/karina'}>karina</Link>
+                        <Link href={`/${postData.id}`}>{postData.id}</Link>
                       </NameSpan>
                       &nbsp;
                       <PostDescription>
                         <span>
-                          안뇽 안뇽
-                          <br />
-                          헬로 헬로
-                          <br />
-                          하이 하이
+                          {
+                            postData.title.split('\n').length > 1 ? (seeMore ?
+                              postData.title.split('\n').map(line => {
+                                return (<span key={line}>{line}<br /></span>)
+                              }) :
+                              <>{postData.title.split('\n')[0]}
+                                <SeeMore >...&nbsp;
+                                  <button onClick={postSeeMore}>더 보기</button>
+                                </SeeMore>
+                              </>) : postData.title
+                          }
+
                         </span>
                       </PostDescription>
                     </div>
@@ -398,6 +408,17 @@ const PostDescription = styled.span`
   & > span {
   }
 `;
+
+const SeeMore = styled.span`
+  & > button {
+    border: 0;
+    outline: 0;
+    background-color: #FFF;
+    cursor: pointer;
+    color: #8E8E8E;
+    font-size: 14px;
+  }
+`
 
 const ReplyWrapper = styled.div`
   display: flex;

@@ -104,12 +104,11 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
   React.useEffect(() => {
     if (selectedBoard !== undefined) {
       setFavorite(selectedBoard.favorite.length);
-      // console.log(pressChecker(selectedBoard.favorite, id));
       pressChecker(selectedBoard.favorite, id)
         ? setPressFavorite(true)
         : setPressFavorite(false);
     }
-  }, []);
+  }, [id, selectedBoard]);
 
   return (
     <>
@@ -123,7 +122,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
             <CloseSharpIcon className={s.out} fontSize="large" />
           </div>
           <div className={s.innerContainer}>
-            <div className={cn(s.header, s.mobile)}>
+            <div className={cn(s.header, s.mobileFlex)}>
               <div>
                 <ProfileImage
                   size="board"
@@ -154,7 +153,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
               /> */}
             </div>
             <div className={s.content}>
-              <div className={cn(s.header, s.form, s.pcFlex)}>
+              <div className={cn(s.header, s.pcFlex)}>
                 <div>
                   <ProfileImage
                     size="board"
@@ -166,11 +165,46 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                 </div>
                 <MoreHorizSharpIcon fontSize="small" />
               </div>
-              <div className={cn(s.footer, s.mobile)}>
-                <div>
-                  <FavoriteBorderRoundedIcon />
-                  <FavoriteIcon />
+              <div className={cn(s.footer, s.mobileBlock)}>
+                <div className={s.footerIcon}>
+                  <div className={s.footerNavi}>
+                    {pressFavorite ? (
+                      <a>
+                        <FavoriteIcon
+                          onClick={() => goodHandler(id)}
+                          style={{ color: 'red', fontSize: '26px' }}
+                        />
+                      </a>
+                    ) : (
+                      <a>
+                        <FavoriteBorderRoundedIcon
+                          onClick={() => goodHandler(id)}
+                          style={{ fontSize: '26px' }}
+                        />
+                      </a>
+                    )}
+                    <a>
+                      <ChatBubbleOutlineRoundedIcon
+                        style={{ borderRadius: '1rem', fontSize: '26px' }}
+                        onClick={() => textareaRef.current.focus()}
+                      />
+                    </a>
+                    <a>
+                      <TelegramIcon
+                        style={{ color: 'gray', fontSize: '26px' }}
+                      />
+                    </a>
+                  </div>
+                  <div>
+                    <a>
+                      <BookmarkBorderIcon style={{ fontSize: '28px' }} />
+                    </a>
+                  </div>
                 </div>
+                <div className={s.favorite}>
+                  좋아요 {formatNumber(favorite)}개
+                </div>
+                <div className={s.datef}>0시간 전</div>
               </div>
               <div className={s.comment}>
                 {/* TODO: 댓글 목록 map 으로 하기 */}

@@ -6,14 +6,13 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 
 type SignupProps = {
-  id: string;
-  setId: (e: any) => void;
-  name: string;
-  setName: (e: any) => void;
-  username: string;
-  setUsername: (e: any) => void;
-  password: string;
-  setPassword: (e: any) => void;
+  signupData: {
+    id: string;
+    name: string;
+    username: string;
+    password: string;
+  }
+  onchange: (e: any) => void;
   setEmail: (value: string) => void;
   setPhonenumber: (value: string) => void;
 };
@@ -26,17 +25,12 @@ interface IFormInputs {
 }
 
 const SignupForm: React.FC<SignupProps> = ({
-  id,
-  setId,
-  name,
-  setName,
-  username,
-  setUsername,
-  password,
-  setPassword,
+  signupData,
+  onchange,
   setEmail,
   setPhonenumber,
 }) => {
+  const { id, name, username, password } = signupData;
   const {
     register,
     formState: { errors },
@@ -92,7 +86,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="id"
                     type="text"
                     value={id}
-                    onChange={setId}
+                    onChange={onchange}
                   />
                 </Label>
                 <div></div>
@@ -108,7 +102,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="name"
                     type="text"
                     value={name}
-                    onChange={setName}
+                    onChange={onchange}
                   />
                 </Label>
                 <div></div>
@@ -124,7 +118,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="username"
                     type="text"
                     value={username}
-                    onChange={setUsername}
+                    onChange={onchange}
                   />
                 </Label>
                 <div></div>
@@ -139,7 +133,7 @@ const SignupForm: React.FC<SignupProps> = ({
                     name="password"
                     type="password"
                     value={password}
-                    onChange={setPassword}
+                    onChange={onchange}
                   />
                 </Label>
                 <div></div>
