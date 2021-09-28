@@ -79,9 +79,12 @@ export async function getUserBoard(name: string) {
 
 export const testBoardData: Board[] = [
   {
+    boardId: '1',
     id: 'winter',
-    imageUrl: ['/profile/winter1.png', '/profile/winter2.png'],
-    title: "I'm on the Next Level Yeah✨✨\n절대적 룰을 지켜\n내 손을 놓지 말아\n결속은 나의 무기\n광야로 걸어가",
+    imageUrl: '/profile/winter.png',
+    boardImageUrl: ['/profile/winter1.png', '/profile/winter2.png'],
+    title:
+      "I'm on the Next Level Yeah✨✨\n절대적 룰을 지켜\n내 손을 놓지 말아\n결속은 나의 무기\n광야로 걸어가",
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
       { id: 'winter2', imageUrl: '/profile/winter.png' },
@@ -89,25 +92,33 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
       {
         id: 'irene',
         imageUrl: '/profile/irene.png',
         content: '이ㅃㅓ이뻐',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '2',
     id: 'winter',
-    imageUrl: ['/profile/winter2.png'],
-    title: '안녕히 계세요 여러분🙋‍♀️\n\n저는 행복을 찾아 떠납니다!\n모두 행복하세요!!🧡💛💚',
+    imageUrl: '/profile/winter.png',
+    boardImageUrl: ['/profile/winter2.png'],
+    title:
+      '안녕히 계세요 여러분🙋‍♀️\n\n저는 행복을 찾아 떠납니다!\n모두 행복하세요!!🧡💛💚',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
       { id: 'winter2', imageUrl: '/profile/winter.png' },
@@ -115,19 +126,25 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당!',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '3',
     id: 'winter',
-    imageUrl: ['/profile/winter3.png'],
-    title: "I'm on the Next Level\n저 너머의 문을 열어\nNext Level\n널 결국엔 내가 부셔😢\nNext Level\nKOSMO에 닿을 때까지\nNext Level\n제껴라 제껴라 제껴라🎶",
+    imageUrl: '/profile/winter.png',
+    boardImageUrl: ['/profile/winter3.png'],
+    title:
+      "I'm on the Next Level\n저 너머의 문을 열어\nNext Level\n널 결국엔 내가 부셔😢\nNext Level\nKOSMO에 닿을 때까지\nNext Level\n제껴라 제껴라 제껴라🎶",
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
       { id: 'winter2', imageUrl: '/profile/winter.png' },
@@ -135,18 +152,14 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
-    reply: [
-      {
-        id: 'karina',
-        imageUrl: '/profile/karina1.png',
-        content: '이쁘당!!',
-        createdDate: '20210919',
-      },
-    ],
+    modifiedDate: '2021-09-08',
+    reply: [],
   },
   {
+    boardId: '4',
     id: 'winter',
-    imageUrl: ['/profile/winter4.png'],
+    imageUrl: '/profile/winter.png',
+    boardImageUrl: ['/profile/winter4.png'],
     title: '윈터 4',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -155,18 +168,23 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '5',
     id: 'winter',
-    imageUrl: ['/profile/winter5.png'],
+    imageUrl: '/profile/winter.png',
+    boardImageUrl: ['/profile/winter5.png'],
     title: '윈터 5',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -175,18 +193,23 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'irene',
         imageUrl: '/profile/irene.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '6',
     id: 'winter',
-    imageUrl: ['/profile/winter6.png'],
+    imageUrl: '/profile/winter.png',
+    boardImageUrl: ['/profile/winter6.png'],
     title: '윈터 6',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -195,18 +218,23 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'irene',
         imageUrl: '/profile/irene.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '7',
     id: 'karina',
-    imageUrl: ['/profile/karina1.png'],
+    imageUrl: '/profile/karina.png',
+    boardImageUrl: ['/profile/karina1.png'],
     title: '카리나 1',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -215,18 +243,23 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '8',
     id: 'karina',
-    imageUrl: ['/profile/karina2.png'],
+    imageUrl: '/profile/karina.png',
+    boardImageUrl: ['/profile/karina2.png'],
     title: '카리나 2',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -235,18 +268,23 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '9',
     id: 'karina',
-    imageUrl: ['/profile/karina3.png'],
+    imageUrl: '/profile/karina.png',
+    boardImageUrl: ['/profile/karina3.png'],
     title: '카리나 3',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -255,18 +293,23 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '10',
     id: 'karina',
-    imageUrl: ['/profile/karina4.png'],
+    imageUrl: '/profile/karina.png',
+    boardImageUrl: ['/profile/karina4.png'],
     title: '카리나 4',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -275,18 +318,23 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },
   {
+    boardId: '11',
     id: 'irene',
-    imageUrl: ['/profile/irene.png'],
+    imageUrl: '/profile/irene.png',
+    boardImageUrl: ['/profile/irene.png'],
     title: '아이린 1',
     favorite: [
       { id: 'winter', imageUrl: '/profile/winter.png' },
@@ -295,12 +343,15 @@ export const testBoardData: Board[] = [
       { id: 'winter4', imageUrl: '/profile/winter.png' },
     ],
     createdDate: '2021-09-08',
+    modifiedDate: '2021-09-08',
     reply: [
       {
         id: 'karina',
         imageUrl: '/profile/karina1.png',
         content: '이쁘당',
-        createdDate: '20210919',
+        createdDate: '2021-09-08',
+        modifiedDate: '2021-09-08',
+        reReply: [],
       },
     ],
   },

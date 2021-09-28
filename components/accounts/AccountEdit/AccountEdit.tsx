@@ -6,15 +6,13 @@ import { ProfileImage } from 'components/profile';
 import { EditUserProfile, Sex } from 'types/accounts/types';
 
 import { useSelector } from 'react-redux';
-import { selectProfile } from 'lib/redux/profile/profileSlice';
 import { selectLogin } from 'lib/redux/login/loginSlice';
 import { accountEditMap } from 'lib/redux/accounts/accountsApis';
 
 import cn from 'classnames';
 
 const AccountEdit = () => {
-  const { id } = useSelector(selectLogin);
-  const { userData } = useSelector(selectProfile);
+  const { myUserInfo } = useSelector(selectLogin);
 
   const [userProfile, setUserProfile] = React.useState<EditUserProfile>({
     id: '',
@@ -41,15 +39,15 @@ const AccountEdit = () => {
 
   React.useEffect(() => {
     setUserProfile({
-      id: userData.id,
-      name: userData.name,
-      webSite: userData.webSite,
-      introduce: userData.introduce,
-      email: userData.email,
-      phone: userData.phone,
-      sex: userData.sex,
+      id: myUserInfo.id,
+      name: myUserInfo.name,
+      webSite: myUserInfo.webSite,
+      introduce: myUserInfo.introduce,
+      email: myUserInfo.email,
+      phone: myUserInfo.phone,
+      sex: myUserInfo.sex,
     });
-  }, [userData]);
+  }, [myUserInfo]);
 
   return (
     <>
@@ -59,7 +57,7 @@ const AccountEdit = () => {
           <ProfileImage size="m" imageUrl={'/profile/winter.png'} />
         </div>
         <div className={s.content}>
-          <span className={s.name}>{id}</span>
+          <span className={s.name}>{myUserInfo.id}</span>
           <div>
             <a className={s.changeProfile}>프로필 사진 바꾸기</a>
           </div>

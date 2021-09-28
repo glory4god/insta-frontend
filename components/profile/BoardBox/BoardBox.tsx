@@ -22,9 +22,9 @@ interface BoardBoxProps {
 }
 
 const BoardBox: React.FC<BoardBoxProps> = ({ size, board }) => {
-  const dispatch = useDispatch();
-
   const [hover, setHover] = React.useState<boolean>(false);
+
+  const dispatch = useDispatch();
 
   const onMouseOver = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
@@ -40,14 +40,14 @@ const BoardBox: React.FC<BoardBoxProps> = ({ size, board }) => {
     <div
       className={cn(s.imagebox)}
       onClick={() => {
-        dispatch(setBoardModal(true));
         dispatch(setSelectBoard(board));
+        dispatch(setBoardModal(true));
       }}
       onMouseOver={(e) => onMouseOver(e)}
       onMouseLeave={(e) => onMouseLeave(e)}>
       <Image
         className={s.image}
-        src={board.imageUrl[0]}
+        src={board.boardImageUrl[0]}
         width={size}
         height={size}
         alt="게시글"
@@ -56,7 +56,7 @@ const BoardBox: React.FC<BoardBoxProps> = ({ size, board }) => {
 
       {/* TODO: 이미지 개수에 따라 / 동영상 여부에 따른 노출 */}
       <div className={s.multiple}>
-        {board.imageUrl.length > 1 && (
+        {board.boardImageUrl.length > 1 && (
           <PhotoLibraryRoundedIcon className={s.picture} />
         )}
         {/* <PlayArrowRoundedIcon className={s.play} /> */}

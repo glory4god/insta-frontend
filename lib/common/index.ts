@@ -37,7 +37,7 @@ export const postFormatNumber = (n: number | string) => {
 
   return str;
 };
-export function pressChecker<T extends { id: string }>(
+export function pressedChecker<T extends { id: string }>(
   arr: T[],
   id: string,
 ): boolean {

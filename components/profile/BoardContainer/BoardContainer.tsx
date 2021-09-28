@@ -17,7 +17,6 @@ const BoardContainer: React.FC<Props> = ({ className }) => {
 
   return (
     <div className={cn(s.grid, className === 'pt' && s.pt)}>
-      {console.log(boardData)}
       {boardData.map((arr, idx) => {
         return <BoardBox key={idx} size={180} board={arr} />;
       })}

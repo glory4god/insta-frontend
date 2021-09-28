@@ -60,7 +60,7 @@ const Post = ({ postData }: { postData: Board }) => {
           <div>
             <PostImage>
               <ImgDiv imgCount={imgCount}>
-                {postData.imageUrl.map((imageUrl, index) => {
+                {postData.boardImageUrl.map((imageUrl, index) => {
                   return <Img key={index} src={imageUrl} alt="" />;
                 })}
               </ImgDiv>
@@ -73,7 +73,7 @@ const Post = ({ postData }: { postData: Board }) => {
                     }}></div>
                 </PrevButtonWrapper>
               )}
-              {imgCount < postData.imageUrl.length && (
+              {imgCount < postData.boardImageUrl.length && (
                 <NextButtonWrapper onClick={nextImg}>
                   <div
                     style={{
@@ -85,7 +85,7 @@ const Post = ({ postData }: { postData: Board }) => {
             </PostImage>
             {postData.imageUrl.length > 1 && (
               <ImageCounterWrapper>
-                {postData.imageUrl.map((props, index) => {
+                {postData.boardImageUrl.map((props, index) => {
                   return (
                     <ImageCounter
                       key={index}
@@ -139,18 +139,28 @@ const Post = ({ postData }: { postData: Board }) => {
                       &nbsp;
                       <PostDescription>
                         <span>
-                          {
-                            postData.title.split('\n').length > 1 ? (seeMore ?
-                              postData.title.split('\n').map(line => {
-                                return (<span key={line}>{line}<br /></span>)
-                              }) :
-                              <>{postData.title.split('\n')[0]}
-                                <SeeMore >...&nbsp;
+                          {postData.title.split('\n').length > 1 ? (
+                            seeMore ? (
+                              postData.title.split('\n').map((line) => {
+                                return (
+                                  <span key={line}>
+                                    {line}
+                                    <br />
+                                  </span>
+                                );
+                              })
+                            ) : (
+                              <>
+                                {postData.title.split('\n')[0]}
+                                <SeeMore>
+                                  ...&nbsp;
                                   <button onClick={postSeeMore}>더 보기</button>
                                 </SeeMore>
-                              </>) : postData.title
-                          }
-
+                              </>
+                            )
+                          ) : (
+                            postData.title
+                          )}
                         </span>
                       </PostDescription>
                     </div>
@@ -413,12 +423,12 @@ const SeeMore = styled.span`
   & > button {
     border: 0;
     outline: 0;
-    background-color: #FFF;
+    background-color: #fff;
     cursor: pointer;
-    color: #8E8E8E;
+    color: #8e8e8e;
     font-size: 14px;
   }
-`
+`;
 
 const ReplyWrapper = styled.div`
   display: flex;

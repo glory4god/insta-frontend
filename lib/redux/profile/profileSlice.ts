@@ -13,6 +13,7 @@ const initialState: ProfileSliceProps = {
   currentBanner: 'main',
   userData: {
     id: '',
+    imageUrl: '',
     name: '',
     board: 0,
     follower: [],
@@ -21,7 +22,6 @@ const initialState: ProfileSliceProps = {
     email: '',
     phone: '',
     introduce: '',
-    imageUrl: '',
     sex: '비공개',
   },
   boardData: [],

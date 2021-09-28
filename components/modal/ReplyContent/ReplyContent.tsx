@@ -2,6 +2,7 @@ import React from 'react';
 import s from './ReplyContent.module.css';
 
 import { ProfileImage } from 'components/profile';
+
 import { Reply } from 'types/profile/types';
 
 interface ReplyProps {

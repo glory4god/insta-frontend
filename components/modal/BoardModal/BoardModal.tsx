@@ -9,10 +9,11 @@ import {
   setSelectBoard,
   setSelectedReplyIdx,
 } from 'lib/redux/modal/modalSlice';
+import { selectLogin } from 'lib/redux/login/loginSlice';
 
 import { ProfileImage } from 'components/profile';
-import { ReplyContent } from '../';
 
+import ReplyContent from '../ReplyContent';
 import Button from '@material-ui/core/Button';
 import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
@@ -22,17 +23,16 @@ import ChatBubbleOutlineRoundedIcon from '@material-ui/icons/ChatBubbleOutlineRo
 import TelegramIcon from '@material-ui/icons/Telegram';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
+import { formatNumber, pressedChecker } from 'lib/common';
 import cn from 'classnames';
 
 import { Reply } from 'types/profile/types';
-import { formatNumber, pressChecker } from 'lib/common';
-import { selectLogin } from 'lib/redux/login/loginSlice';
 
 interface BoardModalProps {}
 
 const BoardModal: React.FC<BoardModalProps> = ({}) => {
-  const { selectedBoard, selectedBoardUser } = useSelector(selectModal);
-  const { id } = useSelector(selectLogin);
+  const { selectedBoard } = useSelector(selectModal);
+  const { myUserInfo } = useSelector(selectLogin);
   const dispatch = useDispatch();
 
   const [reply, setReply] = React.useState<Reply>({
@@ -40,6 +40,8 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
     imageUrl: '/profile/winter.png',
     content: '',
     createdDate: new Date().toString(),
+    modifiedDate: new Date().toString(),
+    reReply: [],
   });
   const [favorite, setFavorite] = React.useState<number>(0);
   const [pressFavorite, setPressFavorite] = React.useState<boolean>(false);
@@ -61,7 +63,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
       if (ids.includes(user)) {
         // TODO: api 로직 다시 짜기
         const newFav = selectedBoard.favorite.filter((arr) => {
-          if (arr.id !== id) {
+          if (arr.id !== user) {
             return arr;
           }
         });
@@ -76,7 +78,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
             ...selectedBoard,
             favorite: [
               ...selectedBoard.favorite,
-              { id: id, imageUrl: '/profile/winter.png' },
+              { id: user, imageUrl: '/profile/winter.png' },
             ],
           }),
         );
@@ -97,6 +99,8 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
         imageUrl: '/profile/winter.png',
         content: '',
         createdDate: new Date().toString(),
+        modifiedDate: new Date().toString(),
+        reReply: [],
       });
     }
   };
@@ -104,11 +108,11 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
   React.useEffect(() => {
     if (selectedBoard !== undefined) {
       setFavorite(selectedBoard.favorite.length);
-      pressChecker(selectedBoard.favorite, id)
+      pressedChecker(selectedBoard.favorite, myUserInfo.id)
         ? setPressFavorite(true)
         : setPressFavorite(false);
     }
-  }, [id, selectedBoard]);
+  }, [myUserInfo.id, selectedBoard]);
 
   return (
     <>
@@ -124,10 +128,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
           <div className={s.innerContainer}>
             <div className={cn(s.header, s.mobileFlex)}>
               <div>
-                <ProfileImage
-                  size="board"
-                  imageUrl={selectedBoardUser?.imageUrl}
-                />
+                <ProfileImage size="board" imageUrl={selectedBoard.imageUrl} />
                 <div>
                   <b>{selectedBoard.id}</b>
                 </div>
@@ -140,7 +141,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
               <div
                 className={s.image}
                 style={{
-                  backgroundImage: `url(${selectedBoard.imageUrl})`,
+                  backgroundImage: `url(${selectedBoard.boardImageUrl[0]})`,
                 }}
               />
               {/* FIXME: Image 태그 사용할지 백그라운드이미지 사용할지 추후 결정 */}
@@ -157,7 +158,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                 <div>
                   <ProfileImage
                     size="board"
-                    imageUrl={selectedBoardUser?.imageUrl}
+                    imageUrl={selectedBoard.imageUrl}
                   />
                   <div>
                     <b>{selectedBoard.id}</b>
@@ -171,14 +172,14 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     {pressFavorite ? (
                       <a>
                         <FavoriteIcon
-                          onClick={() => goodHandler(id)}
+                          onClick={() => goodHandler(myUserInfo.id)}
                           style={{ color: 'red', fontSize: '26px' }}
                         />
                       </a>
                     ) : (
                       <a>
                         <FavoriteBorderRoundedIcon
-                          onClick={() => goodHandler(id)}
+                          onClick={() => goodHandler(myUserInfo.id)}
                           style={{ fontSize: '26px' }}
                         />
                       </a>
@@ -208,7 +209,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
               </div>
               <div className={s.comment}>
                 {/* TODO: 댓글 목록 map 으로 하기 */}
-                {selectedBoard.reply.map((reply, idx) => {
+                {selectedBoard.reply.map((reply: Reply, idx) => {
                   return (
                     <div key={idx} id={s.form}>
                       <ReplyContent reply={reply} />
@@ -216,7 +217,6 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                         id={s.hoverIcon}
                         fontSize="small"
                         onClick={() => {
-                          console.log('click');
                           dispatch(setSelectedReplyIdx(idx));
                           dispatch(setModal('reply', true));
                         }}
@@ -231,14 +231,14 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     {pressFavorite ? (
                       <a>
                         <FavoriteIcon
-                          onClick={() => goodHandler(id)}
+                          onClick={() => goodHandler(myUserInfo.id)}
                           style={{ color: 'red', fontSize: '26px' }}
                         />
                       </a>
                     ) : (
                       <a>
                         <FavoriteBorderRoundedIcon
-                          onClick={() => goodHandler(id)}
+                          onClick={() => goodHandler(myUserInfo.id)}
                           style={{ fontSize: '26px' }}
                         />
                       </a>

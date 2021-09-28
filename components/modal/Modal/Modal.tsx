@@ -20,7 +20,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ modalData }) => {
-  const { id } = useSelector(selectLogin);
+  const { myUserInfo } = useSelector(selectLogin);
   const { userData } = useSelector(selectProfile);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
     dispatch(setModalInitial());
   };
 
-  const isMe: boolean = userData.id === id ? true : false;
+  const isMe: boolean = userData.id === myUserInfo.id ? true : false;
 
   const followerHandler = async (id: string, state: string) => {
     // TODO: 팔로우하기/취소하기 api 기능 추가
