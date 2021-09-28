@@ -1,23 +1,68 @@
 import React from 'react';
 import Head from 'next/head';
-import { Container } from 'components/ui/Container';
 import { GetStaticProps } from 'next';
-import { getAllBoard } from 'lib/redux/explore/exploreApis';
-import { BoardContainer } from 'components/profile';
-import type { Board } from 'types/profile/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBoardData } from 'lib/redux/profile/profileSlice';
-import { selectModal, setBoardModal } from 'lib/redux/modal/modalSlice';
-import BoardModal from 'components/modal/BoardModal';
 
-const Explore = ({ boardList }: { boardList: Board[] }) => {
-  const { showBoardModal } = useSelector(selectModal);
+import { getAllBoard } from 'lib/redux/explore/exploreApis';
+import { setBoardData } from 'lib/redux/profile/profileSlice';
+import {
+  selectModal,
+  setBoardModal,
+  setModal,
+  setModalInitial,
+  setSelectBoard,
+} from 'lib/redux/modal/modalSlice';
+
+import { Container } from 'components/ui/Container';
+import BoardModal from 'components/modal/BoardModal';
+import { Modal } from 'components/modal';
+import { BoardContainer } from 'components/profile';
+
+import { ModalDataType } from 'types/modal/types';
+import type { Board } from 'types/profile/types';
+
+const Explore = ({ boardData }: { boardData: Board[] }) => {
+  const { selectedBoard, selectedReplyIdx, showModal, showBoardModal } =
+    useSelector(selectModal);
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(setBoardData(boardList));
+    dispatch(setBoardData(boardData));
     dispatch(setBoardModal(false));
   }, []);
+
+  const replyModal: ModalDataType[] = [
+    {
+      name: '삭제',
+      link: undefined,
+      color: 'red',
+      onClick: () => {
+        var board = selectedBoard;
+        // TODO: restapi 연결시 api로 삭제할 인덱스 보내는 함수 작성
+        if (board !== undefined) {
+          dispatch(
+            setSelectBoard({
+              ...board,
+              reply: board.reply.filter((arr, idx) => {
+                console.log(selectedReplyIdx, idx);
+                if (idx !== selectedReplyIdx) {
+                  return arr;
+                }
+              }),
+            }),
+          );
+        }
+        dispatch(setModalInitial());
+      },
+    },
+    {
+      name: '취소',
+      link: undefined,
+      onClick: () => dispatch(setModal('reply', false)),
+    },
+  ];
+
   return (
     <>
       <Head>
@@ -28,6 +73,7 @@ const Explore = ({ boardList }: { boardList: Board[] }) => {
         <BoardContainer className={'pt'} />
       </Container>
       {showBoardModal && <BoardModal />}
+      {showModal.reply && <Modal modalData={replyModal} />}
     </>
   );
 };
@@ -35,8 +81,10 @@ const Explore = ({ boardList }: { boardList: Board[] }) => {
 export default Explore;
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const boardList = (await getAllBoard()) as Board[];
+  const boardData = (await getAllBoard()) as Board[];
   return {
-    props: { boardList },
+    props: {
+      boardData,
+    },
   };
 };
