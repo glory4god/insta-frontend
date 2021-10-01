@@ -21,8 +21,6 @@
 .innerContainer {
   position: absolute;
   min-width: 300px;
-  padding-left: 4rem;
-  padding-right: 4rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -41,7 +39,7 @@
   min-height: 334px;
 }
 .content > div {
-  width: 292px;
+  width: 300px;
   padding: 2px 16px;
 }
 
@@ -71,28 +69,6 @@
 }
 .comment::-webkit-scrollbar {
   display: none;
-}
-#form {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#form:hover > #hoverIcon {
-  cursor: pointer;
-  opacity: 100%;
-}
-
-#form > div {
-  display: flex;
-  padding: 0.5rem 0;
-  align-items: center;
-}
-#form > div > div {
-  padding-right: 8px;
-  font-size: 14px;
-}
-#form > div > div > span {
-  font-size: 14px;
 }
 .date {
   padding-top: 4px;
@@ -152,8 +128,6 @@
     display: grid;
     width: 860px;
     grid-template-columns: 2fr 1fr;
-    padding-left: 0;
-    padding-right: 0;
   }
 
   .image {
@@ -164,11 +138,11 @@
     min-height: 550px;
   }
   .header {
-    height: 68px;
+    height: 56px;
   }
 
   .comment {
-    min-height: 344px;
+    min-height: 352px;
   }
   .footer {
     position: relative;
@@ -237,10 +211,6 @@
   top: 2%;
   right: 1%;
   cursor: pointer;
-}
-
-#hoverIcon {
-  opacity: 0%;
 }
 
 .content2 {

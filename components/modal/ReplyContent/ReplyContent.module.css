@@ -1,26 +1,54 @@
-.content{
+#form {
   display: flex;
-  padding: 0.5rem 0;
+  justify-content: space-between;
+}
+#hoverIcon {
+  opacity: 0%;
+}
+#form:hover > .content > .reply > .date > span > #hoverIcon {
+  color: black;
+  opacity: 100%;
+}
+#form > div {
+  display: flex;
+  padding: 1rem 0;
+}
+.content{
+  position:relative;
+  width: 100%;
+  display: flex;
   align-items: center;
+  
 }
 
-
 .reply {
-  width: 200px;
-  padding-right: 8px;
+  width: 100%;
+  padding-left: 8px;
   font-size: 14px;
   text-overflow: ellipsis;
 }
 
-.reply > span {
-  position: relative;
-  font-size: 14px;
-
-  
+.date {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  padding-top: 6px;
+  color: rgb(160, 160, 160);
 }
 
-.date {
-  font-size: 12px;
-  padding-top: 4px;
+.date > span:nth-child(n + 2)  {
+  cursor: pointer;
+  padding-left: 8px;
+}
+
+.reReply {
+  margin-left: 3rem;
+}
+
+.replyShow {
+  cursor: pointer;
+  margin-left: 4rem;
   color: rgb(160, 160, 160);
+  font-weight: bold;
+  font-size: 12px;
 }

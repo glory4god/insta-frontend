@@ -105,6 +105,10 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
     }
   };
 
+  const inputFocusing = () => {
+    textareaRef.current.focus();
+  };
+
   React.useEffect(() => {
     if (selectedBoard !== undefined) {
       setFavorite(selectedBoard.favorite.length);
@@ -187,7 +191,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     <a>
                       <ChatBubbleOutlineRoundedIcon
                         style={{ borderRadius: '1rem', fontSize: '26px' }}
-                        onClick={() => textareaRef.current.focus()}
+                        onClick={inputFocusing}
                       />
                     </a>
                     <a>
@@ -211,17 +215,15 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                 {/* TODO: 댓글 목록 map 으로 하기 */}
                 {selectedBoard.reply.map((reply: Reply, idx) => {
                   return (
-                    <div key={idx} id={s.form}>
-                      <ReplyContent reply={reply} />
-                      <MoreHorizSharpIcon
-                        id={s.hoverIcon}
-                        fontSize="small"
-                        onClick={() => {
-                          dispatch(setSelectedReplyIdx(idx));
-                          dispatch(setModal('reply', true));
-                        }}
-                      />
-                    </div>
+                    <ReplyContent
+                      reply={reply}
+                      idx={idx}
+                      key={idx}
+                      onFocus={inputFocusing}
+                      editReReply={(name: string) =>
+                        setReply({ ...reply, content: name })
+                      }
+                    />
                   );
                 })}
               </div>
@@ -246,7 +248,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     <a>
                       <ChatBubbleOutlineRoundedIcon
                         style={{ borderRadius: '1rem', fontSize: '26px' }}
-                        onClick={() => textareaRef.current.focus()}
+                        onClick={inputFocusing}
                       />
                     </a>
                     <a>
@@ -264,7 +266,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                 <div className={s.favorite}>
                   좋아요 {formatNumber(favorite)}개
                 </div>
-                <div className={s.datef}>0시간 전</div>
+                <div className={s.datef}>10월 1일</div>
               </div>
               <div className={s.edit}>
                 <textarea

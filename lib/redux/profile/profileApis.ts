@@ -105,7 +105,11 @@ export const testBoardData: Board[] = [
     id: 'winter',
     name: '윈터',
     imageUrl: '/profile/winter.png',
-    boardImageUrl: ['/profile/winter1.png', '/profile/winter2.png', '/profile/winter1.png'],
+    boardImageUrl: [
+      '/profile/winter1.png',
+      '/profile/winter2.png',
+      '/profile/winter1.png',
+    ],
     title:
       "I'm on the Next Level Yeah✨✨\n절대적 룰을 지켜\n내 손을 놓지 말아\n결속은 나의 무기\n광야로 걸어가",
     favorite: [
@@ -120,10 +124,20 @@ export const testBoardData: Board[] = [
         id: 'karina',
         name: '카리나',
         imageUrl: '/profile/karina1.png',
-        content: '이쁘당',
+        content: '아니 도대체 언제 컴백해??????? 언제 기다려',
         createdDate: '2021-09-08',
         modifiedDate: '2021-09-08',
-        reReply: [],
+        reReply: [
+          {
+            id: 'winter',
+            name: '윈터',
+            imageUrl: '/profile/winter.png',
+            content: '좀만 기다려주세용',
+            createdDate: '2021-09-08',
+            modifiedDate: '2021-09-08',
+            reReply: [],
+          },
+        ],
       },
       {
         id: 'irene',
