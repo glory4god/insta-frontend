@@ -1,0 +1,25 @@
+.wrapper{
+  position:fixed;
+  top:56px;
+  left: 50%;
+  transform: translate(-50%,0);
+  background-color: white;
+  border-radius: 5px;
+  width: 348px;
+  height: 360px;
+  padding: 0 1rem;
+  overflow-y: scroll;
+  text-align: left; 
+}
+
+.userBox { 
+  display: flex;
+  padding: 0.3rem 0;
+  cursor: pointer;
+}
+.userBox > div {
+  display: flex;
+  flex-direction: column;
+  padding-right: 0.5rem;
+  justify-content: center;
+}

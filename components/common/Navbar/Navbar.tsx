@@ -2,17 +2,46 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import s from './Navbar.module.css';
+
+import { useSelector } from 'react-redux';
+import { selectLogin } from 'lib/redux/login/loginSlice';
+
 import HomeIcon from '@material-ui/icons/Home';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import ExploreIcon from '@material-ui/icons/Explore';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AddIcon from '@material-ui/icons/Add';
+
 import ProfileImage from 'components/profile/ProfileImage';
-import { useSelector } from 'react-redux';
-import { selectLogin } from 'lib/redux/login/loginSlice';
+import UserSearchList from './SearchBox';
+
+import { getBase3UserProfile } from 'lib/redux/profile/profileApis';
+import { BaseUser3 } from 'types/profile/types';
 
 const Navbar = () => {
   const { myUserInfo } = useSelector(selectLogin);
+
+  const [onUserList, setOnUserList] = React.useState<boolean>(false);
+  const el = React.useRef<React.MutableRefObject<any>>();
+  const inputRef = React.useRef<any>();
+
+  const userList = getBase3UserProfile() as BaseUser3[];
+
+  React.useEffect(() => {
+    const handleCloseSearch = (e: any) => {
+      if (!inputRef.current.contains(e.target)) {
+        // 이 부분은 해결 못하겠다,,, 타입에러 어케하지 ㅠㅠ
+        if (onUserList && (!el.current || !el.current.contains(e.target))) {
+          setOnUserList(false);
+        }
+      }
+    };
+    window.addEventListener('click', handleCloseSearch);
+    return () => {
+      window.removeEventListener('click', handleCloseSearch);
+    };
+  }, [onUserList]);
+
   return (
     <>
       <div className={s.paper}>
@@ -27,7 +56,23 @@ const Navbar = () => {
             </a>
           </Link>
           <div>
-            <input className={s.input} type="text" placeholder="검색" />
+            <input
+              ref={inputRef}
+              onClick={() => {
+                setOnUserList(true);
+              }}
+              className={s.input}
+              type="text"
+              placeholder="검색"
+            />
+            {onUserList && (
+              <div ref={el}>
+                <UserSearchList
+                  userList={userList}
+                  closeModal={() => setOnUserList(false)}
+                />
+              </div>
+            )}
           </div>
           <div className={s.right}>
             <div className={s.rightBanner}>
