@@ -31,9 +31,9 @@ const Navbar = () => {
     const handleCloseSearch = (e: any) => {
       if (!inputRef.current.contains(e.target)) {
         // 이 부분은 해결 못하겠다,,, 타입에러 어케하지 ㅠㅠ
-        if (onUserList && (!el.current || !el.current.contains(e.target))) {
-          setOnUserList(false);
-        }
+        // if (onUserList && (!el.current || !el.current.contains(e.target))) {
+        //   setOnUserList(false);
+        // }
       }
     };
     window.addEventListener('click', handleCloseSearch);
@@ -66,7 +66,9 @@ const Navbar = () => {
               placeholder="검색"
             />
             {onUserList && (
-              <div ref={el}>
+              <div
+              // ref={el}
+              >
                 <UserSearchList
                   userList={userList}
                   closeModal={() => setOnUserList(false)}
