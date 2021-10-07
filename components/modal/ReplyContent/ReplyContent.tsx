@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import s from './ReplyContent.module.css';
 
 import MoreHorizSharpIcon from '@material-ui/icons/MoreHorizSharp';
@@ -56,9 +57,14 @@ const ReplyContent: React.FC<ReplyProps> = ({
         <ProfileImage size="board" imageUrl={reply.imageUrl} />
         <div className={s.content}>
           <div className={s.reply}>
-            <b>{reply.id}</b> <span>{reply.content}</span>
+            <Link href={`/${reply.id}`}>
+              <a>
+                <b>{reply.id}</b>
+              </a>
+            </Link>{' '}
+            <span>{reply.content}</span>
             <div className={s.date}>
-              <span>2일</span>
+              <span>{formatDate(new Date(reply.modifiedDate))}</span>
               <span
                 onClick={() => {
                   onFocus();
@@ -112,9 +118,14 @@ const ReplyContent: React.FC<ReplyProps> = ({
                 <ProfileImage size="board" imageUrl={reply.imageUrl} />
                 <div className={s.content}>
                   <div className={s.reply}>
-                    <b>{reply.id}</b> <span>{reply.content}</span>
+                    <Link href={`/${reply.id}`}>
+                      <a>
+                        <b>{reply.id}</b>
+                      </a>
+                    </Link>{' '}
+                    <span>{reply.content}</span>
                     <div className={s.date}>
-                      <span>2일</span>
+                      <span>{formatDate(new Date(reply.modifiedDate))}</span>
                       <span
                         onClick={() => {
                           onFocus();
