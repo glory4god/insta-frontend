@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import s from '../CommonModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -133,9 +134,11 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
             <div className={cn(s.header, s.mobileFlex)}>
               <div>
                 <ProfileImage size="board" imageUrl={selectedBoard.imageUrl} />
-                <div>
-                  <b>{selectedBoard.id}</b>
-                </div>
+                <Link href={`/${selectedBoard.id}`}>
+                  <a id={s.profileId}>
+                    <b>{selectedBoard.id}</b>
+                  </a>
+                </Link>
               </div>
               <MoreHorizSharpIcon fontSize="small" />
             </div>
@@ -164,9 +167,11 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     size="board"
                     imageUrl={selectedBoard.imageUrl}
                   />
-                  <div>
-                    <b>{selectedBoard.id}</b>
-                  </div>
+                  <Link href={`/${selectedBoard.id}`}>
+                    <a id={s.profileId}>
+                      <b>{selectedBoard.id}</b>
+                    </a>
+                  </Link>
                 </div>
                 <MoreHorizSharpIcon fontSize="small" />
               </div>
@@ -206,9 +211,13 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     </a>
                   </div>
                 </div>
-                <div className={s.favorite}>
-                  좋아요 {formatNumber(favorite)}개
-                </div>
+                <a
+                  className={s.favorite}
+                  onClick={() => {
+                    dispatch(setModal('favorite', true));
+                  }}>
+                  {formatNumber(favorite)}명이 좋아합니다
+                </a>
                 <div className={s.datef}>0시간 전</div>
               </div>
               <div className={s.comment}>
@@ -263,9 +272,13 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     </a>
                   </div>
                 </div>
-                <div className={s.favorite}>
-                  좋아요 {formatNumber(favorite)}개
-                </div>
+                <a
+                  className={s.favorite}
+                  onClick={() => {
+                    dispatch(setModal('favorite', true));
+                  }}>
+                  {formatNumber(favorite)}명이 좋아합니다
+                </a>
                 <div className={s.datef}>10월 1일</div>
               </div>
               <div className={s.edit}>

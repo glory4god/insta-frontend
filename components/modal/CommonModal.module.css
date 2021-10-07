@@ -55,11 +55,11 @@
   display: flex;
   align-items: center;
 }
-.header > div > div {
-  padding-right: 8px;
+
+#profileId {
+  padding-left: 8px;
   font-size: 14px;
 }
-
 /* ㅅ크롤 바 안보이게 스크롤 가능하게 하는 기능 */
 .comment {
   max-height: 60px;
@@ -228,7 +228,7 @@
   flex-direction: column;
 }
 
-.content2 > div > div > span {
+#profileId {
   padding-left: 8px;
   font-size: 13px;
 }
