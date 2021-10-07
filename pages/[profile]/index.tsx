@@ -15,6 +15,7 @@ import {
 } from 'lib/redux/profile/profileSlice';
 import {
   selectModal,
+  setBoardModal,
   setModal,
   setModalInitial,
   setSelectBoard,
@@ -33,10 +34,12 @@ import { ModalDataType } from 'types/modal/types';
 const UserProfile = ({
   bannerList,
   userData,
+  profile,
   boardData,
 }: {
   bannerList: string[];
   userData: UserData;
+  profile: string;
   boardData: Board[];
 }) => {
   const { selectedBoard, selectedReplyIdx, showBoardModal, showModal } =
@@ -52,10 +55,11 @@ const UserProfile = ({
 
   React.useEffect(() => {
     dispatch(initialBanner());
+    dispatch(setBoardModal(false));
     dispatch(setUserData(userData));
-    dispatch(setBoardData(boardData));
     dispatch(setModalInitial());
-  }, []);
+    dispatch(setBoardData(boardData));
+  }, [profile]);
 
   const followerModal: ModalDataType[] = [{ name: '팔로워', link: undefined }];
   const follwingModal: ModalDataType[] = [{ name: '팔로우', link: undefined }];
@@ -91,6 +95,8 @@ const UserProfile = ({
     },
   ];
 
+  const favoriteModal: ModalDataType[] = [{ name: '좋아요', link: undefined }];
+
   return (
     <>
       <Head>
@@ -109,6 +115,7 @@ const UserProfile = ({
       {showModal.followers && <Modal modalData={followerModal} />}
       {showModal.followings && <Modal modalData={follwingModal} />}
       {showModal.reply && <Modal modalData={replyModal} />}
+      {showModal.favorite && <Modal modalData={favoriteModal} />}
     </>
   );
 };
@@ -150,6 +157,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       userData: (await getProfileData(profile)) as UserData,
       bannerList,
+      profile,
       boardData: (await getUserBoard(profile)) as Board[],
     },
     revalidate: 1,

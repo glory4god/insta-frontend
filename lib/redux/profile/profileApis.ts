@@ -1,4 +1,9 @@
-import type { UserData, Board, MyUserInfo } from 'types/profile/types';
+import type {
+  UserData,
+  Board,
+  MyUserInfo,
+  BaseUser3,
+} from 'types/profile/types';
 
 export async function getProfileData(pages: string) {
   const data: UserData[] = testUserData.filter((arr) => {
@@ -14,6 +19,14 @@ export async function getProfileIds() {
     return arr.id.toString();
   });
   return paths;
+}
+
+export function getBase3UserProfile() {
+  const userList: BaseUser3[] = testUserData.map((arr) => {
+    return { id: arr.id, imageUrl: arr.imageUrl, name: arr.name };
+  }) as BaseUser3[];
+
+  return userList;
 }
 
 export const testLoginUserData: MyUserInfo = {
