@@ -1,3 +1,4 @@
+import fetcher from 'lib/common/fetcher';
 import type {
   UserData,
   Board,
@@ -6,27 +7,58 @@ import type {
 } from 'types/profile/types';
 
 export async function getProfileData(pages: string) {
-  const data: UserData[] = testUserData.filter((arr) => {
-    if (arr.id === pages) {
-      return arr;
-    }
-  });
-  return data[0];
+  const data: UserData = await fetcher<UserData>(
+    `${process.env.LOCAL_SERVER}/user/${pages}`,
+  );
+  // const data: UserData[] = testUserData.filter((arr) => {
+  //   if (arr.id === pages) {
+  //     return arr;
+  //   }
+  // });
+  return data;
 }
 
 export async function getProfileIds() {
-  const paths: string[] = testUserData.map((arr) => {
-    return arr.id.toString();
+  const userInfo: BaseUser3[] = await fetcher(
+    `${process.env.LOCAL_SERVER}/user/ids`,
+  );
+
+  const paths = userInfo.map((arr) => {
+    return arr.id;
   });
+
+  // const paths: string[] = testUserData.map((arr) => {
+  //   return arr.id.toString();
+  // });
   return paths;
 }
 
-export function getBase3UserProfile() {
-  const userList: BaseUser3[] = testUserData.map((arr) => {
-    return { id: arr.id, imageUrl: arr.imageUrl, name: arr.name };
-  }) as BaseUser3[];
+export async function getBase3UserProfile() {
+  const userList: BaseUser3[] = await fetcher<BaseUser3[]>(
+    `${process.env.LOCAL_SERVER}/user/ids`,
+  );
+
+  // const userList: BaseUser3[] = testUserData.map((arr) => {
+  //   return { id: arr.id, imageUrl: arr.imageUrl, name: arr.name };
+  // }) as BaseUser3[];
 
   return userList;
+}
+
+// 게시글 유저이름으로 조회
+export async function getUserBoard(name: string) {
+  // test 게시글 데이터로 대체
+  // return board.filter((arr) => {
+  //   if (arr.name === name) {
+  //     return arr;
+  //   }
+  // }) as BoardData[];
+
+  const boardList: Board[] = await fetcher<Board[]>(
+    `${process.env.LOCAL_SERVER}/board?userId=${name}`,
+  );
+
+  return boardList;
 }
 
 export const testLoginUserData: MyUserInfo = {
@@ -96,21 +128,6 @@ const testUserData: UserData[] = [
     imageUrl: '/profile/karina.png',
   },
 ];
-
-export async function getUserBoard(name: string) {
-  // test 게시글 데이터로 대체
-  // return board.filter((arr) => {
-  //   if (arr.name === name) {
-  //     return arr;
-  //   }
-  // }) as BoardData[];
-
-  return testBoardData.filter((arr) => {
-    if (arr.id === name) {
-      return arr;
-    }
-  }) as Board[];
-}
 
 export const testBoardData: Board[] = [
   {

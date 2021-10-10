@@ -11,17 +11,23 @@ const Login = () => {
         <meta name="description" content="instagram" />
       </Head>
 
-      <LoginMain role="main">
-        <article>
-          <LoginImage />
-          <LoginForm />
-        </article>
-      </LoginMain>
+      <LoginPage />
     </>
   );
 };
 
 export default Login;
+
+export const LoginPage = () => {
+  return (
+    <LoginMain role="main">
+      <article>
+        <LoginImage />
+        <LoginForm />
+      </article>
+    </LoginMain>
+  )
+}
 
 const LoginMain = styled.main`
   width: 100vw;

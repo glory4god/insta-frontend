@@ -30,6 +30,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { Board, UserData } from 'types/profile/types';
 import { ModalDataType } from 'types/modal/types';
+import fetcher from 'lib/common/fetcher';
 
 const UserProfile = ({
   bannerList,

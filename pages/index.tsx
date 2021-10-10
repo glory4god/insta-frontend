@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { GetStaticProps } from 'next';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from 'lib/redux/user/userSlice';
 import { getUserBoard } from 'lib/redux/profile/profileApis';
 import { selectProfile } from 'lib/redux/profile/profileSlice';
 import { setBoardData } from 'lib/redux/profile/profileSlice';
@@ -12,9 +13,12 @@ import { Container } from 'components/ui/Container';
 import Footer from 'components/main/Footer';
 import styled from '@emotion/styled';
 import Post from 'components/main/Post';
+import { LoginPage } from './login';
 
 const Main = ({ boardData }: { boardData: Board[] }) => {
+  const { login } = useSelector(selectUser);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(setBoardData(boardData));
   }, []);
@@ -24,25 +28,28 @@ const Main = ({ boardData }: { boardData: Board[] }) => {
         <title>instagram</title>
         <meta name="description" content="instagram" />
       </Head>
-
-      <Container>
-        <main>
-          <Section>
-            <div>
-              {/* <div>스토리</div> */}
-              {console.log(boardData)}
-              {boardData.map((boardData, index) => {
-                return <Post key={index} postData={boardData} />;
-              })}
-            </div>
-            <div>
-              {/* <div>나</div> */}
-              {/* <div>추천</div> */}
-              <Footer />
-            </div>
-          </Section>
-        </main>
-      </Container>
+      {login ? (
+        <Container>
+          <main>
+            <Section>
+              <div>
+                {/* <div>스토리</div> */}
+                {console.log(boardData)}
+                {boardData.map((boardData, index) => {
+                  return <Post key={index} postData={boardData} />;
+                })}
+              </div>
+              <div>
+                {/* <div>나</div> */}
+                {/* <div>추천</div> */}
+                <Footer />
+              </div>
+            </Section>
+          </main>
+        </Container>
+      ) : (
+        <LoginPage />
+      )}
     </>
   );
 };

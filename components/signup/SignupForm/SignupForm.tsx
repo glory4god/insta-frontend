@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import styled from '@emotion/styled';
+import axios from 'axios';
 
 type SignupProps = {
   signupData: {
@@ -11,7 +12,7 @@ type SignupProps = {
     name: string;
     username: string;
     password: string;
-  }
+  };
   onchange: (e: any) => void;
   setEmail: (value: string) => void;
   setPhonenumber: (value: string) => void;
@@ -31,6 +32,8 @@ const SignupForm: React.FC<SignupProps> = ({
   setPhonenumber,
 }) => {
   const { id, name, username, password } = signupData;
+  const [emailDuplicate, setEmailDuplicate] = useState(false);
+  const [usernameDuplicate, setUsernameDuplicate] = useState(false);
   const {
     register,
     formState: { errors },
@@ -38,12 +41,35 @@ const SignupForm: React.FC<SignupProps> = ({
   } = useForm<IFormInputs>();
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    console.log(data);
+    setEmailDuplicate(false);
+    setUsernameDuplicate(false);
     const regExpEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     const regExpPhone: RegExp = /^01[016789][0-9]{8}$/;
-    if (regExpEmail.test(data.id)) setEmail(data.id);
-    if (regExpPhone.test(data.id)) setPhonenumber(data.id);
+    if (regExpEmail.test(id)) {
+      const sendData = {
+        email: id,
+        name: name,
+        username: username,
+        password: password,
+      };
+      axios
+        .post(`${process.env.AWS_SERVER}/api/user/signup`, sendData)
+        .then((res: { data: any }) => {
+          const data = res.data;
+          setEmail(id);
+        })
+        .catch((err: { response: { data: { message: any } } }) => {
+          // console.clear();
+          if (err.response.data.message === '중복된 EMAIL 이 존재합니다.') {
+            setEmailDuplicate(true);
+          }
+          if (err.response.data.message === '이미 존재하는 USERNAME 입니다.') {
+            setUsernameDuplicate(true);
+          }
+        });
+    }
+    // if (regExpPhone.test(data.id)) setPhonenumber(data.id);
   };
 
   return (
@@ -144,15 +170,16 @@ const SignupForm: React.FC<SignupProps> = ({
                     password.length < 6
                       ? true
                       : (!id ? true : !username)
-                        ? true
-                        : false
+                      ? true
+                      : false
                   }>
                   <div>가입하기</div>
                 </SignupButton>
               </ButtonWrapper>
-              {/* <ErrorWrapper>
-                <p>{errors.name && "이름이 없습니다."}</p>
-              </ErrorWrapper> */}
+              <ErrorWrapper>
+                <p>{emailDuplicate && '이미 존재하는 이메일입니다.'}</p>
+                <p>{usernameDuplicate && '이미 존재하는 사용자 이름입니다.'}</p>
+              </ErrorWrapper>
             </div>
           </Form>
         </div>

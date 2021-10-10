@@ -3,8 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import s from './Navbar.module.css';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectLogin } from 'lib/redux/login/loginSlice';
+import { logout } from 'lib/redux/user/userSlice';
 
 import HomeIcon from '@material-ui/icons/Home';
 import TelegramIcon from '@material-ui/icons/Telegram';
@@ -17,23 +18,28 @@ import UserSearchList from './SearchBox';
 
 import { getBase3UserProfile } from 'lib/redux/profile/profileApis';
 import { BaseUser3 } from 'types/profile/types';
+import { LogoutRounded } from '@mui/icons-material';
 
 const Navbar = () => {
   const { myUserInfo } = useSelector(selectLogin);
+  const [userList, setUserList] = React.useState<BaseUser3[]>([]);
+  const dispatch = useDispatch();
 
   const [onUserList, setOnUserList] = React.useState<boolean>(false);
-  const el = React.useRef<React.MutableRefObject<any>>();
+  const el = React.useRef<HTMLDivElement>();
   const inputRef = React.useRef<any>();
 
-  const userList = getBase3UserProfile() as BaseUser3[];
+  const fetchUserList = async () => {
+    setUserList((await getBase3UserProfile()) as BaseUser3[]);
+  };
 
   React.useEffect(() => {
     const handleCloseSearch = (e: any) => {
       if (!inputRef.current.contains(e.target)) {
         // 이 부분은 해결 못하겠다,,, 타입에러 어케하지 ㅠㅠ
-        // if (onUserList && (!el.current || !el.current.contains(e.target))) {
-        //   setOnUserList(false);
-        // }
+        if (onUserList && (!el.current || !el.current.contains(e.target))) {
+          setOnUserList(false);
+        }
       }
     };
     window.addEventListener('click', handleCloseSearch);
@@ -41,6 +47,10 @@ const Navbar = () => {
       window.removeEventListener('click', handleCloseSearch);
     };
   }, [onUserList]);
+
+  React.useEffect(() => {
+    fetchUserList();
+  }, []);
 
   return (
     <>
@@ -66,9 +76,7 @@ const Navbar = () => {
               placeholder="검색"
             />
             {onUserList && (
-              <div
-              // ref={el}
-              >
+              <div ref={el}>
                 <UserSearchList
                   userList={userList}
                   closeModal={() => setOnUserList(false)}
@@ -113,7 +121,11 @@ const Navbar = () => {
               {/* 이건 고민해봐야함  */}
               <Link href="/">
                 <a>
-                  <AddIcon color={'disabled'} style={{ fontSize: '30px' }} />
+                  <AddIcon
+                    color={'disabled'}
+                    style={{ fontSize: '30px' }}
+                    onClick={() => dispatch(logout())}
+                  />
                 </a>
               </Link>
 

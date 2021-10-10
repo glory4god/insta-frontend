@@ -31,6 +31,9 @@ const Post = ({ postData }: { postData: Board }) => {
 
   const onSwipeMove = (position: { x: any; y: any }, event: any) => {
     console.log(position.x);
+    if (postData.boardImageUrl.length == 1) {
+      return;
+    }
     if (imgCount == 1 && position.x < 0) {
       setPositionx(() => position.x);
       return;
@@ -114,7 +117,7 @@ const Post = ({ postData }: { postData: Board }) => {
                 </NextButtonWrapper>
               )}
             </PostImage>
-            {postData.imageUrl.length > 1 && (
+            {postData.boardImageUrl.length > 1 && (
               <ImageCounterWrapper>
                 {postData.boardImageUrl.map((props, index) => {
                   return (
@@ -132,7 +135,7 @@ const Post = ({ postData }: { postData: Board }) => {
         <div>
           <div>
             <div>
-              <IconSection imgLength={postData.imageUrl.length}>
+              <IconSection imgLength={postData.boardImageUrl.length}>
                 <span>
                   <button>
                     <FavoriteBorderIcon />
@@ -335,7 +338,7 @@ type ImgCount = {
 const ImageCounter = styled.div<ImgCount>`
   width: 6px;
   height: 6px;
-  background: ${(props) =>
+  background: ${(props: { index: number; imgCount: number; }) =>
     props.index === props.imgCount - 1 ? '#0095f6' : '#a8a8a8'};
   border-radius: 50%;
   &:not(:last-of-type) {
@@ -357,9 +360,9 @@ const ImgDiv = styled.div<ImgCount>`
   transition: transform 0.3s;
   transform: translateX(
     ${({ imgCount, positionx }) =>
-      positionx
-        ? `calc(${positionx}px + ${-100 * (imgCount - 1)}%)`
-        : `${-100 * (imgCount - 1)}%`}
+    positionx
+      ? `calc(${positionx}px + ${-100 * (imgCount - 1)}%)`
+      : `${-100 * (imgCount - 1)}%`}
   );
 `;
 
@@ -402,12 +405,15 @@ type ImgLength = {
 
 const IconSection = styled.section<ImgLength>`
   display: flex;
-  margin-top: ${(props) => (props.imgLength > 1 ? '-34px' : '4px')};
+  margin-top: ${(props: { imgLength: number; }) => (props.imgLength > 1 ? '-34px' : '4px')};
   padding: 0 16px;
   & button {
     width: 40px;
     height: 40px;
     ${buttonStyle}
+  }
+  & > span:first-of-type {
+    margin-left: -8px;
   }
   & > span:last-of-type {
     margin-left: auto;

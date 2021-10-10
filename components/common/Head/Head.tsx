@@ -7,7 +7,7 @@ const Head: FC = () => {
       <NextHead>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
-          httpEquiv="Content-Security-Policy"
+          // httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
         />
       </NextHead>

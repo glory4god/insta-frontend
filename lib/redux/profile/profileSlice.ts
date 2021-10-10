@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { AppThunk, RootState } from '../store';
 import type { Banner, Board, UserData } from 'types/profile/types';
 import { getProfileData } from './profileApis';
 
@@ -48,7 +48,7 @@ export const selectProfile = (state: RootState) => state.profile;
 
 export default profileSlice.reducer;
 
-export function setBanner(banner: Banner) {
+export function setBanner(banner: Banner): AppThunk {
   return (dispatch: any) => {
     try {
       dispatch(SET_BANNER(banner));
@@ -56,20 +56,20 @@ export function setBanner(banner: Banner) {
   };
 }
 
-export function initialBanner() {
+export function initialBanner(): AppThunk {
   return (dispatch: any) => {
     dispatch(SET_BANNER('main'));
   };
 }
 
-export function setBoardData(data: Board[]) {
-  return async (dispatch: any) => {
+export function setBoardData(data: Board[]): AppThunk {
+  return (dispatch: any) => {
     dispatch(SET_BOARD_DATA(data));
   };
 }
 
-export function setUserData(data: UserData) {
-  return async (dispatch: any) => {
+export function setUserData(data: UserData): AppThunk {
+  return (dispatch: any) => {
     dispatch(SET_USER_DATA(data));
   };
 }

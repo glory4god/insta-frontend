@@ -2,8 +2,10 @@
 /* eslint-disable @next/next/link-passhref */ //link
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from '@emotion/styled';
+import axios from 'axios';
 
 type EmailProps = {
   email: string;
@@ -20,10 +22,28 @@ const Certificaiton: React.FC<EmailProps> = ({ email, backForm }) => {
     formState: { errors },
     handleSubmit,
   } = useForm<ICodeInputs>();
+  const router = useRouter();
   const [certificationCode, setCertificationCode] = useState('');
+  const [codeError, setCodeError] = useState(false);
 
   const onSubmit: SubmitHandler<ICodeInputs> = (data) => {
-    console.log(data);
+    setCodeError(false);
+    const sendData = {
+      authCode: data.certificationCode,
+      email: email,
+    };
+    axios
+      .post(`${process.env.AWS_SERVER}/api/user/signup/mail`, sendData)
+      .then((res: { data: any }) => {
+        const data = res.data;
+        router.push('/');
+      })
+      .catch((err: { response: { data: { message: any } } }) => {
+        // console.clear();
+        if (err.response.data.message === '인증코드가 일치하지 않습니다.') {
+          setCodeError(true);
+        }
+      });
   };
 
   return (
@@ -51,11 +71,11 @@ const Certificaiton: React.FC<EmailProps> = ({ email, backForm }) => {
             <div>
               <LabelWrapper>
                 <Label htmlFor="certificationCode">
+                  <Span value={certificationCode}>######</Span>
                   <Input
                     {...register('certificationCode', { required: true })}
                     autoCorrect="off"
-                    placeholder="인증 코드"
-                    maxLength={75}
+                    maxLength={6}
                     name="certificationCode"
                     type="text"
                     value={certificationCode}
@@ -81,6 +101,10 @@ const Certificaiton: React.FC<EmailProps> = ({ email, backForm }) => {
           <BackButtonWrapper>
             <button onClick={backForm}>돌아가기</button>
           </BackButtonWrapper>
+          <ErrorWrapper>
+            <p>{codeError && '인증 코드가 일치하지 않습니다.'}</p>
+            {/* <p>{usernameDuplicate && "이미 존재하는 사용자 이름입니다."}</p> */}
+          </ErrorWrapper>
         </div>
       </MainWrapper>
       <LinkWrapper>
@@ -276,7 +300,26 @@ const Label = styled.label`
   min-width: 0;
 `;
 
-const Input = styled.input`
+type SpanTypes = {
+  value: string;
+};
+
+const Span = styled.span<SpanTypes>`
+  color: rgba(var(--f52, 142, 142, 142), 1);
+  font-size: 12px;
+  height: 36px;
+  left: 8px;
+  line-height: 36px;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  text-overflow: ellipsis;
+  ${(props) =>
+    props.value && 'transform: scale(.83333) translate(-26px, -10px) '}
+`;
+
+const Input = styled.input<SpanTypes>`
   width: 250px;
   background: #fafafa;
   background: rgba(var(--b3f, 250, 250, 250), 1);
@@ -287,6 +330,7 @@ const Input = styled.input`
   overflow: hidden;
   padding: 9px 0 7px 8px;
   text-overflow: ellipsis;
+  ${(props) => props.value && 'font-size: 12px; padding: 14px 0 2px 8px'}
 `;
 
 const ButtonWrapper = styled.div`
@@ -332,10 +376,12 @@ const BackButtonWrapper = styled.div`
 `;
 
 const ErrorWrapper = styled.div`
+  display: flex;
   color: #ed4956;
   font-size: 14px;
   line-height: 18px;
   margin: 10px 40px;
+  justify-content: center;
   & > p {
     margin: 0;
   }

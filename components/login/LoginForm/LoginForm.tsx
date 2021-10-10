@@ -2,8 +2,13 @@
 /* eslint-disable @next/next/link-passhref */ //link
 import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/router'
 import Link from 'next/link';
 import styled from '@emotion/styled';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from 'lib/redux/user/userSlice';
+import { setUser, clearError } from 'lib/redux/user/userSlice';
 
 interface IFormInputs {
   username: string;
@@ -11,11 +16,35 @@ interface IFormInputs {
 }
 
 const LoginForm: React.FC = () => {
+  const router = useRouter();
+  const { login, message } = useSelector(selectUser);
+  const dispatch = useDispatch();
+
   const { register, handleSubmit } = useForm<IFormInputs>();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => console.log(data);
+  const OnSubmit: SubmitHandler<IFormInputs> = async (data) => {
+    setError(() => '');
+    await dispatch(clearError());
+    await dispatch(setUser(data));
+  };
+
+  useEffect(() => {
+    if (login) {
+      router.push('/');
+    } else {
+      setError(() => message);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [login, message])
+
+  useEffect(() => {
+    if (!login) {
+      dispatch(clearError());
+    }
+  }, [])
 
   return (
     <LoginWrapper>
@@ -27,7 +56,7 @@ const LoginForm: React.FC = () => {
             backgroundPosition: '0 -130px',
           }}></H1>
         <div>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleSubmit(OnSubmit)}>
             <div>
               <LabelWrapper>
                 <Label htmlFor="username">
@@ -69,6 +98,9 @@ const LoginForm: React.FC = () => {
                   <div>로그인</div>
                 </LoginButton>
               </ButtonWrapper>
+              <ErrorWrapper>
+                <p>{error}</p>
+              </ErrorWrapper>
               <HorizonWrapper>
                 <HorizonBar />
                 <HorizonText>또는</HorizonText>
@@ -149,7 +181,7 @@ const LoginWrapper = styled.div`
 
 const MainWrapper = styled.div`
   width: 350px;
-  height: 380px;
+  // height: 380px;
   background-color: #fff;
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
   border-radius: 1px;
@@ -161,7 +193,7 @@ const MainWrapper = styled.div`
   justify-content: center;
   align-items: center;
   & > div {
-    height: 337px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -361,4 +393,14 @@ const PasswordLink = styled.a`
   margin-top: 12px;
   text-align: center;
   cursor: pointer;
+`;
+
+const ErrorWrapper = styled.div`
+  color: #ed4956;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 10px 40px;
+  & > p {
+    margin: 0;
+  }
 `;
