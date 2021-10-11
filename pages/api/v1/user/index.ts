@@ -9,5 +9,5 @@ export default async function handler(
 
   const userInfo = await db.collection('user').find({}).toArray();
 
-  return res.json(userInfo);
+  return res.status(200).json(userInfo);
 }

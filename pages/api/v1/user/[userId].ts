@@ -9,5 +9,6 @@ export default async function handler(
   const { userId } = req.query;
 
   const userInfo = await db.collection('user').findOne({ id: userId });
-  return res.json(userInfo);
+
+  return res.status(200).json(userInfo);
 }

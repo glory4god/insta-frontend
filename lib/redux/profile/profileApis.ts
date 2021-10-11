@@ -20,7 +20,9 @@ export async function getProfileData(pages: string) {
 }
 
 export async function getProfileIds() {
-  const userInfo: BaseUser3[] = await fetcher(`${NEXT_SERVER}/user/ids`);
+  const userInfo: BaseUser3[] = await fetcher<BaseUser3[]>(
+    `${NEXT_SERVER}/user/ids`,
+  );
 
   const paths = userInfo.map((arr) => {
     return arr.id;
