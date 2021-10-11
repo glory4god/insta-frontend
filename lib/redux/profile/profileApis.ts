@@ -8,15 +8,19 @@ import type {
 } from 'types/profile/types';
 
 export async function getProfileData(pages: string) {
-  return (await fetch(`${NEXT_SERVER}/user/${pages}`).then((res) =>
-    res.json(),
-  )) as UserData;
+  const data: UserData = await fetcher<UserData>(
+    `${NEXT_SERVER}/user/${pages}`,
+  );
+  // const data: UserData[] = testUserData.filter((arr) => {
+  //   if (arr.id === pages) {
+  //     return arr;
+  //   }
+  // });
+  return data;
 }
 
 export async function getProfileIds() {
-  const userInfo: BaseUser3[] = await fetch(`${NEXT_SERVER}/user/ids`).then(
-    (res) => res.json(),
-  );
+  const userInfo: BaseUser3[] = await fetcher(`${NEXT_SERVER}/user/ids`);
 
   const paths = userInfo.map((arr) => {
     return arr.id;
@@ -29,9 +33,15 @@ export async function getProfileIds() {
 }
 
 export async function getBase3UserProfile() {
-  return (await fetch(`${NEXT_SERVER}/user/ids`).then((res) =>
-    res.json(),
-  )) as BaseUser3[];
+  const userList: BaseUser3[] = await fetcher<BaseUser3[]>(
+    `${NEXT_SERVER}/user/ids`,
+  );
+
+  // const userList: BaseUser3[] = testUserData.map((arr) => {
+  //   return { id: arr.id, imageUrl: arr.imageUrl, name: arr.name };
+  // }) as BaseUser3[];
+
+  return userList;
 }
 
 // 게시글 유저이름으로 조회
@@ -43,9 +53,11 @@ export async function getUserBoard(name: string) {
   //   }
   // }) as BoardData[];
 
-  return (await fetch(`${NEXT_SERVER}/board?userId=${name}`).then(
-    (res) => res.json,
-  )) as Board[];
+  const boardList: Board[] = await fetcher<Board[]>(
+    `${NEXT_SERVER}/board?userId=${name}`,
+  );
+
+  return boardList;
 }
 
 export const testLoginUserData: MyUserInfo = {
