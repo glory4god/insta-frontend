@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import axios from 'axios';
+import { AWS_SERVER } from 'config';
 
 type SignupProps = {
   signupData: {
@@ -54,7 +55,7 @@ const SignupForm: React.FC<SignupProps> = ({
         password: password,
       };
       axios
-        .post(`${process.env.AWS_SERVER}/api/user/signup`, sendData)
+        .post(`${AWS_SERVER}/api/user/signup`, sendData)
         .then((res: { data: any }) => {
           const data = res.data;
           setEmail(id);

@@ -76,7 +76,7 @@ const Navbar = () => {
               placeholder="검색"
             />
             {onUserList && (
-              <div>
+              <div ref={el}>
                 <UserSearchList
                   userList={userList}
                   closeModal={() => setOnUserList(false)}

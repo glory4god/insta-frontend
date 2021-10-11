@@ -335,10 +335,10 @@ type ImgCount = {
   index?: number;
 };
 
-const ImageCounter = styled.div`
+const ImageCounter = styled.div<ImgCount>`
   width: 6px;
   height: 6px;
-  background: ${(props: { index: number; imgCount: number }) =>
+  background: ${(props: { index: number; imgCount: number; }) =>
     props.index === props.imgCount - 1 ? '#0095f6' : '#a8a8a8'};
   border-radius: 50%;
   &:not(:last-of-type) {
@@ -360,9 +360,9 @@ const ImgDiv = styled.div<ImgCount>`
   transition: transform 0.3s;
   transform: translateX(
     ${({ imgCount, positionx }) =>
-      positionx
-        ? `calc(${positionx}px + ${-100 * (imgCount - 1)}%)`
-        : `${-100 * (imgCount - 1)}%`}
+    positionx
+      ? `calc(${positionx}px + ${-100 * (imgCount - 1)}%)`
+      : `${-100 * (imgCount - 1)}%`}
   );
 `;
 
@@ -405,8 +405,7 @@ type ImgLength = {
 
 const IconSection = styled.section<ImgLength>`
   display: flex;
-  margin-top: ${(props: { imgLength: number }) =>
-    props.imgLength > 1 ? '-34px' : '4px'};
+  margin-top: ${(props: { imgLength: number; }) => (props.imgLength > 1 ? '-34px' : '4px')};
   padding: 0 16px;
   & button {
     width: 40px;

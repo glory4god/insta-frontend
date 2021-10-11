@@ -1,3 +1,4 @@
+import { NEXT_SERVER } from 'config';
 import fetcher from 'lib/common/fetcher';
 import type {
   UserData,
@@ -8,7 +9,7 @@ import type {
 
 export async function getProfileData(pages: string) {
   const data: UserData = await fetcher<UserData>(
-    `${process.env.LOCAL_SERVER}/user/${pages}`,
+    `${NEXT_SERVER}/user/${pages}`,
   );
   // const data: UserData[] = testUserData.filter((arr) => {
   //   if (arr.id === pages) {
@@ -19,9 +20,7 @@ export async function getProfileData(pages: string) {
 }
 
 export async function getProfileIds() {
-  const userInfo: BaseUser3[] = await fetcher(
-    `${process.env.LOCAL_SERVER}/user/ids`,
-  );
+  const userInfo: BaseUser3[] = await fetcher(`${NEXT_SERVER}/user/ids`);
 
   const paths = userInfo.map((arr) => {
     return arr.id;
@@ -35,7 +34,7 @@ export async function getProfileIds() {
 
 export async function getBase3UserProfile() {
   const userList: BaseUser3[] = await fetcher<BaseUser3[]>(
-    `${process.env.LOCAL_SERVER}/user/ids`,
+    `${NEXT_SERVER}/user/ids`,
   );
 
   // const userList: BaseUser3[] = testUserData.map((arr) => {
@@ -55,7 +54,7 @@ export async function getUserBoard(name: string) {
   // }) as BoardData[];
 
   const boardList: Board[] = await fetcher<Board[]>(
-    `${process.env.LOCAL_SERVER}/board?userId=${name}`,
+    `${NEXT_SERVER}/board?userId=${name}`,
   );
 
   return boardList;

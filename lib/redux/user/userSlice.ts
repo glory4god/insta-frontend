@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios from 'axios';
+import { AWS_SERVER } from 'config';
 
 type UserInfo = {
   username: string;
@@ -59,7 +60,7 @@ export const setUser = (data: LoginData) => {
   return async (dispatch: any) => {
     try {
       const response: any = await axios.post(
-        `${process.env.AWS_SERVER}/api/user/login`,
+        `${AWS_SERVER}/api/user/login`,
         data,
       );
       console.log(response.data);
