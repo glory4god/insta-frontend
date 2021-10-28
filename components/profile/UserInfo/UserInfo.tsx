@@ -33,8 +33,8 @@ const UserInfo: React.FC<UserInfoProps> = ({}) => {
         />
         <div className={s.pcinfo}>
           <div className={s.tit01}>
-            <div>{userData.id}</div>
-            {myUserInfo.id === userData.id ? (
+            <div>{userData.username}</div>
+            {myUserInfo.username === userData.username ? (
               <>
                 <div>
                   <Link href="/accounts/edit">
@@ -55,55 +55,59 @@ const UserInfo: React.FC<UserInfoProps> = ({}) => {
               </>
             ) : (
               <>
-                {userData.follower
-                  .map((arr) => {
-                    return arr.id;
-                  })
-                  .includes(myUserInfo.id) ? (
-                  <>
-                    <span className={s.prs}>
-                      <Button size="small" variant="outlined">
-                        <b>메세지 보내기</b>
-                      </Button>
-                    </span>
-                    <span className={s.prl}>
-                      <Button size="small" variant="outlined">
-                        <b>팔로우 취소</b>
-                      </Button>
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className={s.prl}>
-                      <Button
-                        style={{
-                          backgroundColor: '#2294ff',
-                          color: 'white',
-                          width: '80px',
-                        }}
-                        size="small"
-                        variant="contained">
-                        <b>팔로우</b>
-                      </Button>
-                    </span>
-                  </>
-                )}
+                {
+                  // FIXME: api로 해당 유저가 follow관계인지 아닌지 여부도 주기
+                  // userData.follower
+                  //   .map((arr) => {
+                  //     return arr.id;
+                  //   })
+                  //   .includes(myUserInfo.id)
+                  true ? (
+                    <>
+                      <span className={s.prs}>
+                        <Button size="small" variant="outlined">
+                          <b>메세지 보내기</b>
+                        </Button>
+                      </span>
+                      <span className={s.prl}>
+                        <Button size="small" variant="outlined">
+                          <b>팔로우 취소</b>
+                        </Button>
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className={s.prl}>
+                        <Button
+                          style={{
+                            backgroundColor: '#2294ff',
+                            color: 'white',
+                            width: '80px',
+                          }}
+                          size="small"
+                          variant="contained">
+                          <b>팔로우</b>
+                        </Button>
+                      </span>
+                    </>
+                  )
+                }
                 <MoreHorizSharpIcon style={{ fontSize: '26px' }} />
               </>
             )}
           </div>
           <div className={s.tit02}>
             <p>
-              게시물 <span>{formatNumber(userData.board)}</span>
+              게시물 <span>{formatNumber(userData.boardCnt)}</span>
             </p>
             <a>
               <p onClick={() => dispatch(setModal('followers', true))}>
-                팔로워 <span>{formatNumber(userData.follower.length)}</span>
+                팔로워 <span>{formatNumber(userData.followerCnt)}</span>
               </p>
             </a>
             <a>
               <p onClick={() => dispatch(setModal('followings', true))}>
-                팔로우 <span>{formatNumber(userData.following.length)}</span>
+                팔로우 <span>{formatNumber(userData.followingCnt)}</span>
               </p>
             </a>
           </div>
@@ -141,19 +145,19 @@ const UserInfo: React.FC<UserInfoProps> = ({}) => {
       <div className={s.mobile}>
         <span>
           <div>게시물</div>
-          {formatNumber(userData.board)}
+          {formatNumber(userData.boardCnt)}
         </span>
         <span>
           <div onClick={() => dispatch(setModal('followers', true))}>
             팔로워
           </div>
-          {formatNumber(userData.follower.length)}
+          {formatNumber(userData.followerCnt)}
         </span>
         <span>
           <div onClick={() => dispatch(setModal('followings', true))}>
             팔로우
           </div>
-          {formatNumber(userData.following.length)}
+          {formatNumber(userData.followingCnt)}
         </span>
       </div>
     </>

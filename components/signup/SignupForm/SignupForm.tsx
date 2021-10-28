@@ -55,7 +55,7 @@ const SignupForm: React.FC<SignupProps> = ({
         password: password,
       };
       axios
-        .post(`${AWS_SERVER}/api/user/signup`, sendData)
+        .post(`${AWS_SERVER}/user/signup`, sendData)
         .then((res: { data: any }) => {
           const data = res.data;
           setEmail(id);

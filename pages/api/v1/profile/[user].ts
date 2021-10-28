@@ -5,10 +5,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { user } = req.query;
+  const { username } = req.query;
   var userInfo = {};
-  if (typeof user === 'string') {
-    userInfo = await getUserBoard(user);
+  if (typeof username === 'string') {
+    userInfo = await getUserBoard(username);
   }
   res.status(200).json(userInfo);
 }

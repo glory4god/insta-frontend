@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Board, UserData } from 'types/profile/types';
+import { Board, Profile } from 'types/profile/types';
 import { getProfileData } from '../profile/profileApis';
 import { RootState } from '../store';
 
@@ -17,7 +17,7 @@ interface ModalSliceProps {
   selectedReplyIdx: number | undefined;
 
   // FIXME: 지워도 되는지 다시 확인하기
-  selectedBoardUser: UserData | undefined;
+  selectedBoardUser: Profile | undefined;
 
   showModal: ShowModal;
 }
@@ -56,7 +56,7 @@ export const modalSlice = createSlice({
     },
 
     // FIXME: 지워도 되는지 다시 확인하기
-    SET_SELECETED_BOARD_USER: (state, action: PayloadAction<UserData>) => {
+    SET_SELECETED_BOARD_USER: (state, action: PayloadAction<Profile>) => {
       state.selectedBoardUser = action.payload;
     },
     SET_SHOW_MODAL: (state, action: PayloadAction<ModalState>) => {
@@ -104,7 +104,9 @@ export function setSelectBoard(board: Board) {
     dispatch(SET_SELECETED_BOARD(board));
     // FIXME: 지워도 되는지 다시 확인하기
     dispatch(
-      SET_SELECETED_BOARD_USER((await getProfileData(board.id)) as UserData),
+      SET_SELECETED_BOARD_USER(
+        (await getProfileData(board.username)) as Profile,
+      ),
     );
   };
 }

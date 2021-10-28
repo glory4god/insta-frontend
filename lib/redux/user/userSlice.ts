@@ -60,7 +60,7 @@ export const setUser = (data: LoginData) => {
   return async (dispatch: any) => {
     try {
       const response: any = await axios.post(
-        `${AWS_SERVER}/api/user/login`,
+        `${AWS_SERVER}/user/login`,
         data,
       );
       console.log(response.data);

@@ -28,7 +28,7 @@ import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
-import { Board, UserData } from 'types/profile/types';
+import { Board, Profile, UserBoards } from 'types/profile/types';
 import { ModalDataType } from 'types/modal/types';
 import fetcher from 'lib/common/fetcher';
 
@@ -39,9 +39,9 @@ const UserProfile = ({
   boardData,
 }: {
   bannerList: string[];
-  userData: UserData;
+  userData: Profile;
   profile: string;
-  boardData: Board[];
+  boardData: UserBoards;
 }) => {
   const { selectedBoard, selectedReplyIdx, showBoardModal, showModal } =
     useSelector(selectModal);
@@ -74,17 +74,18 @@ const UserProfile = ({
         var board = selectedBoard;
         // TODO: restapi 연결시 api로 삭제할 인덱스 보내는 함수 작성
         if (board !== undefined) {
-          dispatch(
-            setSelectBoard({
-              ...board,
-              reply: board.reply.filter((arr, idx) => {
-                console.log(selectedReplyIdx, idx);
-                if (idx !== selectedReplyIdx) {
-                  return arr;
-                }
-              }),
-            }),
-          );
+          // FIXME: 댓글연결 다시
+          // dispatch(
+          //   setSelectBoard({
+          //     ...board,
+          //     reply: board.reply.filter((arr, idx) => {
+          //       console.log(selectedReplyIdx, idx);
+          //       if (idx !== selectedReplyIdx) {
+          //         return arr;
+          //       }
+          //     }),
+          //   }),
+          // );
         }
         dispatch(setModalInitial());
       },
@@ -102,9 +103,11 @@ const UserProfile = ({
     <>
       <Head>
         <title>
-          {userData.name}(@{userData.id}) instagram 사진 및 동영상
+          {userData.name}(@{userData.username}) instagram 사진 및 동영상
         </title>
-        <meta name={`${userData.id}`} content={`${userData.id}`}></meta>
+        <meta
+          name={`${userData.username}`}
+          content={`${userData.username}`}></meta>
       </Head>
       <Container modalOn={modalOnChecker()}>
         <UserInfo />
@@ -150,16 +153,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
   const { profile } = context.params as IParams;
 
-  // TODO: 백엔드 연동시 추후에 api로 가져오기
-  // const userData = (await getProfileData(profile)) as UserData;
-  // const boardData = (await getUserBoard(profile)) as Board[];
-
   return {
     props: {
-      userData: (await getProfileData(profile)) as UserData,
+      userData: (await getProfileData(profile)) as Profile,
       bannerList,
       profile,
-      boardData: (await getUserBoard(profile)) as Board[],
+      boardData: (await getUserBoard(profile)) as UserBoards,
     },
     revalidate: 1,
   };

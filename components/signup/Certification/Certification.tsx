@@ -34,7 +34,7 @@ const Certificaiton: React.FC<EmailProps> = ({ email, backForm }) => {
       email: email,
     };
     axios
-      .post(`${AWS_SERVER}/api/user/signup/mail`, sendData)
+      .post(`${AWS_SERVER}/user/signup/mail`, sendData)
       .then((res: { data: any }) => {
         const data = res.data;
         router.push('/');

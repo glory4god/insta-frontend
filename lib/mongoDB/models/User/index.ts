@@ -1,30 +1,32 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, models } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 
 const saltRounds = 10;
 
-interface User {
+interface UserProps {
   name: string;
-  id: string;
+  username: string;
   email: string;
   password: string;
   imageUrl: string;
   phonenumber: string;
   website: string;
   gender: string;
-  description: string;
+  introduction: string;
+  verified: boolean;
+  verifiedCode: string;
   token: string;
   tokenExp: number;
 }
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<UserProps>({
   name: {
     type: String,
     trim: true,
   },
-  id: {
+  username: {
     type: String,
     trim: true,
     unique: 1,
@@ -47,7 +49,13 @@ const userSchema = new Schema<User>({
   gender: {
     type: String,
   },
-  description: {
+  introduction: {
+    type: String,
+  },
+  verified: {
+    type: Boolean,
+  },
+  verifiedCode: {
     type: String,
   },
   token: {
@@ -58,6 +66,42 @@ const userSchema = new Schema<User>({
   },
 });
 
-const User = model('User', userSchema);
+userSchema.pre('save', function (next) {
+  var user = this;
+  console.log(user);
+  if (user.isModified('password')) {
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+      if (err) return next(err);
 
-module.exports = { User };
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        if (err) return next(err);
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
+
+userSchema.methods.comparePassword = function (plainPassword, cb) {
+  bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
+
+userSchema.methods.generateToken = function (cb) {
+  var user = this;
+  var token = jwt.sign(user._id.toHexString(), 'secret');
+  var oneHour = moment().add(1, 'hour').valueOf();
+
+  user.tokenExp = oneHour;
+  user.token = token;
+  user.save(function (err: any, user: any) {
+    if (err) return cb(err);
+    cb(null, user);
+  });
+};
+
+export default models.User || model('User', userSchema, 'users');

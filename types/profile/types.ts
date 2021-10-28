@@ -1,11 +1,11 @@
 // 프로필용
-export interface UserData extends BaseUser9 {
-  board: number;
+export interface Profile extends BaseUser9 {
+  boardCnt: number;
 }
 
 // 계정용
 export interface MyUserInfo extends BaseUser9 {
-  sex: '남성' | '여성' | '비공개';
+  gender: '남성' | '여성' | '비공개';
 }
 
 export interface BaseUser9 extends BaseUser3 {
@@ -13,19 +13,25 @@ export interface BaseUser9 extends BaseUser3 {
   introduce: string;
   phone: string;
   email: string;
-  follower: BaseUser3[];
-  following: BaseUser3[];
+  followerCnt: number;
+  followingCnt: number;
 }
 export type Banner = 'main' | 'saved' | 'channel' | 'tagged';
 
 export interface Board extends BaseUser3 {
-  boardId: string;
+  _id: string;
   boardImageUrl: string[];
-  title: string;
-  favorite: BaseUser3[];
+  content: string;
+  favoriteCnt: number;
+  commentCnt: number;
   createdDate: string;
   modifiedDate: string;
-  reply: Reply[];
+  location: string;
+}
+
+export interface UserBoards {
+  writer: BaseUser3;
+  boards: Board[];
 }
 
 export interface Reply extends BaseUser3 {
@@ -36,7 +42,7 @@ export interface Reply extends BaseUser3 {
 }
 
 export type BaseUser3 = {
-  id: string;
+  username: string;
   imageUrl: string;
   name: string;
 };

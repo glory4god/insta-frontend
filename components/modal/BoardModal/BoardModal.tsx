@@ -37,7 +37,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
   const dispatch = useDispatch();
 
   const [reply, setReply] = React.useState<Reply>({
-    id: '익명',
+    username: '익명',
     name: '익명',
     imageUrl: '/profile/winter.png',
     content: '',
@@ -75,7 +75,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
             favorite: [
               ...selectedBoard.favorite,
               {
-                id: myUserInfo.id,
+                idusername: myUserInfo.username,
                 name: myUserInfo.name,
                 imageUrl: '/profile/winter.png',
               },
@@ -95,7 +95,7 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
     if (board !== undefined) {
       dispatch(setSelectBoard({ ...board, reply: [...board.reply, reply] }));
       setReply({
-        id: '익명',
+        username: '익명',
         name: '익명',
         imageUrl: '/profile/winter.png',
         content: '',
@@ -112,12 +112,12 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
 
   React.useEffect(() => {
     if (selectedBoard !== undefined) {
-      setFavorite(selectedBoard.favorite.length);
-      idInListChecker(selectedBoard.favorite, myUserInfo.id)
+      setFavorite(selectedBoard.favoriteCnt);
+      idInListChecker(selectedBoard.favorite, myUserInfo.username)
         ? setPressFavorite(true)
         : setPressFavorite(false);
     }
-  }, [myUserInfo.id, selectedBoard]);
+  }, [myUserInfo.username, selectedBoard]);
 
   return (
     <>
@@ -134,9 +134,9 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
             <div className={cn(s.header, s.mobileFlex)}>
               <div>
                 <ProfileImage size="board" imageUrl={selectedBoard.imageUrl} />
-                <Link href={`/${selectedBoard.id}`}>
+                <Link href={`/${selectedBoard.username}`}>
                   <a id={s.profileId}>
-                    <b>{selectedBoard.id}</b>
+                    <b>{selectedBoard.username}</b>
                   </a>
                 </Link>
               </div>
@@ -167,9 +167,9 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     size="board"
                     imageUrl={selectedBoard.imageUrl}
                   />
-                  <Link href={`/${selectedBoard.id}`}>
+                  <Link href={`/${selectedBoard.username}`}>
                     <a id={s.profileId}>
-                      <b>{selectedBoard.id}</b>
+                      <b>{selectedBoard.username}</b>
                     </a>
                   </Link>
                 </div>
@@ -181,14 +181,14 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     {pressFavorite ? (
                       <a>
                         <FavoriteIcon
-                          onClick={() => goodHandler(myUserInfo.id)}
+                          onClick={() => goodHandler(myUserInfo.username)}
                           style={{ color: 'red', fontSize: '26px' }}
                         />
                       </a>
                     ) : (
                       <a>
                         <FavoriteBorderRoundedIcon
-                          onClick={() => goodHandler(myUserInfo.id)}
+                          onClick={() => goodHandler(myUserInfo.username)}
                           style={{ fontSize: '26px' }}
                         />
                       </a>
@@ -242,14 +242,14 @@ const BoardModal: React.FC<BoardModalProps> = ({}) => {
                     {pressFavorite ? (
                       <a>
                         <FavoriteIcon
-                          onClick={() => goodHandler(myUserInfo.id)}
+                          onClick={() => goodHandler(myUserInfo.username)}
                           style={{ color: 'red', fontSize: '26px' }}
                         />
                       </a>
                     ) : (
                       <a>
                         <FavoriteBorderRoundedIcon
-                          onClick={() => goodHandler(myUserInfo.id)}
+                          onClick={() => goodHandler(myUserInfo.username)}
                           style={{ fontSize: '26px' }}
                         />
                       </a>

@@ -57,10 +57,6 @@ const Main = ({ boardData }: { boardData: Board[] }) => {
 export default Main;
 
 export const getStaticProps: GetStaticProps = async () => {
-  // TODO: 백엔드 연동시 추후에 api로 가져오기
-  // const userData = (await getProfileData(profile)) as UserData;
-  // const boardData = (await getUserBoard(profile)) as Board[];
-
   return {
     props: {
       boardData: (await getUserBoard('winter')) as Board[],

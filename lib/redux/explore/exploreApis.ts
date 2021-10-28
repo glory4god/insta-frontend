@@ -4,7 +4,5 @@ import { testBoardData } from 'lib/redux/profile/profileApis';
 import { Board } from 'types/profile/types';
 
 export async function getAllBoard() {
-  return (await fetch(`${NEXT_SERVER}/board`).then((res) =>
-    res.json(),
-  )) as Board[];
+  return await fetcher<Board[]>(`${NEXT_SERVER}/v1/board`);
 }
