@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   await dbConnect();
 
-  const { username, follower } = req.query;
+  const { username, search } = req.query;
 
   if (req.method === 'GET') {
     Follow.aggregate(
@@ -22,18 +22,35 @@ export default async function handler(
             as: 'profile',
           },
         },
+        {
+          $lookup: {
+            from: 'follows',
+            localField: 'follow',
+            foreignField: 'follower',
+            as: 'followerList',
+          },
+        },
         { $unwind: '$profile' },
         {
           $project: {
             _id: 1,
+            followers: '$followerList',
             username: '$follower',
             name: '$profile.name',
             imageUrl: '$profile.imageUrl',
+            // relation: {
+            //   $cond: [
+            //     {
+            //       $eq: ['followers.$follow', '$username'],
+            //     },
+            //     true,
+            //     false,
+            //   ],
+            // },
           },
         },
       ],
       (err: any, follow: any) => {
-        console.log(follow);
         if (!follow) {
           return res.status(400).json({ status: 400, message: 'get faileds' });
         } else {
@@ -43,15 +60,15 @@ export default async function handler(
     );
   } else if (req.method === 'POST') {
     Follow.findOne(
-      { follow: username, follower: follower },
+      { follow: username, follower: search },
       (err: any, follow: any) => {
         if (follow) {
           return res.status(400).json({
             status: 400,
-            message: `You are already following! follow:${username}, follower:${follower}`,
+            message: `You are already following! follow:${username}, follower:${search}`,
           });
         } else {
-          var follow = new Follow({ follow: username, follower: follower });
+          var follow = new Follow({ follow: username, follower: search });
           follow.createDate = new Date();
           follow.save((err: any) => {
             if (err) {
@@ -69,7 +86,7 @@ export default async function handler(
     );
   } else if (req.method === 'DELETE') {
     Follow.findOneAndDelete(
-      { follow: username, follower: follower },
+      { follow: username, follower: search },
       (err: any, follow: any) => {
         if (!follow) {
           return res
