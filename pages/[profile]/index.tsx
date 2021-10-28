@@ -18,7 +18,6 @@ import {
   setBoardModal,
   setModal,
   setModalInitial,
-  setSelectBoard,
 } from 'lib/redux/modal/modalSlice';
 import { accountMenuBar } from 'lib/redux/accounts/accountsApis';
 
@@ -28,9 +27,8 @@ import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
-import { Board, Profile, UserBoards } from 'types/profile/types';
+import { Profile, UserBoards } from 'types/profile/types';
 import { ModalDataType } from 'types/modal/types';
-import fetcher from 'lib/common/fetcher';
 
 const UserProfile = ({
   bannerList,
@@ -43,8 +41,7 @@ const UserProfile = ({
   profile: string;
   boardData: UserBoards;
 }) => {
-  const { selectedBoard, selectedReplyIdx, showBoardModal, showModal } =
-    useSelector(selectModal);
+  const { selectedBoard, showBoardModal, showModal } = useSelector(selectModal);
   const dispatch = useDispatch();
 
   // FIXME:이 부분 좀 어떻게하면 자연스럽게할지 고민해보자

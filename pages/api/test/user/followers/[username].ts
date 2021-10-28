@@ -13,18 +13,31 @@ export default async function handler(
   if (req.method === 'GET') {
     Follow.aggregate(
       [
-        { $match: { follow: username, amount: { $gte: 300, $lte: 500 } } },
-        { $group: { _id: '$follow', totalAmount: { $sum: '$amount' } } },
+        { $match: { follower: username } },
+        {
+          $lookup: {
+            from: 'profiles',
+            localField: 'follow',
+            foreignField: 'username',
+            as: 'profile',
+          },
+        },
+        { $unwind: '$profile' },
         {
           $project: {
-            sensorid: '$_id',
-            _id: 0,
-            totalAmount: 1,
+            _id: 1,
+            username: '$follow',
+            name: '$profile.name',
+            imageUrl: '$profile.imageUrl',
           },
         },
       ],
-      (err: any, follow: any) => {
-        return res.status(200).json(follow);
+      (err: any, follower: any) => {
+        if (!follower) {
+          return res.status(400).json({ status: 400, message: 'get faileds' });
+        } else {
+          return res.status(200).json(follower);
+        }
       },
     );
   }

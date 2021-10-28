@@ -4,7 +4,6 @@ export interface FollowProps {
   follower: string;
   follow: string;
   createDate: Date;
-  amount: number;
 }
 
 const FollowSchema = new mongoose.Schema<FollowProps>({
@@ -20,10 +19,6 @@ const FollowSchema = new mongoose.Schema<FollowProps>({
   },
   createDate: {
     type: Date,
-    unique: false,
-  },
-  amount: {
-    type: Number,
     unique: false,
   },
 });

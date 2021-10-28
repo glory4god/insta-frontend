@@ -46,3 +46,7 @@ export type BaseUser3 = {
   imageUrl: string;
   name: string;
 };
+
+export interface Follows extends BaseUser3 {
+  _id: string;
+}

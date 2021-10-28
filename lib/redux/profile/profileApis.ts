@@ -22,7 +22,9 @@ export async function getProfileData(pages: string) {
 }
 
 export async function getProfileIds() {
-  const userInfo: BaseUser3[] = await fetcher(`${NEXT_SERVER}/v1/user/ids`);
+  const userInfo: BaseUser3[] = await fetcher(
+    `${NEXT_SERVER}/test/user/profiles`,
+  );
 
   const paths = userInfo.map((arr) => {
     return arr.username;
@@ -44,7 +46,7 @@ export async function fetchFollow(userId: string, userInfo: BaseUser3[]) {
 
 export async function getBase3UserProfile() {
   const userList: BaseUser3[] = await fetcher<BaseUser3[]>(
-    `${NEXT_SERVER}/v1/user/ids`,
+    `${NEXT_SERVER}/test/user/profiles`,
   );
 
   // const userList: BaseUser3[] = testUserData.map((arr) => {
