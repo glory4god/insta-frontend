@@ -44,6 +44,7 @@ export default async function handler(
           {
             $project: {
               _id: 1,
+              username: 1,
               boardImageUrl: 1,
               content: 1,
               createdDate: 1,

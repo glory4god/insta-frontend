@@ -1,14 +1,14 @@
 export type EditUserProfile = {
   name: string;
-  id: string;
+  username: string;
   webSite: string;
   introduce: string;
   email: string;
   phone: string;
-  sex: Sex;
+  gender: Gender;
 };
 
-export type Sex = '남성' | '여성' | '비공개';
+export type Gender = '남성' | '여성' | '비공개';
 
 export interface PasswordEdit {
   prev: string;

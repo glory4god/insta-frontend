@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { dbConnect } from 'lib/mongoDB/dbConnect';
-import User from 'lib/mongoDb/models/User'
+import User from 'lib/mongoDB/models/User'
 
 export default async function handler(
   req: NextApiRequest,

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { dbConnect } from 'lib/mongoDB/dbConnect';
 import User from 'lib/mongoDB/models/User';
+import Profile from 'lib/mongoDB/models/Profile';
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,7 +11,8 @@ export default async function handler(
   await dbConnect();
   switch (method) {
     case 'POST':
-      User.findOne({ email: req.body.email }, (err: any, user: any) => {
+      console.log(req.body)
+      User.findOne({ username: req.body.username }, (err: any, user: any) => {
         if (!user)
           return res.status(404).json({
             success: false,
@@ -33,14 +35,16 @@ export default async function handler(
 
           user.generateToken((err: any, user: any) => {
             if (err) return res.status(400).send(err);
-            const profileImageUrl = user.profileImageUrl
-              ? user.profileImageUrl
-              : '';
-            return res.status(200).json({
-              username: user.username,
-              name: user.name,
-              profileImageUrl: profileImageUrl,
-              accessToken: user.token,
+            Profile.findOne({ username: req.body.username }, (err: any, profile: any) => {
+              const profileImageUrl = profile.imageUrl
+                ? profile.imageUrl
+                : '';
+              return res.status(200).json({
+                username: user.username,
+                name: user.name,
+                profileImageUrl: profileImageUrl,
+                accessToken: user.token,
+              });
             });
           });
         });

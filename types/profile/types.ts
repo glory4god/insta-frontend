@@ -19,6 +19,8 @@ export interface BaseUser9 extends BaseUser3 {
 export type Banner = 'main' | 'saved' | 'channel' | 'tagged';
 
 export interface Board extends BaseUser3 {
+  profileImageUrl: string | undefined;
+  comment?: any;
   _id: string;
   boardImageUrl: string[];
   content: string;
@@ -36,9 +38,14 @@ export interface UserBoards {
 
 export interface Reply extends BaseUser3 {
   content: string;
-  createdDate: string;
-  modifiedDate: string;
+  createdDate: Date;
+  modifiedDate: Date;
   reReply: Reply[];
+}
+
+export interface PostReply {
+  username: string;
+  content: string;
 }
 
 export type BaseUser3 = {
@@ -46,3 +53,7 @@ export type BaseUser3 = {
   imageUrl: string;
   name: string;
 };
+
+export interface Follows extends BaseUser3 {
+  _id: string;
+}

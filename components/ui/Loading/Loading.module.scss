@@ -1,0 +1,47 @@
+$max: 12;
+$angle: calc(360 / $max);
+$size: 20px;
+$fill: #000;
+
+.svg {
+  height: $size;
+  width: $size;
+  overflow: visible;
+  }
+.gCircles {
+  transform: translate(50px, 50px);
+  }
+
+@function transform($item: 1){
+  $base: rotate(#{-$angle*$item}deg);
+  @return $base;
+}
+
+.gCircle {
+  transform-origin: calc($size / 2) calc($size / 2);
+  
+  fill: $fill;
+  animation: opacity 1.2s linear infinite;
+  
+  @for $item from 1 through $max {
+    &:nth-child(#{$max}n + #{$item}){
+      animation-delay: -#{calc($item / 10)}s;
+      transform: transform($item) scale(.9);
+    }
+  }
+}
+
+.gCircle {
+  fill-opacity: 0;
+  animation-name: opacity;
+}
+
+@keyframes opacity {
+  3% {
+    fill-opacity: 1;
+  }
+  75% {
+    fill-opacity: 0;
+  }
+  
+}

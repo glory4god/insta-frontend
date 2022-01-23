@@ -31,7 +31,8 @@ const ReplyContent: React.FC<ReplyProps> = ({
   const formatDate = (date: Date) => {
     const now = new Date();
     let dist = 0;
-    dist = (now.getTime() - date.getTime()) / 1000 / 60;
+    console.log(date);
+    dist = (now.getTime() - new Date(date).getTime()) / 1000 / 60;
     if (dist < 59) {
       return Math.ceil(dist) + '분';
     }
@@ -57,18 +58,18 @@ const ReplyContent: React.FC<ReplyProps> = ({
         <ProfileImage size="board" imageUrl={reply.imageUrl} />
         <div className={s.content}>
           <div className={s.reply}>
-            <Link href={`/${reply.id}`}>
+            <Link href={`/${reply.username}`}>
               <a>
-                <b>{reply.id}</b>
+                <b>{reply.username}</b>
               </a>
             </Link>{' '}
             <span>{reply.content}</span>
             <div className={s.date}>
-              <span>{formatDate(new Date(reply.modifiedDate))}</span>
+              <span>{formatDate(reply.createdDate)}</span>
               <span
                 onClick={() => {
                   onFocus();
-                  editReReply(`@${reply.id} `);
+                  editReReply(`@${reply.username} `);
                 }}>
                 <b>답글 달기</b>
               </span>
@@ -91,7 +92,7 @@ const ReplyContent: React.FC<ReplyProps> = ({
           </span>
         </div>
       </div>
-      {reply.reReply.length !== 0 &&
+      {/* {reply.reReply.length !== 0 &&
         (!reReplyShow ? (
           <div
             className={s.replyShow}
@@ -108,28 +109,28 @@ const ReplyContent: React.FC<ReplyProps> = ({
             }}>
             답글 숨기기
           </div>
-        ))}
+        ))} */}
       {reReplyShow ? (
-        reply.reReply.length > 0 &&
+        // reply.reReply.length > 0 &&
         reply.reReply.map((reply, idx) => {
           return (
-            <div key={reply.id + idx} className={s.reReply}>
+            <div key={reply.username + idx} className={s.reReply}>
               <div id={s.form}>
                 <ProfileImage size="board" imageUrl={reply.imageUrl} />
                 <div className={s.content}>
                   <div className={s.reply}>
-                    <Link href={`/${reply.id}`}>
+                    <Link href={`/${reply.username}`}>
                       <a>
-                        <b>{reply.id}</b>
+                        <b>{reply.username}</b>
                       </a>
                     </Link>{' '}
                     <span>{reply.content}</span>
                     <div className={s.date}>
-                      <span>{formatDate(new Date(reply.modifiedDate))}</span>
+                      <span>{formatDate(new Date(reply.createdDate))}</span>
                       <span
                         onClick={() => {
                           onFocus();
-                          editReReply(`@${reply.id} `);
+                          editReReply(`@${reply.username} `);
                         }}>
                         <b>답글 달기</b>
                       </span>

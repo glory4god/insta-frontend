@@ -5,7 +5,7 @@ import s from './ProfileImage.module.css';
 import cn from 'classnames';
 
 interface ImageProps {
-  size: 'profile' | 'story' | 'board' | 'nav' | 'm' | 'l';
+  size: 'profile' | 'story' | 'board' | 'nav' | 'm' | 'l' | 'search';
   border?: boolean;
   borderColor?: 'black' | 'gray' | 'gradient';
   imageUrl: string | undefined;
@@ -41,6 +41,7 @@ const ProfileImage: React.FC<ImageProps> = ({
           size === 'nav' ? s.borderNav : '',
           size === 'm' ? s.borderM : '',
           size === 'l' ? s.borderL : '',
+          size === 'search' ? s.borderM : '',
         )}
         style={{ borderColor: borderColor }}>
         <div
@@ -52,9 +53,10 @@ const ProfileImage: React.FC<ImageProps> = ({
             size === 'nav' && s.nav,
             size === 'm' && s.m,
             size === 'l' && s.l,
+            size === 'search' && s.search,
           )}
           style={{
-            backgroundImage: `url(${imageUrl})`,
+            backgroundImage: `url(${imageUrl === '' ? '/profile/profileImage.jpg' : imageUrl}`,
           }}
         />
       </div>

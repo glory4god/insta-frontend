@@ -1,10 +1,7 @@
 .round {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
 
-  border-radius: 100%;
+  border-radius: 50%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -16,16 +13,21 @@
   padding-left: 1rem;
   padding-right: 1rem;
   justify-content: center;
+  align-items: center;
 }
 .commonBorder {
   position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .border {
-  position: relative;
+  box-sizing: border-box;
   display: flex;
   border: 1px solid rgb(200, 200, 200);
-  border-radius: 100%;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 740px) {
@@ -71,6 +73,10 @@
 .l {
   width: 100px;
   height: 100px;
+}
+.search {
+  width: 44px;
+  height: 44px;
 }
 .borderProfile {
   width: 86px;

@@ -7,6 +7,7 @@ interface ProfileSliceProps {
   currentBanner: Banner;
   userData: Profile;
   boardData: UserBoards;
+  isFollow: boolean;
 }
 
 const initialState: ProfileSliceProps = {
@@ -31,6 +32,7 @@ const initialState: ProfileSliceProps = {
     },
     boards: [],
   },
+  isFollow: false,
 };
 
 export const profileSlice = createSlice({
@@ -46,10 +48,14 @@ export const profileSlice = createSlice({
     SET_BOARD_DATA: (state, action: PayloadAction<UserBoards>) => {
       state.boardData = action.payload;
     },
+
+    SET_ISFOLLOW: (state, action: PayloadAction<boolean>) => {
+      state.isFollow = action.payload;
+    },
   },
 });
 
-export const { SET_BANNER, SET_USER_DATA, SET_BOARD_DATA } =
+export const { SET_BANNER, SET_USER_DATA, SET_BOARD_DATA, SET_ISFOLLOW } =
   profileSlice.actions;
 export const selectProfile = (state: RootState) => state.profile;
 
@@ -78,5 +84,10 @@ export function setBoardData(data: UserBoards): AppThunk {
 export function setUserData(data: Profile): AppThunk {
   return (dispatch: any) => {
     dispatch(SET_USER_DATA(data));
+  };
+}
+export function setIsFollow(check: boolean): AppThunk {
+  return (dispatch: any) => {
+    dispatch(SET_ISFOLLOW(check));
   };
 }

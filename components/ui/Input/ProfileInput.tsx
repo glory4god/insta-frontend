@@ -33,9 +33,8 @@ const ProfileInput: React.FC<Props> = ({
             height: `${size === 's' ? '28px' : size === 'm' ? '34px' : ''}`,
             border: '1px solid rgb(210,210,210)',
             borderRadius: `${size === 's' ? '3px' : size === 'm' ? '6px' : ''}`,
-            backgroundColor: `${
-              backgroundColor ? 'rgb(248,248,248)' : 'white'
-            }`,
+            backgroundColor: `${backgroundColor ? 'rgb(248,248,248)' : 'white'
+              }`,
           }}
           name={name}
           type={type}
@@ -50,6 +49,7 @@ const ProfileInput: React.FC<Props> = ({
             height: '56px',
             border: '1px solid rgb(210,210,210)',
             borderRadius: '3px',
+            resize: 'none',
           }}
           name={name}
           value={value}

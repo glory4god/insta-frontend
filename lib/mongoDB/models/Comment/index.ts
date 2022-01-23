@@ -4,30 +4,35 @@ export interface CommentProps {
   boardId: string;
   username: string;
   content: string;
-  createDate: Date;
+  createdDate: Date;
 }
 
-const BoardCmtSchema = new mongoose.Schema<CommentProps>({
-  username: {
-    type: String,
-    required: true,
-    unique: false,
+const BoardCmtSchema = new mongoose.Schema<CommentProps>(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: false,
+    },
+    boardId: {
+      type: String,
+      required: true,
+      unique: false,
+    },
+    content: {
+      type: String,
+      required: true,
+      unique: false,
+    },
+    createdDate: {
+      type: Date,
+      unique: false,
+    },
   },
-  boardId: {
-    type: String,
-    required: true,
-    unique: false,
+  {
+    versionKey: false,
   },
-  content: {
-    type: String,
-    required: true,
-    unique: false,
-  },
-  createDate: {
-    type: Date,
-    unique: false,
-  },
-});
+);
 
 export default mongoose.models.BoardCmt ||
   mongoose.model('BoardCmt', BoardCmtSchema, 'boardComments');

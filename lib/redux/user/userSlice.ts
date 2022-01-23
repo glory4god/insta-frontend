@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios from 'axios';
-import { AWS_SERVER } from 'config';
+import { NEXT_SERVER } from 'config';
 
 type UserInfo = {
   username: string;
@@ -53,6 +53,9 @@ export const userSlice = createSlice({
         accessToken: '',
       };
     },
+    UPDATE_IMAGE_URL: (state, action: PayloadAction<string>) => {
+      state.userInfo.profileImageUrl = action.payload;
+    },
   },
 });
 
@@ -60,13 +63,11 @@ export const setUser = (data: LoginData) => {
   return async (dispatch: any) => {
     try {
       const response: any = await axios.post(
-        `${AWS_SERVER}/user/login`,
+        `${NEXT_SERVER}/v1/user/login`,
         data,
       );
-      console.log(response.data);
       dispatch(SET_USER(response.data));
     } catch (error: any) {
-      console.log(error.response.data);
       dispatch(SET_ERROR(error.response.data.message));
     }
   };
@@ -84,7 +85,14 @@ export const clearError = () => {
   };
 };
 
-export const { SET_USER, SET_ERROR, LOGOUT, CLEAR_ERROR } = userSlice.actions;
+export const updateImageUrl = (data: any) => {
+  return async (dispatch: any) => {
+    dispatch(UPDATE_IMAGE_URL(data.profileImageUrl));
+  };
+};
+
+export const { SET_USER, SET_ERROR, LOGOUT, CLEAR_ERROR, UPDATE_IMAGE_URL } =
+  userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;

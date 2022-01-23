@@ -7,9 +7,9 @@ import Layout from 'components/common/Layout';
 import { store } from 'lib/redux/store';
 import { useRouter } from 'next/dist/client/router';
 import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react';
 
-let persistor = persistStore(store)
+let persistor = persistStore(store);
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();

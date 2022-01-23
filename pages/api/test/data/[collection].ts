@@ -1,4 +1,3 @@
-import Follow from 'lib/mongoDB/models/Follow';
 import { connectToDatabase } from 'lib/mongoDB/mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
 

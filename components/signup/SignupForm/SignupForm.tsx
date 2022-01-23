@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import axios from 'axios';
-import { AWS_SERVER } from 'config';
+import { NEXT_SERVER } from 'config';
 
 type SignupProps = {
   signupData: {
@@ -55,7 +55,7 @@ const SignupForm: React.FC<SignupProps> = ({
         password: password,
       };
       axios
-        .post(`${AWS_SERVER}/user/signup`, sendData)
+        .post(`${NEXT_SERVER}/v1/user/signup`, sendData)
         .then((res: { data: any }) => {
           const data = res.data;
           setEmail(id);
@@ -171,8 +171,8 @@ const SignupForm: React.FC<SignupProps> = ({
                     password.length < 6
                       ? true
                       : (!id ? true : !username)
-                      ? true
-                      : false
+                        ? true
+                        : false
                   }>
                   <div>가입하기</div>
                 </SignupButton>

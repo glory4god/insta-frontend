@@ -7,7 +7,7 @@ export interface BoardProps {
   boardImageUrl: string[];
   content: string;
   location: string;
-  createDate: Date;
+  createdDate: Date;
   modifiedDate: Date;
 }
 
@@ -28,7 +28,6 @@ const BoardSchema = new mongoose.Schema<BoardProps>({
   },
   imageUrl: {
     type: String,
-    required: true,
     unique: false,
   },
   boardImageUrl: {
@@ -43,10 +42,9 @@ const BoardSchema = new mongoose.Schema<BoardProps>({
   },
   location: {
     type: String,
-    required: true,
     unique: false,
   },
-  createDate: {
+  createdDate: {
     type: Date,
     required: true,
     unique: false,

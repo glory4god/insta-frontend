@@ -1,0 +1,82 @@
+.editbox {
+  text-align: left;
+  padding: 8px 0px;
+}
+
+.header {
+  display: flex;
+  text-align: left;
+  margin: 0.5rem 0;
+}
+
+.header .profile {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.header .tit {
+  padding-right: 1.8rem;
+  text-align: right;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.name {
+  font-size: 20px;
+}
+
+.changeProfile {
+  font-size: 14px;
+  color: rgb(33, 155, 226);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.editbox .tit {
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+}
+
+.editbox > div > p {
+  max-width: 348px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgb(160, 160, 160);
+}
+
+.submit {
+  & > button {
+    background-color:#0095f6;
+    color: #FFF;
+    padding: 5px 9px;
+    border: 0;
+    border-radius: 4px;
+    outline: 0;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 740px) {
+  .editbox {
+    display: flex;
+  }
+  .header .profile {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .header .tit {
+    width: 148px;
+  }
+  .editbox .tit {
+    width: 148px;
+    padding-right: 1.8rem;
+    text-align: right;
+    font-weight: bold;
+  }
+  .editbox .content {
+    display: flex;
+    max-width: 348px;
+    flex-direction: column;
+  }
+}

@@ -11,6 +11,7 @@ import {
 import {
   initialBanner,
   setBoardData,
+  setIsFollow,
   setUserData,
 } from 'lib/redux/profile/profileSlice';
 import {
@@ -18,7 +19,6 @@ import {
   setBoardModal,
   setModal,
   setModalInitial,
-  setSelectBoard,
 } from 'lib/redux/modal/modalSlice';
 import { accountMenuBar } from 'lib/redux/accounts/accountsApis';
 
@@ -28,9 +28,10 @@ import { Container } from 'components/ui/Container';
 
 import { ParsedUrlQuery } from 'querystring';
 
-import { Board, Profile, UserBoards } from 'types/profile/types';
+import { Profile, UserBoards } from 'types/profile/types';
 import { ModalDataType } from 'types/modal/types';
-import fetcher from 'lib/common/fetcher';
+import { followChecker } from 'lib/apis/user';
+import { selectUser } from 'lib/redux/user/userSlice';
 
 const UserProfile = ({
   bannerList,
@@ -43,8 +44,8 @@ const UserProfile = ({
   profile: string;
   boardData: UserBoards;
 }) => {
-  const { selectedBoard, selectedReplyIdx, showBoardModal, showModal } =
-    useSelector(selectModal);
+  const { selectedBoard, showBoardModal, showModal } = useSelector(selectModal);
+  const { userInfo } = useSelector(selectUser);
   const dispatch = useDispatch();
 
   // FIXME:이 부분 좀 어떻게하면 자연스럽게할지 고민해보자
@@ -53,14 +54,22 @@ const UserProfile = ({
     check = Object.values(showModal).includes(true);
     return check || showBoardModal;
   };
+  const fetchIsFollow = React.useCallback(async () => {
+    const checker = await followChecker(
+      userData.username,
+      userInfo.accessToken,
+    );
 
+    dispatch(setIsFollow(checker.check));
+  }, [dispatch, userData.username, userInfo.accessToken]);
   React.useEffect(() => {
     dispatch(initialBanner());
     dispatch(setBoardModal(false));
     dispatch(setUserData(userData));
     dispatch(setModalInitial());
     dispatch(setBoardData(boardData));
-  }, [profile]);
+    fetchIsFollow();
+  }, [boardData, dispatch, fetchIsFollow, profile, userData]);
 
   const followerModal: ModalDataType[] = [{ name: '팔로워', link: undefined }];
   const follwingModal: ModalDataType[] = [{ name: '팔로우', link: undefined }];
@@ -138,9 +147,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
       params: { profile },
     };
   });
+
+  // const paths = [
+  //   { params: { profile: 'winter' } },
+  //   { params: { profile: 'karina' } },
+  //   { params: { profile: 'irene' } },
+  // ];
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -152,14 +167,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
     tagged: '태그됨',
   };
   const { profile } = context.params as IParams;
-
-  return {
-    props: {
-      userData: (await getProfileData(profile)) as Profile,
-      bannerList,
-      profile,
-      boardData: (await getUserBoard(profile)) as UserBoards,
-    },
-    revalidate: 1,
-  };
+  const userData = (await getProfileData(profile)) as Profile;
+  const boardData = (await getUserBoard(profile)) as UserBoards;
+  if (!userData || !boardData) {
+    return {
+      notFound: true,
+    };
+  } else {
+    return {
+      props: {
+        userData: userData,
+        bannerList,
+        profile,
+        boardData: boardData,
+      },
+      revalidate: 1,
+    };
+  }
 };

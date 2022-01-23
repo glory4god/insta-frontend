@@ -56,7 +56,7 @@ export function getAccountsIds() {
 
 type AccountEditMap = {
   tit: string;
-  name: 'name' | 'id' | 'webSite' | 'introduce' | 'email' | 'phone';
+  name: 'name' | 'username' | 'webSite' | 'introduce' | 'email' | 'phone';
   // 이 부분을 각각 설정한 이유는 string literal type 에 관한 이야기! 객체의 key로 접근하려면 그냥 string이 아닌 string literal type으로 접근해야함
   tag?: string;
   subTag?: string;
@@ -68,13 +68,13 @@ export const accountEditMap: AccountEditMap[] = [
   {
     tit: '이름',
     name: 'name',
-    subTag: '이름은 14일 안에 두 번만 변경할 수 있습니다. 어어어어어어어어어어',
+    subTag: '이름은 14일 안에 두 번만 변경할 수 있습니다.',
     size: 's',
     area: 'line',
   },
   {
     tit: '사용자 이름',
-    name: 'id',
+    name: 'username',
     subTag: `대부분의 경우 14일 이내에 사용자 이름을 바꾸기 전 이름으로 변경할 수 있습니다.`,
     size: 's',
     area: 'line',

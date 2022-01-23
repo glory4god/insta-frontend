@@ -6,7 +6,10 @@ export default async function fetcher<T>(
 
   if (!response.ok) {
     //TODO: error handling
-    throw new Error('ERROR!');
+
+    throw new Error(`status: ${response.status}`);
+
+    // throw new Error('ERROR!');
   }
 
   try {
