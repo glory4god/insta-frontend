@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import axios from 'axios';
-import { AWS_SERVER } from 'config';
+import { NEXT_SERVER } from 'config';
 
 type EmailProps = {
   email: string;
@@ -34,7 +34,7 @@ const Certificaiton: React.FC<EmailProps> = ({ email, backForm }) => {
       email: email,
     };
     axios
-      .post(`${AWS_SERVER}/user/signup/mail`, sendData)
+      .post(`${NEXT_SERVER}/v1/user/signup/mail`, sendData)
       .then((res: { data: any }) => {
         const data = res.data;
         router.push('/');

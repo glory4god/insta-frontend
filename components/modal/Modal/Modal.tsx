@@ -1,10 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
-import s from '../CommonModal.module.css';
+import s from '../CommonModal.module.scss';
 
 import { selectProfile } from 'lib/redux/profile/profileSlice';
-import { selectLogin } from 'lib/redux/login/loginSlice';
 import { selectModal, setModalInitial } from 'lib/redux/modal/modalSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,18 +15,17 @@ import { ProfileImage } from 'components/profile';
 import cn from 'classnames';
 import { ModalDataType } from 'types/modal/types';
 import { idInListChecker } from 'lib/common';
-import fetcher from 'lib/common/fetcher';
-import { NEXT_SERVER } from 'config';
 import { BaseUser3, Follows } from 'types/profile/types';
-import { fetchFollowers, fetchFollows } from 'lib/apis/profile';
+import { fetchFollowers, fetchFollows, fetchFavorites } from 'lib/apis/profile';
+import { selectUser } from 'lib/redux/user/userSlice';
 
 interface ModalProps {
   modalData: ModalDataType[];
 }
 
 const Modal: React.FC<ModalProps> = ({ modalData }) => {
-  const { myUserInfo } = useSelector(selectLogin);
-  const { userData } = useSelector(selectProfile);
+  const { userInfo } = useSelector(selectUser);
+  const { userData, isFollow } = useSelector(selectProfile);
   const { selectedBoard } = useSelector(selectModal);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -42,12 +40,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
     dispatch(setModalInitial());
   };
 
-  const isMe = myUserInfo.username === userData.username;
-
-  const followCheck: boolean = idInListChecker(
-    myUserInfo.follower,
-    myUserInfo.username,
-  );
+  const isMe = userInfo.username === userData.username;
 
   const followerHandler = async (id: string, state: string) => {
     // TODO: 팔로우하기/취소하기 api 기능 추가
@@ -61,6 +54,12 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
       setModalState(await fetchFollows(userData.username));
     } else if (modalData[0].name === '팔로워') {
       setModalState(await fetchFollowers(userData.username));
+    } else if (modalData[0].name === '좋아요') {
+      if (selectedBoard) {
+        setModalState(
+          await fetchFavorites(selectedBoard._id, userInfo.accessToken),
+        );
+      }
     }
   };
 
@@ -110,12 +109,11 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                           <Link href={`/${p.username}`}>
                             <a id={s.profileId}>
                               <b>{p.username}</b>
-                              {!idInListChecker(myUserInfo.follower, p.id) &&
-                                isMe && (
-                                  <span style={{ color: '#2294ff' }}>
-                                    · <b>팔로우</b>
-                                  </span>
-                                )}
+                              {isFollow && isMe && (
+                                <span style={{ color: '#2294ff' }}>
+                                  · <b>팔로우</b>
+                                </span>
+                              )}
                             </a>
                           </Link>
                           <span
@@ -126,7 +124,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                         </div>
                       </div>
                       {/*TODO: 내 상태알 때, 나랑 팔로워 상태인지 아닌지에 따른 결과보여주는 로직 짜야함*/}
-                      {p.username === myUserInfo.username ? (
+                      {p.username === userInfo.username ? (
                         <></>
                       ) : isMe ? (
                         <Button
@@ -138,7 +136,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                           onClick={() => followerHandler(p.username, '')}>
                           <b>삭제</b>
                         </Button>
-                      ) : followCheck ? (
+                      ) : isFollow ? (
                         <Button
                           size="small"
                           variant="outlined"
@@ -168,7 +166,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
             {/* 팔로우 누를 때 모달 */}
             {modalData[0].name === '팔로우' && (
               <>
-                {userData.following.map((p, idx) => {
+                {modalState?.map((p, idx) => {
                   return (
                     <div
                       key={userData.username + 'follwing' + idx}
@@ -176,17 +174,17 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                       <div>
                         <ProfileImage size={'board'} imageUrl={p.imageUrl} />
                         <div>
-                          <Link href={`/${p.id}`}>
+                          <Link href={`/${p.username}`}>
                             <a id={s.profileId}>
-                              <b>{p.id}</b>
+                              <b>{p.username}</b>
                             </a>
                           </Link>
                         </div>
                       </div>
                       {/*TODO: 내 상태알 때, 나랑 팔로우 상태인지 아닌지에 따른 결과보여주는 로직 짜야함*/}
-                      {p.id === myUserInfo.username ? (
+                      {p.username === userInfo.username ? (
                         <></>
-                      ) : idInListChecker(myUserInfo.following, p.id) ? (
+                      ) : isFollow ? (
                         <Button
                           size="small"
                           variant="outlined"
@@ -215,7 +213,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
             )}
             {modalData[0].name === '좋아요' && (
               <>
-                {selectedBoard?.favorite.map((p, idx) => {
+                {modalState?.map((p, idx) => {
                   return (
                     <div
                       key={userData.username + 'follwing' + idx}
@@ -223,7 +221,7 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                       <div>
                         <ProfileImage size={'board'} imageUrl={p.imageUrl} />
                         <div>
-                          <Link href={`/${p.id}`}>
+                          <Link href={`/${p.username}`}>
                             <a id={s.profileId}>
                               <b>{p.username}</b>
                             </a>
@@ -231,9 +229,9 @@ const Modal: React.FC<ModalProps> = ({ modalData }) => {
                         </div>
                       </div>
                       {/*TODO: 내 상태알 때, 나랑 팔로우 상태인지 아닌지에 따른 결과보여주는 로직 짜야함*/}
-                      {p.id === myUserInfo.username ? (
+                      {p.username === userInfo.username ? (
                         <></>
-                      ) : idInListChecker(myUserInfo.following, p.username) ? (
+                      ) : isFollow ? (
                         <Button
                           size="small"
                           variant="outlined"

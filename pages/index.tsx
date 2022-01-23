@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from 'lib/redux/user/userSlice';
-import { getUserBoard } from 'lib/redux/profile/profileApis';
-import { selectProfile } from 'lib/redux/profile/profileSlice';
+import { getTotalBoards } from 'lib/redux/profile/profileApis';
+import { selectProfile, setUserData } from 'lib/redux/profile/profileSlice';
 import { setBoardData } from 'lib/redux/profile/profileSlice';
 import { Board } from 'types/profile/types';
 import { Container } from 'components/ui/Container';
@@ -15,13 +15,30 @@ import styled from '@emotion/styled';
 import Post from 'components/main/Post';
 import { LoginPage } from './login';
 
-const Main = ({ boardData }: { boardData: Board[] }) => {
-  const { login } = useSelector(selectUser);
+import axios from 'axios';
+import { NEXT_SERVER } from 'config';
+import { useState } from 'react';
+
+const Main = ({}) => {
+  const { login, userInfo } = useSelector(selectUser);
+  const [mainData, setMainData] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setBoardData(boardData));
-  }, []);
+    if (userInfo.accessToken) {
+      axios
+        .get(`${NEXT_SERVER}/test/main`, {
+          headers: {
+            Authorization: `Bearer ${userInfo.accessToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          setMainData(response.data);
+          // dispatch(setUserData(response.data));
+        });
+    }
+  }, [userInfo]);
   return (
     <>
       <Head>
@@ -33,15 +50,18 @@ const Main = ({ boardData }: { boardData: Board[] }) => {
           <main>
             <Section>
               <div>
-                {/* <div>스토리</div> */}
-                {console.log(boardData)}
-                {boardData.map((boardData, index) => {
-                  return <Post key={index} postData={boardData} />;
+                {mainData.map((postData, index) => {
+                  return (
+                    <Post
+                      key={index}
+                      postData={postData}
+                      setMainData={setMainData}
+                      mainData={mainData}
+                    />
+                  );
                 })}
               </div>
               <div>
-                {/* <div>나</div> */}
-                {/* <div>추천</div> */}
                 <Footer />
               </div>
             </Section>
@@ -55,15 +75,6 @@ const Main = ({ boardData }: { boardData: Board[] }) => {
 };
 
 export default Main;
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {
-      boardData: (await getUserBoard('winter')) as Board[],
-    },
-    revalidate: 1,
-  };
-};
 
 const Section = styled.section`
   max-width: 935px;

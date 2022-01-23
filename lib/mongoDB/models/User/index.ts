@@ -84,14 +84,14 @@ userSchema.pre('save', function (next) {
   }
 });
 
-userSchema.methods.comparePassword = function (plainPassword, cb) {
+userSchema.methods.comparePassword = function (plainPassword: string, cb: any) {
   bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
   });
 };
 
-userSchema.methods.generateToken = function (cb) {
+userSchema.methods.generateToken = function (cb: any) {
   var user = this;
   var token = jwt.sign(user._id.toHexString(), 'secret');
   var oneHour = moment().add(1, 'hour').valueOf();

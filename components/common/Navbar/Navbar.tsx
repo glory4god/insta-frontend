@@ -1,56 +1,56 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import s from './Navbar.module.css';
+import s from './Navbar.module.scss';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectLogin } from 'lib/redux/login/loginSlice';
-import { logout } from 'lib/redux/user/userSlice';
-
-import HomeIcon from '@material-ui/icons/Home';
-import TelegramIcon from '@material-ui/icons/Telegram';
-import ExploreIcon from '@material-ui/icons/Explore';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import AddIcon from '@material-ui/icons/Add';
-
+import { selectUser } from 'lib/redux/user/userSlice';
+import { setModal } from 'lib/redux/modal/modalSlice';
 import ProfileImage from 'components/profile/ProfileImage';
-import UserSearchList from './SearchBox';
-
-import { getBase3UserProfile } from 'lib/redux/profile/profileApis';
-import { BaseUser3 } from 'types/profile/types';
-import { LogoutRounded } from '@mui/icons-material';
+import {
+  HomeIcon,
+  DirectIcon,
+  ExploreIcon,
+  FavoriteIcon,
+  NewPostIcon,
+} from 'components/ui/Icon';
+import SelectBox from './SelectBox';
+import { useRouter } from 'next/router';
+import { SearchBox } from './SearchBox';
 
 const Navbar = () => {
-  const { myUserInfo } = useSelector(selectLogin);
-  const [userList, setUserList] = React.useState<BaseUser3[]>([]);
+  const { userInfo } = useSelector(selectUser);
   const dispatch = useDispatch();
+  const router = useRouter();
+  const [offModal, setOffModal] = useState<boolean>(false);
+  const [onSelectBox, setOnSelectBox] = useState<boolean>(false);
+  const selectBoxRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<any>();
+  const spanRef = useRef<any>();
 
-  const [onUserList, setOnUserList] = React.useState<boolean>(false);
-  const el = React.useRef<HTMLDivElement>();
-  const inputRef = React.useRef<any>();
-
-  const fetchUserList = async () => {
-    setUserList((await getBase3UserProfile()) as BaseUser3[]);
-  };
-
-  React.useEffect(() => {
-    const handleCloseSearch = (e: any) => {
-      if (!inputRef.current.contains(e.target)) {
-        // 이 부분은 해결 못하겠다,,, 타입에러 어케하지 ㅠㅠ
-        if (onUserList && (!el.current || !el.current.contains(e.target))) {
-          setOnUserList(false);
+  useEffect(() => {
+    const handleCloseSelectBox = (e: any) => {
+      if (!inputRef.current?.contains(e.target)) {
+        if (
+          onSelectBox &&
+          (!selectBoxRef.current || !selectBoxRef.current.contains(e.target))
+        ) {
+          setOnSelectBox(false);
         }
       }
     };
-    window.addEventListener('click', handleCloseSearch);
+    window.addEventListener('click', handleCloseSelectBox);
     return () => {
-      window.removeEventListener('click', handleCloseSearch);
+      window.removeEventListener('click', handleCloseSelectBox);
     };
-  }, [onUserList]);
+  }, [onSelectBox]);
 
-  React.useEffect(() => {
-    fetchUserList();
-  }, []);
+  useEffect(() => {
+    if (offModal) {
+      setOnSelectBox(false);
+      setOffModal(false);
+    }
+  }, [offModal]);
 
   return (
     <>
@@ -65,81 +65,67 @@ const Navbar = () => {
                 alt={'mainlogo'}></Image>
             </a>
           </Link>
-          <div>
-            <input
-              ref={inputRef}
-              onClick={() => {
-                setOnUserList(true);
-              }}
-              className={s.input}
-              type="text"
-              placeholder="검색"
-            />
-            {onUserList && (
-              <div ref={el}>
-                <UserSearchList
-                  userList={userList}
-                  closeModal={() => setOnUserList(false)}
-                />
-              </div>
-            )}
-          </div>
+          <SearchBox />
           <div className={s.right}>
             <div className={s.rightBanner}>
               <Link href="/">
                 <a>
-                  <HomeIcon style={{ fontSize: '30px' }} />
-                </a>
-              </Link>
-              <Link href="/direct">
-                <a>
-                  <TelegramIcon
-                    color={'disabled'}
-                    style={{ fontSize: '30px' }}
+                  <HomeIcon
+                    on={router.asPath === '/' && !onSelectBox}
                   />
                 </a>
               </Link>
+              {/* <Link href="/direct">
+                <a>
+                  <DirectIcon />
+                </a>
+              </Link> */}
 
               <Link href="/explore">
                 <a>
                   <ExploreIcon
-                    color={'disabled'}
-                    style={{ fontSize: '30px' }}
+                    on={router.asPath === '/explore' && !onSelectBox}
                   />
                 </a>
               </Link>
 
-              <Link href="/">
-                <a>
-                  <FavoriteBorderIcon
-                    color={'disabled'}
-                    style={{ fontSize: '30px' }}
-                  />
-                </a>
-              </Link>
+              {/* <div>
+                <FavoriteIcon />
+              </div> */}
 
-              {/* 이건 고민해봐야함  */}
-              <Link href="/">
-                <a>
-                  <AddIcon
-                    color={'disabled'}
-                    style={{ fontSize: '30px' }}
-                    onClick={() => dispatch(logout())}
-                  />
-                </a>
-              </Link>
+              <div onClick={() => dispatch(setModal('newPost', true))}>
+                <div>
+                  <NewPostIcon />
+                </div>
+              </div>
 
               {/* TODO:누르면 메뉴바 나오도록 */}
-              <Link href="/winter">
-                <a>
+              <div>
+                <span
+                  ref={spanRef}
+                  onClick={() => {
+                    setOnSelectBox(true);
+                  }}
+                  style={{ display: 'flex', transform: 'translateY(-2px)' }}>
                   <ProfileImage
                     size={'nav'}
-                    border={true}
+                    border={
+                      router.asPath !== '/'
+                      && router.asPath !== '/explore'
+                      || onSelectBox
+                    }
                     borderColor={'black'}
-                    imageUrl={myUserInfo.imageUrl}
+                    imageUrl={userInfo.profileImageUrl}
                   />
-                </a>
-              </Link>
+                </span>
+                {onSelectBox && (
+                  <div ref={selectBoxRef}>
+                    <SelectBox
+                      closeModal={() => setOffModal(true)}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

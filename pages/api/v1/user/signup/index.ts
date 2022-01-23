@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { dbConnect } from 'lib/mongoDB/dbConnect';
 import User from 'lib/mongoDB/models/User';
+import Profile from 'lib/mongoDB/models/Profile';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -49,20 +50,26 @@ export default async function handler(
 
           user.save((err: any, doc: any) => {
             if (err) return res.status(500).json({ success: false, err });
+            const profile = new Profile({ username: req.body.username, name: req.body.name });
+            console.log(profile);
+            profile.save((err: any, doc: any) => {
+              if (err) return res.status(500).json({ success: false, err });
+            });
             const mailOptions = {
               from: 'instacodesend@gmail.com',
               to: user.email,
               subject: '[인스타그램 회원가입 이메일 인증]',
               text: `[이메일 인증] 인증 번호는 ${randomCode}입니다`,
             };
-            transporter.sendMail(mailOptions, (err: any, data: any) => {
-              if (err) {
-                console.error(err);
-                res.status(500).json({ success: false, err });
-              } else {
-                res.status(200).json({ success: true });
-              }
-            });
+            // transporter.sendMail(mailOptions, (err: any, data: any) => {
+            //   if (err) {
+            //     console.error(err);
+            //     res.status(500).json({ success: false, err });
+            //   } else {
+            //     res.status(200).json({ success: true });
+            //   }
+            // });
+            res.status(200).json({ success: true });
           });
         });
       });

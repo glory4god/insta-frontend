@@ -1,1 +1,2 @@
-export { default } from './UserSearchList';
+export { default as UserSearchList } from './UserSearchList';
+export { default as SearchBox } from './SearchBox';
